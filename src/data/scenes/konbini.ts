@@ -1,0 +1,173 @@
+import type { RPGScene } from '../../types'
+
+export const konbiniScene: RPGScene = {
+  id: 'konbini',
+  title: 'Au konbini',
+  description: 'Tu achètes un onigiri au 7-Eleven',
+  icon: '🏪',
+  difficulty: 'debutant',
+  estimatedTime: '3 min',
+  startNodeId: 'start',
+  nodes: {
+    start: {
+      id: 'start',
+      type: 'dialogue',
+      npcText: 'いらっしゃいませ！',
+      npcRomaji: 'Irasshaimase!',
+      next: 'point-card',
+    },
+    'point-card': {
+      id: 'point-card',
+      type: 'choice',
+      npcText: 'ポイントカードはありますか？',
+      npcRomaji: 'Pointo kādo wa arimasu ka?',
+      choices: [
+        {
+          text: 'Non merci',
+          jp: 'いいえ、大丈夫です',
+          isCorrect: true,
+          note: '✅ Parfait ! Poli et naturel. C\'est la réponse que 90% des Japonais donnent aussi.',
+          nextNodeId: 'heat-food',
+        },
+        {
+          text: 'Ignorer et ne rien dire',
+          jp: '...',
+          isCorrect: false,
+          note: '😬 Ignorer le caissier c\'est un peu gênant. Un petit いいえ suffit !',
+          nextNodeId: 'heat-food-awkward',
+        },
+        {
+          text: 'Oui !',
+          jp: 'はい！',
+          isCorrect: false,
+          note: '😅 T\'as pas de carte de fidélité... Le caissier va attendre que tu la cherches.',
+          nextNodeId: 'no-card-oops',
+        },
+      ],
+    },
+    'no-card-oops': {
+      id: 'no-card-oops',
+      type: 'dialogue',
+      npcText: 'カードをお願いします...',
+      npcRomaji: 'Kādo wo onegaishimasu...',
+      next: 'heat-food-awkward',
+    },
+    'heat-food': {
+      id: 'heat-food',
+      type: 'choice',
+      npcText: 'あたためますか？',
+      npcRomaji: 'Atatamemasu ka?',
+      choices: [
+        {
+          text: 'Oui, s\'il vous plaît',
+          jp: 'はい、お願いします',
+          isCorrect: true,
+          note: '👍 Ton onigiri sera chaud ! Le caissier le met au micro-ondes derrière le comptoir.',
+          nextNodeId: 'bag',
+        },
+        {
+          text: 'Non merci',
+          jp: 'いいえ、大丈夫です',
+          isCorrect: true,
+          note: '👍 Pas de souci, les onigiri sont bons froids aussi !',
+          nextNodeId: 'bag',
+        },
+      ],
+    },
+    'heat-food-awkward': {
+      id: 'heat-food-awkward',
+      type: 'dialogue',
+      npcText: 'あたためますか？',
+      npcRomaji: 'Atatamemasu ka?',
+      next: 'bag-awkward',
+    },
+    bag: {
+      id: 'bag',
+      type: 'choice',
+      npcText: '袋はご利用ですか？',
+      npcRomaji: 'Fukuro wa goriyō desu ka?',
+      choices: [
+        {
+          text: 'Non merci',
+          jp: '大丈夫です',
+          isCorrect: true,
+          note: '🌍 Bien joué ! Les sacs sont payants au Japon (3-5 yen). La plupart des gens refusent.',
+          nextNodeId: 'payment',
+        },
+        {
+          text: 'Oui, un sac',
+          jp: 'はい、お願いします',
+          isCorrect: true,
+          note: '💰 OK mais ça coûte 3-5 yen. Au Japon beaucoup apportent leur propre sac !',
+          nextNodeId: 'payment',
+        },
+      ],
+    },
+    'bag-awkward': {
+      id: 'bag-awkward',
+      type: 'dialogue',
+      npcText: '袋はご利用ですか？',
+      npcRomaji: 'Fukuro wa goriyō desu ka?',
+      next: 'payment-awkward',
+    },
+    payment: {
+      id: 'payment',
+      type: 'choice',
+      npcText: '二百十円になります',
+      npcRomaji: 'Nihyaku jū en ni narimasu',
+      choices: [
+        {
+          text: 'Payer avec Suica',
+          jp: 'Suicaで払います',
+          isCorrect: true,
+          note: '🚇 Parfait ! Tu poses ta carte sur le lecteur. Bip ! C\'est fait.',
+          nextNodeId: 'end-perfect',
+        },
+        {
+          text: 'Payer en espèces',
+          jp: '現金でお願いします',
+          isCorrect: true,
+          note: '💴 Classique ! Le Japon adore le cash. Mets les pièces dans le plateau.',
+          nextNodeId: 'end-good',
+        },
+      ],
+    },
+    'payment-awkward': {
+      id: 'payment-awkward',
+      type: 'dialogue',
+      npcText: '二百十円になります',
+      npcRomaji: 'Nihyaku jū en ni narimasu',
+      next: 'end-ok',
+    },
+    'end-perfect': {
+      id: 'end-perfect',
+      type: 'end',
+      npcText: 'ありがとうございました！',
+      npcRomaji: 'Arigatō gozaimashita!',
+      endData: {
+        stars: 3,
+        summary: 'Bravo ! Tu gères le konbini comme un local. Poli, efficace, naturel.',
+      },
+    },
+    'end-good': {
+      id: 'end-good',
+      type: 'end',
+      npcText: 'ありがとうございました！',
+      npcRomaji: 'Arigatō gozaimashita!',
+      endData: {
+        stars: 2,
+        summary: 'Bien joué ! Tu t\'en es sorti sans souci. Essaie Suica la prochaine fois !',
+      },
+    },
+    'end-ok': {
+      id: 'end-ok',
+      type: 'end',
+      npcText: 'ありがとうございました...',
+      npcRomaji: 'Arigatō gozaimashita...',
+      endData: {
+        stars: 1,
+        summary: 'Tu as survécu mais c\'était un peu gênant. Retiens いいえ、大丈夫です pour la prochaine fois !',
+      },
+    },
+  },
+}
