@@ -1,28 +1,30 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import type { Phrase } from '../../types'
 
-const NOTE_GRADIENTS: Record<string, string> = {
-  default: 'linear-gradient(135deg, var(--orange), var(--pink))',
-  green: 'linear-gradient(135deg, var(--teal), var(--green))',
-  blue: 'linear-gradient(135deg, var(--blue), var(--teal))',
-}
-
 function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
-  const gradient = NOTE_GRADIENTS[phrase.noteType ?? 'default']
+  const noteClass =
+    phrase.noteType === 'green'
+      ? 'note-green'
+      : phrase.noteType === 'blue'
+        ? 'note-blue'
+        : 'note-default'
 
   return (
-    <div
-      className="glass-sm p-4 flex flex-col gap-2 phrase-card"
-      style={{ animationDelay: `${index * 60}ms` }}
+    <motion.div
+      className="phrase-glass p-4 flex flex-col gap-2"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.06, duration: 0.4, type: 'spring', stiffness: 120 }}
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="font-jp text-[18px] font-bold text-[var(--text)] leading-snug">
+        <span className="font-jp text-[18px] font-bold text-white leading-snug">
           {phrase.jp}
         </span>
         <button
-          className="shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center bg-white/40 border border-white/60 text-[var(--blue)] cursor-pointer transition-transform active:scale-90"
+          className="speaker-btn shrink-0 mt-0.5"
           aria-label="Écouter"
           onClick={() => {
             const u = new SpeechSynthesisUtterance(phrase.jp)
@@ -35,21 +37,18 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
         </button>
       </div>
 
-      <span className="text-[13px] font-semibold" style={{ color: 'var(--blue-2)' }}>
+      <span className="text-[13px] font-semibold text-cyan-200">
         {phrase.romaji}
       </span>
 
-      <span className="text-[13px] text-gray-500">{phrase.fr}</span>
+      <span className="text-[13px] text-white/60">{phrase.fr}</span>
 
       {phrase.note && (
-        <span
-          className="mt-0.5 self-start text-[11px] font-bold text-white px-2.5 py-0.5 rounded-full"
-          style={{ background: gradient }}
-        >
+        <span className={`note-badge ${noteClass} mt-0.5 self-start`}>
           {phrase.note}
         </span>
       )}
-    </div>
+    </motion.div>
   )
 }
 
@@ -61,7 +60,7 @@ export default function ScenarioDetail() {
 
   if (!scenario) {
     return (
-      <div className="p-6 text-center text-[var(--text-2)]">
+      <div className="p-6 text-center text-white/60">
         Scénario introuvable.
       </div>
     )
@@ -69,24 +68,25 @@ export default function ScenarioDetail() {
 
   return (
     <div className="pb-8">
-      <button
+      <motion.button
         onClick={() => navigate('/')}
-        className="mb-3 flex items-center gap-1.5 text-[var(--blue-2)] font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
+        className="mb-3 flex items-center gap-1.5 text-white/80 font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
+        whileHover={{ x: -3 }}
+        whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
         Retour
-      </button>
+      </motion.button>
 
-      <div
-        className="p-5 rounded-[var(--radius-lg)] text-white flex flex-col items-center gap-2 text-center mb-4"
-        style={{
-          background: 'linear-gradient(135deg, var(--blue), var(--teal))',
-          boxShadow: '0 6px 24px rgba(29,122,181,0.30)',
-        }}
+      <motion.div
+        className="detail-header p-5 text-white flex flex-col items-center gap-2 text-center mb-4"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
       >
         <h1 className="text-[22px] font-[800] m-0">{scenario.name}</h1>
-        <p className="text-[13px] opacity-85 m-0">{scenario.description}</p>
-      </div>
+        <p className="text-[13px] text-white/70 m-0">{scenario.description}</p>
+      </motion.div>
 
       <div className="flex flex-col gap-3">
         {scenario.phrases.map((phrase, i) => (
