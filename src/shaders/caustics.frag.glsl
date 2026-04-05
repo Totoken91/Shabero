@@ -20,5 +20,5 @@ float caustic(vec2 uv, float time) {
 
 void main() {
   float c = caustic(vUv * 4.0, uTime * 0.4);
-  gl_FragColor = vec4(uColor * c, c * 0.35);
+  gl_FragColor = vec4(uColor * c * 1.5, c * 0.55);
 }

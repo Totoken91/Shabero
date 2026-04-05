@@ -9,12 +9,14 @@ export default function ShineLogo() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       <h1
-        className="text-[42px] font-[900] m-0 relative inline-block"
+        className="text-[48px] font-[900] m-0 relative inline-block"
         style={{
-          background: 'linear-gradient(180deg, #ffffff 0%, #87CEEB 80%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          filter: 'drop-shadow(0 2px 8px rgba(0, 180, 216, 0.4))',
+          color: '#fff',
+          textShadow: `
+            0 0 30px rgba(0, 229, 255, 0.6),
+            0 0 60px rgba(0, 180, 216, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.3)
+          `,
         }}
       >
         Shabero
@@ -26,7 +28,7 @@ export default function ShineLogo() {
           <span
             className="shine-sweep block w-[50%] h-full absolute top-0"
             style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
               transform: 'skewX(-25deg)',
             }}
           />
@@ -36,8 +38,8 @@ export default function ShineLogo() {
       <p
         className="font-jp text-[14px] mt-2 tracking-wider"
         style={{
-          color: 'rgba(255,255,255,0.8)',
-          textShadow: '0 0 20px rgba(0, 180, 216, 0.3)',
+          color: 'rgba(255,255,255,0.85)',
+          textShadow: '0 0 20px rgba(0, 180, 216, 0.4), 0 2px 4px rgba(0,0,0,0.2)',
         }}
       >
         しゃべろう — Japonais parlé pour voyageurs
