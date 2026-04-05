@@ -119,24 +119,6 @@ html, body, #root {
 .cloud-2 { width: 280px; height: 70px; top: 22%; animation: drift 55s linear infinite; animation-delay: -20s; }
 .cloud-3 { width: 160px; height: 50px; top: 45%; animation: drift 70s linear infinite; animation-delay: -35s; }
 
-/* XP bar animation */
-.xp-fill {
-  transition: width 0.6s cubic-bezier(.34,1.56,.64,1);
-}
-
-/* Flashcard flip */
-.perspective { perspective: 1000px; }
-.flip-card {
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(.4,0,.2,1);
-}
-.flip-card.flipped { transform: rotateY(180deg); }
-.flip-front, .flip-back {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.flip-back { transform: rotateY(180deg); }
-
 /* Fade up animation */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
@@ -146,5 +128,13 @@ html, body, #root {
   animation: fadeUp 0.35s ease-out forwards;
 }
 
-/* Tab bar safe area */
-.pb-tab { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px) + 16px); }
+/* Stagger children animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.phrase-card {
+  opacity: 0;
+  animation: slideIn 0.4s ease-out forwards;
+}

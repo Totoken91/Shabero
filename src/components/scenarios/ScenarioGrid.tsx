@@ -6,7 +6,7 @@ export default function ScenarioGrid() {
   const navigate = useNavigate()
 
   return (
-    <div className="grid grid-cols-2 gap-3 p-4 pb-tab">
+    <div className="grid grid-cols-2 gap-3">
       {scenarios.map((scenario) => (
         <ScenarioCard
           key={scenario.id}
