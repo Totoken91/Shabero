@@ -1,11 +1,10 @@
-import { Suspense, useState, useEffect } from 'react'
+import { Suspense, useState, useEffect, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import CausticPlane from './CausticPlane'
 import AuroraPlane from './AuroraPlane'
 import BokehParticles from './BokehParticles'
-import LensFlare from './LensFlare'
 
 function Scene({ isMobile }: { isMobile: boolean }) {
   return (
@@ -18,7 +17,6 @@ function Scene({ isMobile }: { isMobile: boolean }) {
       <CausticPlane />
       <AuroraPlane />
       <BokehParticles count={isMobile ? 35 : 60} />
-      <LensFlare />
 
       <EffectComposer>
         <Bloom
@@ -44,13 +42,21 @@ function CSSFallback() {
   )
 }
 
+interface BubbleData {
+  size: number
+  left: number
+  delay: number
+  duration: number
+  opacity: number
+  drift: number
+}
+
 export default function AeroBackground() {
   const [isMobile, setIsMobile] = useState(false)
   const [webGLSupported, setWebGLSupported] = useState(true)
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
-
     try {
       const canvas = document.createElement('canvas')
       const gl = canvas.getContext('webgl2') || canvas.getContext('webgl')
@@ -60,11 +66,23 @@ export default function AeroBackground() {
     }
   }, [])
 
+  const bubbles = useMemo<BubbleData[]>(() => {
+    const count = isMobile ? 8 : 14
+    return Array.from({ length: count }, () => ({
+      size: 30 + Math.random() * 100,
+      left: Math.random() * 100,
+      delay: Math.random() * 12,
+      duration: 10 + Math.random() * 10,
+      opacity: 0.15 + Math.random() * 0.3,
+      drift: (Math.random() - 0.5) * 60,
+    }))
+  }, [isMobile])
+
   if (!webGLSupported) return <CSSFallback />
 
   return (
     <div
-      className="fixed inset-0"
+      className="fixed inset-0 overflow-hidden"
       style={{ zIndex: 0, width: '100vw', height: '100vh' }}
     >
       <Suspense fallback={<CSSFallback />}>
@@ -83,6 +101,22 @@ export default function AeroBackground() {
           <Scene isMobile={isMobile} />
         </Canvas>
       </Suspense>
+
+      {/* CSS bubbles on top of Three.js canvas */}
+      {bubbles.map((b, i) => (
+        <div
+          key={i}
+          className="aero-bubble"
+          style={{
+            '--size': `${b.size}px`,
+            '--left': `${b.left}%`,
+            '--delay': `${b.delay}s`,
+            '--duration': `${b.duration}s`,
+            '--opacity': b.opacity,
+            '--drift': `${b.drift}px`,
+          } as React.CSSProperties}
+        />
+      ))}
     </div>
   )
 }
