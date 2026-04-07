@@ -32,8 +32,8 @@ varying vec2 vUv;
 ${CAUSTIC_BODY}
 void main() {
   float c = caustic(vUv * 4.0, uTime * 0.4);
-  vec3 color = vec3(0.6, 1.0, 1.0) * c * 1.5;
-  gl_FragColor = vec4(color, c * 0.5);
+  vec3 color = vec3(0.5, 0.95, 1.0) * c * 2.0;
+  gl_FragColor = vec4(color, c * 0.6);
 }`
 
 function createShader(gl: WebGLRenderingContext, type: number, source: string) {

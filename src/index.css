@@ -192,7 +192,7 @@ html, body, #root {
 .aero-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #48B8E0 0%, #0AADD6 25%, #00BCD4 50%, #0EAFC6 75%, #3AA8D0 100%);
+  background: linear-gradient(180deg, #5ECDE4 0%, #1ABBD9 20%, #0098C8 45%, #0060A8 70%, #2D2B6B 100%);
 }
 
 /* Layer 2: Caustic shader canvas handled by CausticCanvas.tsx */
