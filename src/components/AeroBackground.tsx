@@ -1,10 +1,9 @@
 import { Suspense, useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import CausticPlane from './CausticPlane'
 import AuroraPlane from './AuroraPlane'
-import Bubbles from './Bubbles'
 import BokehParticles from './BokehParticles'
 import LensFlare from './LensFlare'
 
@@ -18,7 +17,6 @@ function Scene({ isMobile }: { isMobile: boolean }) {
 
       <CausticPlane />
       <AuroraPlane />
-      <Bubbles count={isMobile ? 12 : 22} />
       <BokehParticles count={isMobile ? 35 : 60} />
       <LensFlare />
 
@@ -29,7 +27,6 @@ function Scene({ isMobile }: { isMobile: boolean }) {
           luminanceSmoothing={0.9}
           mipmapBlur
         />
-        <Vignette darkness={0.2} offset={0.4} />
       </EffectComposer>
     </>
   )
@@ -43,14 +40,7 @@ function CSSFallback() {
         background: 'linear-gradient(160deg, #87CEEB 0%, #00B4D8 60%, #0077B6 100%)',
         zIndex: -1,
       }}
-    >
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(circle at 70% 20%, rgba(0,229,255,0.25), transparent 50%)',
-        }}
-      />
-    </div>
+    />
   )
 }
 
@@ -73,13 +63,22 @@ export default function AeroBackground() {
   if (!webGLSupported) return <CSSFallback />
 
   return (
-    <div className="fixed inset-0" style={{ zIndex: 0 }}>
+    <div
+      className="fixed inset-0"
+      style={{ zIndex: 0, width: '100vw', height: '100vh' }}
+    >
       <Suspense fallback={<CSSFallback />}>
         <Canvas
           dpr={Math.min(window.devicePixelRatio, 2)}
           camera={{ position: [0, 0, 6], fov: 50 }}
           gl={{ antialias: true, alpha: true }}
-          style={{ background: 'linear-gradient(160deg, #87CEEB 0%, #00B4D8 60%, #0077B6 100%)' }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(160deg, #87CEEB 0%, #00B4D8 60%, #0077B6 100%)',
+          }}
         >
           <Scene isMobile={isMobile} />
         </Canvas>
