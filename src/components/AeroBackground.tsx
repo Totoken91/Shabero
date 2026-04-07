@@ -70,7 +70,7 @@ export default function AeroBackground() {
   const bubbles = useMemo<BubbleCSS[]>(() => {
     const count = isMobile ? 8 : 14
     return Array.from({ length: count }, () => ({
-      size: 20 + Math.random() * 60,
+      size: 30 + Math.random() * 100,
       left: Math.random() * 100,
       delay: Math.random() * 12,
       duration: 10 + Math.random() * 10,
