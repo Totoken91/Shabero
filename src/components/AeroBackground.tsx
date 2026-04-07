@@ -177,8 +177,6 @@ export default function AeroBackground() {
         <BokehDot key={`k-${i}`} {...b} />
       ))}
 
-      {/* Layer 8: Vignette */}
-      <div className="aero-vignette" />
     </div>
   )
 }

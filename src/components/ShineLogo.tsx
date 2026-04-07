@@ -9,7 +9,7 @@ export default function ShineLogo() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
       <h1
-        className="text-[48px] font-[900] m-0 relative inline-block"
+        className="text-[48px] font-[900] m-0 inline-block"
         style={{
           color: '#fff',
           textShadow: `
@@ -20,19 +20,6 @@ export default function ShineLogo() {
         }}
       >
         Shabero
-        {/* Shine sweep */}
-        <span
-          className="absolute inset-0 overflow-hidden pointer-events-none"
-          aria-hidden
-        >
-          <span
-            className="shine-sweep block w-[50%] h-full absolute top-0"
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)',
-              transform: 'skewX(-25deg)',
-            }}
-          />
-        </span>
       </h1>
 
       <p

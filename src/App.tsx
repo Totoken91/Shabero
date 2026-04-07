@@ -21,9 +21,7 @@ function HomePage() {
           />
         ))}
       </div>
-      <footer className="footer-fade mt-8 py-4 text-center text-white/40 text-[12px]">
-        Fait pour les voyageurs
-      </footer>
+      <div className="mt-8 pb-4" />
     </>
   )
 }
