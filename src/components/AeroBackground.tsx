@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from 'react'
 import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
+import CausticCanvas from './CausticCanvas'
 
 interface BubbleCSS {
   size: number
@@ -148,33 +149,8 @@ export default function AeroBackground() {
       {/* Layer 1: Ocean gradient */}
       <div className="aero-gradient" />
 
-      {/* Layer 2: Caustic light patterns */}
-      <div className="aero-caustics">
-        <svg width="0" height="0" aria-hidden="true">
-          <filter id="caustic-filter">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012 0.012"
-              numOctaves={3}
-              seed={1}
-              result="noise"
-            >
-              <animate
-                attributeName="baseFrequency"
-                values="0.012 0.012;0.018 0.016;0.012 0.012"
-                dur="10s"
-                repeatCount="indefinite"
-              />
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale={35} />
-            <feColorMatrix
-              type="matrix"
-              values="0 0 0 0 0  0 0.8 0 0 0.1  0 0 1 0 0.2  0 0 0 0.25 0"
-            />
-          </filter>
-        </svg>
-        <div className="aero-caustics__overlay" />
-      </div>
+      {/* Layer 2: WebGL caustic shader */}
+      <CausticCanvas />
 
       {/* Layer 3: Light rays from top-right */}
       <div className="aero-rays" />
