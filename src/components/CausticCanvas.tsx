@@ -26,14 +26,14 @@ float caustic(vec2 uv, float time) {
   }
   c /= 5.0;
   c = 1.17 - pow(c, 1.4);
-  return pow(abs(c), 8.0);
+  return pow(abs(c), 4.0);
 }
 void main() {
   float c1 = caustic(vUv * 4.0, uTime * 0.35);
   float c2 = caustic(vUv * 3.0 + 0.5, uTime * 0.25 + 1.0);
-  float c = c1 * 0.6 + c2 * 0.4;
-  vec3 color = vec3(0.0, 0.9, 1.0) * c * 2.2;
-  fragColor = vec4(color, c * 0.55);
+  float c = c1 * 0.55 + c2 * 0.45;
+  vec3 color = vec3(0.3, 0.95, 1.0) * c * 4.0;
+  fragColor = vec4(color, c * 0.9);
 }`
 
 // WebGL1 fallback shaders
@@ -169,7 +169,7 @@ export default function CausticCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.8 }}
+      style={{ opacity: 1 }}
     />
   )
 }
