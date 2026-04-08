@@ -10,28 +10,18 @@ export default function ShineLogo() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <div className="relative z-10 flex items-center justify-center gap-3">
-        {/* Aqua airplane icon */}
         <div className="icon-airplane">
           <Airplane size={20} weight="bold" className="text-white relative z-10" />
         </div>
 
         <h1
-          className="text-[44px] font-[900] m-0 relative overflow-hidden inline-block"
+          className="text-[44px] font-[900] m-0"
           style={{
             color: '#fff',
-            textShadow: '0 2px 4px rgba(0,60,120,0.35), 0 0 20px rgba(0,180,216,0.15)',
+            textShadow: '0 1px 0 rgba(255,255,255,0.4), 0 2px 4px rgba(0,50,100,0.4)',
           }}
         >
           Shabero
-          {/* Sliding shine */}
-          <span
-            className="absolute top-0 h-full w-[60%] pointer-events-none"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
-              animation: 'shine-sweep 4s ease-in-out infinite',
-            }}
-            aria-hidden
-          />
         </h1>
       </div>
 
@@ -45,7 +35,6 @@ export default function ShineLogo() {
         しゃべろう — Parle comme un vrai Japonais
       </p>
 
-      {/* Ornament separator */}
       <div className="header-ornament relative z-10" />
     </motion.header>
   )
