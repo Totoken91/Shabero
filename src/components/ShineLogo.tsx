@@ -1,41 +1,52 @@
 import { motion } from 'framer-motion'
+import { Airplane } from '@phosphor-icons/react'
 
 export default function ShineLogo() {
   return (
     <motion.header
-      className="pt-8 pb-4 text-center"
+      className="header-aero"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <h1
-        className="text-[48px] font-[900] m-0 inline-block relative overflow-hidden"
-        style={{
-          color: '#fff',
-          textShadow: '0 2px 4px rgba(0,80,140,0.4), 0 0 20px rgba(0,180,216,0.15)',
-        }}
-      >
-        Shabero
-        {/* Sliding shine */}
-        <span
-          className="absolute top-0 h-full w-[60%] pointer-events-none"
+      <div className="relative z-10 flex items-center justify-center gap-3">
+        {/* Aqua airplane icon */}
+        <div className="icon-airplane">
+          <Airplane size={20} weight="bold" className="text-white relative z-10" />
+        </div>
+
+        <h1
+          className="text-[44px] font-[900] m-0 relative overflow-hidden inline-block"
           style={{
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
-            animation: 'shine-sweep 4s ease-in-out infinite',
+            color: '#fff',
+            textShadow: '0 2px 4px rgba(0,60,120,0.35), 0 0 20px rgba(0,180,216,0.15)',
           }}
-          aria-hidden
-        />
-      </h1>
+        >
+          Shabero
+          {/* Sliding shine */}
+          <span
+            className="absolute top-0 h-full w-[60%] pointer-events-none"
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
+              animation: 'shine-sweep 4s ease-in-out infinite',
+            }}
+            aria-hidden
+          />
+        </h1>
+      </div>
 
       <p
-        className="font-jp text-[14px] mt-2 tracking-wider"
+        className="relative z-10 font-jp text-[14px] mt-2 tracking-wider"
         style={{
           color: 'rgba(255,255,255,0.9)',
-          textShadow: '0 1px 3px rgba(0,80,140,0.3)',
+          textShadow: '0 1px 2px rgba(0,60,120,0.25)',
         }}
       >
         しゃべろう — Parle comme un vrai Japonais
       </p>
+
+      {/* Ornament separator */}
+      <div className="header-ornament relative z-10" />
     </motion.header>
   )
 }
