@@ -6,6 +6,8 @@ import {
   ShoppingBag,
   FirstAid,
   ChatCircleDots,
+  Smiley,
+  MoonStars,
 } from '@phosphor-icons/react'
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
@@ -19,6 +21,8 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   shopping: ShoppingBag,
   urgences: FirstAid,
   socialiser: ChatCircleDots,
+  reactions: Smiley,
+  nightlife: MoonStars,
 }
 
 const ICON_GRADIENTS: Record<string, string> = {
@@ -28,6 +32,8 @@ const ICON_GRADIENTS: Record<string, string> = {
   shopping: 'radial-gradient(circle at 35% 35%, #7DFFB3 0%, #00C9A7 100%)',
   urgences: 'radial-gradient(circle at 35% 35%, #FF8A8A 0%, #D32F2F 100%)',
   socialiser: 'radial-gradient(circle at 35% 35%, #C9A7FF 0%, #7C3AED 100%)',
+  reactions: 'radial-gradient(circle at 35% 35%, #FFD66B 0%, #F5A623 100%)',
+  nightlife: 'radial-gradient(circle at 35% 35%, #A78BFA 0%, #6D28D9 100%)',
 }
 
 interface CategoryCardProps {

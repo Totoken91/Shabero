@@ -19,6 +19,19 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.06, duration: 0.4, type: 'spring', stiffness: 120 }}
     >
+      {/* Who badge */}
+      {phrase.who && (
+        <span
+          className={`self-start text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
+            phrase.who === 'you'
+              ? 'bg-emerald-500/20 text-emerald-300'
+              : 'bg-amber-500/20 text-amber-300'
+          }`}
+        >
+          {phrase.who === 'you' ? 'Toi' : 'Eux'}
+        </span>
+      )}
+
       <div className="flex items-start justify-between gap-2">
         <span className="font-jp text-[18px] font-bold text-white leading-snug">
           {phrase.jp}

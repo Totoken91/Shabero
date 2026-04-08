@@ -4,6 +4,7 @@ export interface Phrase {
   fr: string
   note: string
   noteType?: 'default' | 'green' | 'blue'
+  who?: 'them' | 'you'
 }
 
 export interface Scenario {
