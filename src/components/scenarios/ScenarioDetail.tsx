@@ -22,18 +22,18 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
       {/* Who badge */}
       {phrase.who && (
         <span
-          className={`self-start text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
+          className={`relative z-10 self-start text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
             phrase.who === 'you'
-              ? 'bg-emerald-500/20 text-emerald-300'
-              : 'bg-amber-500/20 text-amber-300'
+              ? 'bg-emerald-500/15 text-emerald-700'
+              : 'bg-amber-500/15 text-amber-700'
           }`}
         >
           {phrase.who === 'you' ? 'Toi' : 'Eux'}
         </span>
       )}
 
-      <div className="flex items-start justify-between gap-2">
-        <span className="font-jp text-[18px] font-bold text-white leading-snug">
+      <div className="relative z-10 flex items-start justify-between gap-2">
+        <span className="font-jp text-[18px] font-bold text-[var(--text)] leading-snug">
           {phrase.jp}
         </span>
         <button
@@ -50,14 +50,14 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
         </button>
       </div>
 
-      <span className="text-[13px] font-semibold text-cyan-200">
+      <span className="relative z-10 text-[13px] font-semibold text-sky-600">
         {phrase.romaji}
       </span>
 
-      <span className="text-[13px] text-white/60">{phrase.fr}</span>
+      <span className="relative z-10 text-[13px] text-[var(--text-light)]">{phrase.fr}</span>
 
       {phrase.note && (
-        <span className={`note-badge ${noteClass} mt-0.5 self-start`}>
+        <span className={`relative z-10 note-badge ${noteClass} mt-0.5 self-start`}>
           {phrase.note}
         </span>
       )}
@@ -73,7 +73,7 @@ export default function ScenarioDetail() {
 
   if (!scenario) {
     return (
-      <div className="p-6 text-center text-white/60">
+      <div className="p-6 text-center text-[var(--text-light)]">
         Scénario introuvable.
       </div>
     )
@@ -83,7 +83,7 @@ export default function ScenarioDetail() {
     <div className="pb-8">
       <motion.button
         onClick={() => navigate('/')}
-        className="mb-3 flex items-center gap-1.5 text-white/80 font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
+        className="mb-3 flex items-center gap-1.5 text-[var(--text)] font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
         whileHover={{ x: -3 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -97,8 +97,8 @@ export default function ScenarioDetail() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-[22px] font-[800] m-0">{scenario.name}</h1>
-        <p className="text-[13px] text-white/70 m-0">{scenario.description}</p>
+        <h1 className="relative z-10 text-[22px] font-[800] m-0">{scenario.name}</h1>
+        <p className="relative z-10 text-[13px] text-white/80 m-0">{scenario.description}</p>
       </motion.div>
 
       <div className="flex flex-col gap-3">

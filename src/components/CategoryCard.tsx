@@ -49,29 +49,25 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
   return (
     <motion.button
       onClick={onClick}
-      className="aero-card cursor-pointer p-4 flex flex-col items-start gap-2.5 text-left relative overflow-hidden"
+      className="aero-card cursor-pointer p-4 flex flex-col items-start gap-2.5 text-left"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5, type: 'spring', stiffness: 120 }}
-      whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
     >
-      {/* Shine sweep on hover */}
-      <span className="card-shine" aria-hidden />
-
       {/* Aqua-style icon circle */}
       <div
-        className="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden"
+        className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden"
         style={{
           background: iconGrad,
-          boxShadow: '0 3px 10px rgba(0,0,0,0.15), inset 0 -2px 4px rgba(0,0,0,0.1)',
+          boxShadow: '0 4px 12px rgba(0,80,160,0.2), inset 0 -2px 4px rgba(0,0,0,0.1)',
         }}
       >
         {/* Aqua highlight band */}
         <span
           className="absolute top-0 left-0 right-0 h-[48%] pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%)',
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%)',
             borderRadius: '50% 50% 0 0',
           }}
           aria-hidden
@@ -79,15 +75,15 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
         <Icon size={22} weight="bold" className="text-white relative z-10" />
       </div>
 
-      <span className="font-bold text-[14px] text-white leading-tight">
+      <span className="relative z-10 font-bold text-[14px] text-[var(--text)] leading-tight">
         {scenario.name}
       </span>
 
-      <span className="text-[11px] text-white/60 leading-snug">
+      <span className="relative z-10 text-[11px] text-[var(--text-light)] leading-snug">
         {scenario.description}
       </span>
 
-      <div className="mt-auto">
+      <div className="relative z-10 mt-auto">
         <GlossyBadge>{scenario.phrases.length} phrases</GlossyBadge>
       </div>
     </motion.button>
