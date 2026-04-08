@@ -12,7 +12,6 @@ import {
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
 import type { Scenario } from '../types'
-import GlossyBadge from './GlossyBadge'
 
 const ICONS: Record<string, ComponentType<IconProps>> = {
   konbini: Storefront,
@@ -25,27 +24,16 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   nightlife: MoonStars,
 }
 
-const ICON_GRADIENTS: Record<string, string> = {
-  konbini: 'radial-gradient(circle at 35% 35%, #FFB347 0%, #FF6B35 100%)',
-  izakaya: 'radial-gradient(circle at 35% 35%, #FF9AC6 0%, #E0457B 100%)',
-  trains: 'radial-gradient(circle at 35% 35%, #87CEEB 0%, #0077B6 100%)',
-  shopping: 'radial-gradient(circle at 35% 35%, #7DFFB3 0%, #00C9A7 100%)',
-  urgences: 'radial-gradient(circle at 35% 35%, #FF8A8A 0%, #D32F2F 100%)',
-  socialiser: 'radial-gradient(circle at 35% 35%, #C9A7FF 0%, #7C3AED 100%)',
-  reactions: 'radial-gradient(circle at 35% 35%, #FFD66B 0%, #F5A623 100%)',
-  nightlife: 'radial-gradient(circle at 35% 35%, #A78BFA 0%, #6D28D9 100%)',
-}
-
-// Tinted card backgrounds — each card gets a subtle color
-const CARD_TINTS: Record<string, string> = {
-  konbini: 'linear-gradient(135deg, rgba(255,179,71,0.18) 0%, rgba(255,107,53,0.08) 100%)',
-  izakaya: 'linear-gradient(135deg, rgba(255,154,198,0.18) 0%, rgba(224,69,123,0.08) 100%)',
-  trains: 'linear-gradient(135deg, rgba(135,206,235,0.18) 0%, rgba(0,119,182,0.08) 100%)',
-  shopping: 'linear-gradient(135deg, rgba(125,255,179,0.18) 0%, rgba(0,201,167,0.08) 100%)',
-  urgences: 'linear-gradient(135deg, rgba(255,138,138,0.18) 0%, rgba(211,47,47,0.08) 100%)',
-  socialiser: 'linear-gradient(135deg, rgba(201,167,255,0.18) 0%, rgba(124,58,237,0.08) 100%)',
-  reactions: 'linear-gradient(135deg, rgba(255,214,107,0.18) 0%, rgba(245,166,35,0.08) 100%)',
-  nightlife: 'linear-gradient(135deg, rgba(167,139,250,0.18) 0%, rgba(109,40,217,0.08) 100%)',
+// Aqua-style gradient: light top → main → dark bottom + border
+const ICON_STYLES: Record<string, { bg: string; border: string }> = {
+  konbini:    { bg: 'linear-gradient(to bottom, #FFA940 0%, #FF8C00 45%, #E67300 100%)', border: '#CC6600' },
+  izakaya:    { bg: 'linear-gradient(to bottom, #FF6EB4 0%, #E91E8C 45%, #C4167A 100%)', border: '#A0125F' },
+  trains:     { bg: 'linear-gradient(to bottom, #5DADE2 0%, #2196F3 45%, #1565C0 100%)', border: '#0D4F9E' },
+  shopping:   { bg: 'linear-gradient(to bottom, #81C784 0%, #4CAF50 45%, #2E7D32 100%)', border: '#1B5E20' },
+  urgences:   { bg: 'linear-gradient(to bottom, #EF5350 0%, #F44336 45%, #C62828 100%)', border: '#A01010' },
+  socialiser: { bg: 'linear-gradient(to bottom, #BA68C8 0%, #9C27B0 45%, #6A1B9A 100%)', border: '#4A148C' },
+  reactions:  { bg: 'linear-gradient(to bottom, #81C784 0%, #66BB6A 45%, #43A047 100%)', border: '#2E7D32' },
+  nightlife:  { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },
 }
 
 interface CategoryCardProps {
@@ -56,38 +44,26 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ scenario, index, onClick }: CategoryCardProps) {
   const Icon = ICONS[scenario.id] ?? Storefront
-  const iconGrad = ICON_GRADIENTS[scenario.id] ?? ICON_GRADIENTS.konbini
-
-  const cardTint = CARD_TINTS[scenario.id] ?? CARD_TINTS.konbini
+  const iconStyle = ICON_STYLES[scenario.id] ?? ICON_STYLES.konbini
 
   return (
     <motion.button
       onClick={onClick}
-      className="aero-card aero-card--colored cursor-pointer p-4 flex flex-col items-start gap-2.5 text-left"
-      style={{ '--card-tint': cardTint } as React.CSSProperties}
-      initial={{ opacity: 0, y: 30 }}
+      className="aero-card cursor-pointer p-5 flex flex-col items-start gap-3 text-left"
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
-      whileHover={{ y: -5, scale: 1.03, transition: { duration: 0.2, delay: 0 } }}
-      whileTap={{ scale: 0.97, transition: { duration: 0.1, delay: 0 } }}
+      transition={{ delay: index * 0.08, duration: 0.4, ease: 'easeOut' }}
+      whileHover={{ y: -3, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
+      whileTap={{ scale: 0.98 }}
     >
       {/* Aqua-style icon circle */}
       <div
-        className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden"
+        className="icon-aqua"
         style={{
-          background: iconGrad,
-          boxShadow: '0 4px 12px rgba(0,80,160,0.25), inset 0 -2px 4px rgba(0,0,0,0.12)',
+          background: iconStyle.bg,
+          borderColor: iconStyle.border,
         }}
       >
-        {/* Aqua highlight band */}
-        <span
-          className="absolute top-0 left-0 right-0 h-[48%] pointer-events-none"
-          style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%)',
-            borderRadius: '50% 50% 0 0',
-          }}
-          aria-hidden
-        />
         <Icon size={22} weight="bold" className="text-white relative z-10" />
       </div>
 
@@ -100,7 +76,7 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
       </span>
 
       <div className="relative z-10 mt-auto">
-        <GlossyBadge>{scenario.phrases.length} phrases</GlossyBadge>
+        <span className="phrase-badge">{scenario.phrases.length} phrases</span>
       </div>
     </motion.button>
   )

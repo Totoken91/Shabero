@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --text: #0a3d5c;
-  --text-light: #1a6a8a;
-  --glass: rgba(255, 255, 255, 0.42);
-  --glass-strong: rgba(255, 255, 255, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --shadow-color: rgba(0, 130, 200, 0.18);
+  --text: #1A3A5C;
+  --text-light: #5A7A9A;
+  --card-top: #EAF6FF;
+  --card-mid: #D0EDFB;
+  --card-bot: #B8E0F5;
+  --card-border: #A8D4EC;
+  --shadow: rgba(0, 120, 180, 0.12);
+  --shadow-strong: rgba(0, 120, 180, 0.2);
 }
 
 * {
@@ -29,150 +31,193 @@ html, body, #root {
 }
 
 /* ==========================================
-   BACKGROUND — Bright Aero sky with halos
+   BACKGROUND — Layered sky with depth
    ========================================== */
 .bg-aero {
   background:
-    radial-gradient(ellipse at 70% 15%, rgba(255,255,255,0.5) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(0,200,230,0.25) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 70%, rgba(255,255,255,0.2) 0%, transparent 40%),
-    linear-gradient(170deg, #a8e6f0 0%, #56c4e0 20%, #1aadcc 45%, #0b8ab5 70%, #0770a0 100%);
+    radial-gradient(ellipse at 80% 8%, rgba(255,255,240,0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 70%, rgba(0,180,216,0.15) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 90%, rgba(255,255,255,0.3) 0%, transparent 35%),
+    linear-gradient(
+      to bottom,
+      #4AA3DF 0%,
+      #7EC8E3 30%,
+      #B8E2F2 60%,
+      #D4F0FC 100%
+    );
 }
 
 /* ==========================================
-   AERO GLASS CARDS — Bright translucent
+   CATEGORY CARDS — Opaque, glossy, Aero
    ========================================== */
 .aero-card {
   position: relative;
   overflow: hidden;
-  background: var(--glass-strong);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1.5px solid var(--glass-border);
+  background: linear-gradient(160deg, var(--card-top) 0%, var(--card-mid) 40%, var(--card-bot) 100%);
+  border: 1px solid var(--card-border);
+  border-top: 1px solid rgba(255,255,255,0.9);
+  border-left: 1px solid rgba(255,255,255,0.6);
+  border-radius: 12px;
   box-shadow:
-    0 8px 32px var(--shadow-color),
-    0 1px 3px rgba(0, 100, 160, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(0, 100, 160, 0.05);
-  border-radius: 16px;
-  transition: box-shadow 0.3s ease;
+    0 2px 8px var(--shadow),
+    0 1px 3px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Glossy band — the Aero signature (top half bright) */
+/* Glossy highlight band — top half */
 .aero-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.1) 70%, rgba(255,255,255,0.0) 100%);
-  border-radius: 16px 16px 0 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.5) 0%,
+    rgba(255,255,255,0.1) 60%,
+    transparent 100%
+  );
+  border-radius: 12px 12px 0 0;
   pointer-events: none;
-  transition: height 0.3s ease;
-}
-
-/* Shine sweep — slides across on hover */
-.aero-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -80%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-  transform: skewX(-20deg);
-  pointer-events: none;
-  transition: left 0.5s ease;
 }
 
 .aero-card:hover {
+  transform: translateY(-3px);
   box-shadow:
-    0 16px 48px rgba(0, 150, 220, 0.3),
-    0 2px 8px rgba(0, 100, 160, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 0 rgba(0, 100, 160, 0.08);
-}
-
-.aero-card:hover::before {
-  height: 55%;
-}
-
-.aero-card:hover::after {
-  left: 130%;
-}
-
-/* Colored tint layer for category cards */
-.aero-card--colored {
-  background:
-    var(--card-tint),
-    var(--glass-strong);
+    0 6px 20px var(--shadow-strong),
+    0 2px 8px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 /* ==========================================
-   PHRASE CARDS — Detail view
+   ICON CIRCLES — Aqua glossy buttons
    ========================================== */
-.phrase-glass {
+.icon-aqua {
   position: relative;
-  overflow: hidden;
-  background: var(--glass-strong);
-  backdrop-filter: blur(14px) saturate(160%);
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  border: 1.5px solid var(--glass-border);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow:
-    0 6px 24px var(--shadow-color),
-    0 1px 2px rgba(0, 100, 160, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(0, 100, 160, 0.04);
-  border-radius: 14px;
+    0 2px 4px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.4);
 }
 
-/* Glossy band on phrase cards */
-.phrase-glass::before {
+/* Demi-lune reflet en haut — SIGNATURE */
+.icon-aqua::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.05) 80%, rgba(255,255,255,0.0) 100%);
-  border-radius: 14px 14px 0 0;
+  top: 2px;
+  left: 15%;
+  right: 15%;
+  height: 40%;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(255,255,255,0.7) 0%,
+    rgba(255,255,255,0.1) 80%,
+    transparent 100%
+  );
+  border-radius: 50%;
   pointer-events: none;
 }
 
 /* ==========================================
-   DETAIL HEADER
+   PHRASE BADGE — Pill with hard-cut reflet
+   ========================================== */
+.phrase-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(
+    to bottom,
+    #5AC87A 0%,
+    #34A853 40%,
+    #2D9249 40%,
+    #1E7A38 100%
+  );
+  border: 1px solid #1A6B30;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   PHRASE CARDS — Detail view (opaque)
+   ========================================== */
+.phrase-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #F4FAFF 0%, #E4F2FC 40%, #D6ECFA 100%);
+  border: 1px solid #BBDAEE;
+  border-top: 1px solid rgba(255,255,255,0.85);
+  border-left: 1px solid rgba(255,255,255,0.5);
+  border-radius: 10px;
+  box-shadow:
+    0 2px 6px var(--shadow),
+    0 1px 2px rgba(0,0,0,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+.phrase-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 45%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.08) 70%,
+    transparent 100%
+  );
+  border-radius: 10px 10px 0 0;
+  pointer-events: none;
+}
+
+/* ==========================================
+   DETAIL HEADER — Colored opaque panel
    ========================================== */
 .detail-header {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(0,160,210,0.45) 0%, rgba(0,190,170,0.35) 100%);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1.5px solid rgba(255,255,255,0.5);
+  background: linear-gradient(
+    to bottom,
+    #5AB8E0 0%,
+    #3AA0D0 45%,
+    #3198C8 45%,
+    #1A80B0 100%
+  );
+  border: 1px solid #1570A0;
+  border-top: 1px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
   box-shadow:
-    0 8px 32px var(--shadow-color),
-    inset 0 1px 0 rgba(255,255,255,0.7);
-  border-radius: 16px;
+    0 3px 10px rgba(0,80,140,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.35);
 }
+
 .detail-header::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.0) 100%);
-  border-radius: 16px 16px 0 0;
+  top: 0; left: 0; right: 0;
+  height: 48%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.4) 0%,
+    rgba(255,255,255,0.05) 100%
+  );
+  border-radius: 12px 12px 0 0;
   pointer-events: none;
 }
 
 /* ==========================================
-   NOTE BADGES — Aqua pill style
+   NOTE BADGES — Same hard-cut pill style
    ========================================== */
 .note-badge {
-  position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   padding: 2px 10px;
@@ -180,49 +225,60 @@ html, body, #root {
   font-size: 11px;
   font-weight: 700;
   color: white;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-.note-badge::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 100%);
-  border-radius: 50px 50px 0 0;
-  pointer-events: none;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
 }
 .note-badge.note-default {
-  background: linear-gradient(180deg, #FF8A50 0%, #E0457B 100%);
-  box-shadow: 0 2px 8px rgba(224,69,123,0.25);
+  background: linear-gradient(to bottom, #FF9F5A 0%, #E0653A 40%, #D05A30 40%, #B84425 100%);
+  border: 1px solid #A03A20;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 .note-badge.note-green {
-  background: linear-gradient(180deg, #2DD4A0 0%, #059669 100%);
-  box-shadow: 0 2px 8px rgba(5,150,105,0.25);
+  background: linear-gradient(to bottom, #5AC87A 0%, #34A853 40%, #2D9249 40%, #1E7A38 100%);
+  border: 1px solid #1A6B30;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 .note-badge.note-blue {
-  background: linear-gradient(180deg, #38BDF8 0%, #0077B6 100%);
-  box-shadow: 0 2px 8px rgba(0,119,182,0.25);
+  background: linear-gradient(to bottom, #5AB8E8 0%, #2196F3 40%, #1A85DD 40%, #1565C0 100%);
+  border: 1px solid #0D4F9E;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 
 /* ==========================================
-   SPEAKER BUTTON — Glass circle
+   SPEAKER BUTTON — Glossy circle
    ========================================== */
 .speaker-btn {
-  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
-  border: 1.5px solid rgba(255,255,255,0.7);
-  box-shadow: 0 2px 8px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.8);
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.15s;
-  color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  color: var(--text);
+  background: linear-gradient(
+    to bottom,
+    #F0F8FF 0%,
+    #D8EDFA 45%,
+    #CCE5F5 45%,
+    #B0D4EA 100%
+  );
+  border: 1px solid #98C4DE;
+  box-shadow:
+    0 1px 3px var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  transition: transform 0.15s;
 }
 .speaker-btn:active {
   transform: scale(0.9);
+}
+
+/* ==========================================
+   LOGO SHINE
+   ========================================== */
+@keyframes shine-sweep {
+  0%   { left: -100%; }
+  50%  { left: 150%; }
+  100% { left: 150%; }
 }
 
 /* ==========================================

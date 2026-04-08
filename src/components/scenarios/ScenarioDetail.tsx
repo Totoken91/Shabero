@@ -14,18 +14,18 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
 
   return (
     <motion.div
-      className="phrase-glass p-4 flex flex-col gap-2"
+      className="phrase-card p-4 flex flex-col gap-2"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.06, duration: 0.4, type: 'spring', stiffness: 120 }}
+      transition={{ delay: index * 0.05, duration: 0.35, ease: 'easeOut' }}
     >
       {/* Who badge */}
       {phrase.who && (
         <span
           className={`relative z-10 self-start text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
             phrase.who === 'you'
-              ? 'bg-emerald-500/15 text-emerald-700'
-              : 'bg-amber-500/15 text-amber-700'
+              ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+              : 'bg-amber-100 text-amber-700 border border-amber-200'
           }`}
         >
           {phrase.who === 'you' ? 'Toi' : 'Eux'}
@@ -50,7 +50,7 @@ function PhraseCard({ phrase, index }: { phrase: Phrase; index: number }) {
         </button>
       </div>
 
-      <span className="relative z-10 text-[13px] font-semibold text-sky-600">
+      <span className="relative z-10 text-[13px] font-semibold text-sky-700">
         {phrase.romaji}
       </span>
 
@@ -83,7 +83,8 @@ export default function ScenarioDetail() {
     <div className="pb-8">
       <motion.button
         onClick={() => navigate('/')}
-        className="mb-3 flex items-center gap-1.5 text-[var(--text)] font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
+        className="mb-3 flex items-center gap-1.5 text-white font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
+        style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}
         whileHover={{ x: -3 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -93,9 +94,9 @@ export default function ScenarioDetail() {
 
       <motion.div
         className="detail-header p-5 text-white flex flex-col items-center gap-2 text-center mb-4"
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.35 }}
       >
         <h1 className="relative z-10 text-[22px] font-[800] m-0">{scenario.name}</h1>
         <p className="relative z-10 text-[13px] text-white/80 m-0">{scenario.description}</p>
