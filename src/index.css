@@ -67,7 +67,7 @@ html, body, #root {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Glossy highlight band — VISIBLE */
+/* Glossy highlight band — VERY VISIBLE */
 .aero-card::before {
   content: '';
   position: absolute;
@@ -75,12 +75,14 @@ html, body, #root {
   height: 50%;
   background: linear-gradient(
     to bottom,
-    rgba(255,255,255,0.6) 0%,
-    rgba(255,255,255,0.2) 40%,
+    rgba(255,255,255,0.65) 0%,
+    rgba(255,255,255,0.25) 35%,
+    rgba(255,255,255,0.05) 60%,
     transparent 100%
   );
   border-radius: 12px 12px 0 0;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Shine sweep on hover */
@@ -485,3 +487,27 @@ html, body, #root {
   border-radius: 50%;
   pointer-events: none;
 }
+
+/* ==========================================
+   MOBILE COMPACT
+   ========================================== */
+@media (max-width: 768px) {
+  .header-aero { padding: 18px 16px 14px; }
+  .header-aero h1 { font-size: 2rem !important; }
+  .header-aero p { font-size: 0.85rem; margin-top: 4px; }
+  .header-ornament { margin-top: 10px; width: 140px; }
+  .icon-airplane { width: 32px; height: 32px; }
+  .icon-airplane svg { width: 16px; height: 16px; }
+}
+
+/* ==========================================
+   COLORED BADGES PER CATEGORY
+   ========================================== */
+.badge-konbini { background: linear-gradient(to bottom, #FFA040 0%, #FF8C00 40%, #E67300 40%, #CC6200 100%); border: 1px solid #B55500; }
+.badge-izakaya { background: linear-gradient(to bottom, #F55AAE 0%, #E91E8C 40%, #C4167A 40%, #A51268 100%); border: 1px solid #8E1059; }
+.badge-trains { background: linear-gradient(to bottom, #54B8F7 0%, #2196F3 40%, #1976D2 40%, #1565C0 100%); border: 1px solid #0D47A1; }
+.badge-shopping { background: linear-gradient(to bottom, #6ECF72 0%, #4CAF50 40%, #388E3C 40%, #2E7D32 100%); border: 1px solid #1B5E20; }
+.badge-urgences { background: linear-gradient(to bottom, #F77066 0%, #F44336 40%, #D32F2F 40%, #C62828 100%); border: 1px solid #B71C1C; }
+.badge-socialiser { background: linear-gradient(to bottom, #BA68C8 0%, #9C27B0 40%, #7B1FA2 40%, #6A1B9A 100%); border: 1px solid #4A148C; }
+.badge-reactions { background: linear-gradient(to bottom, #81C784 0%, #66BB6A 40%, #4CAF50 40%, #43A047 100%); border: 1px solid #2E7D32; }
+.badge-nightlife { background: linear-gradient(to bottom, #7986CB 0%, #5C6BC0 40%, #3F51B5 40%, #3949AB 100%); border: 1px solid #283593; }

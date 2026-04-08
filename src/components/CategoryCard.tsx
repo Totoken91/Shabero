@@ -76,7 +76,7 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
       </span>
 
       <div className="relative z-10 mt-auto">
-        <span className="phrase-badge">{scenario.phrases.length} phrases</span>
+        <span className={`phrase-badge badge-${scenario.id}`}>{scenario.phrases.length} phrases</span>
       </div>
     </motion.button>
   )
