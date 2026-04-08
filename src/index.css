@@ -102,6 +102,13 @@ html, body, #root {
   left: 130%;
 }
 
+/* Colored tint layer for category cards */
+.aero-card--colored {
+  background:
+    var(--card-tint),
+    var(--glass-strong);
+}
+
 /* ==========================================
    PHRASE CARDS — Detail view
    ========================================== */

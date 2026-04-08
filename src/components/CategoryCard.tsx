@@ -36,6 +36,18 @@ const ICON_GRADIENTS: Record<string, string> = {
   nightlife: 'radial-gradient(circle at 35% 35%, #A78BFA 0%, #6D28D9 100%)',
 }
 
+// Tinted card backgrounds — each card gets a subtle color
+const CARD_TINTS: Record<string, string> = {
+  konbini: 'linear-gradient(135deg, rgba(255,179,71,0.18) 0%, rgba(255,107,53,0.08) 100%)',
+  izakaya: 'linear-gradient(135deg, rgba(255,154,198,0.18) 0%, rgba(224,69,123,0.08) 100%)',
+  trains: 'linear-gradient(135deg, rgba(135,206,235,0.18) 0%, rgba(0,119,182,0.08) 100%)',
+  shopping: 'linear-gradient(135deg, rgba(125,255,179,0.18) 0%, rgba(0,201,167,0.08) 100%)',
+  urgences: 'linear-gradient(135deg, rgba(255,138,138,0.18) 0%, rgba(211,47,47,0.08) 100%)',
+  socialiser: 'linear-gradient(135deg, rgba(201,167,255,0.18) 0%, rgba(124,58,237,0.08) 100%)',
+  reactions: 'linear-gradient(135deg, rgba(255,214,107,0.18) 0%, rgba(245,166,35,0.08) 100%)',
+  nightlife: 'linear-gradient(135deg, rgba(167,139,250,0.18) 0%, rgba(109,40,217,0.08) 100%)',
+}
+
 interface CategoryCardProps {
   scenario: Scenario
   index: number
@@ -46,22 +58,25 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
   const Icon = ICONS[scenario.id] ?? Storefront
   const iconGrad = ICON_GRADIENTS[scenario.id] ?? ICON_GRADIENTS.konbini
 
+  const cardTint = CARD_TINTS[scenario.id] ?? CARD_TINTS.konbini
+
   return (
     <motion.button
       onClick={onClick}
-      className="aero-card cursor-pointer p-4 flex flex-col items-start gap-2.5 text-left"
+      className="aero-card aero-card--colored cursor-pointer p-4 flex flex-col items-start gap-2.5 text-left"
+      style={{ '--card-tint': cardTint } as React.CSSProperties}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5, type: 'spring', stiffness: 120 }}
-      whileHover={{ y: -4, scale: 1.02 }}
-      whileTap={{ scale: 0.97 }}
+      transition={{ delay: index * 0.08, duration: 0.4 }}
+      whileHover={{ y: -5, scale: 1.03, transition: { duration: 0.2, delay: 0 } }}
+      whileTap={{ scale: 0.97, transition: { duration: 0.1, delay: 0 } }}
     >
       {/* Aqua-style icon circle */}
       <div
-        className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden"
+        className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden"
         style={{
           background: iconGrad,
-          boxShadow: '0 4px 12px rgba(0,80,160,0.2), inset 0 -2px 4px rgba(0,0,0,0.1)',
+          boxShadow: '0 4px 12px rgba(0,80,160,0.25), inset 0 -2px 4px rgba(0,0,0,0.12)',
         }}
       >
         {/* Aqua highlight band */}
