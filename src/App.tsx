@@ -16,6 +16,12 @@ import ListenMode from './components/quiz/ListenMode'
 import SpeakMode from './components/quiz/SpeakMode'
 import RepeatMode from './components/quiz/RepeatMode'
 
+// Kana
+import KanaHome from './components/kana/KanaHome'
+import KanaGroupList from './components/kana/KanaGroupList'
+import KanaDiscovery from './components/kana/KanaDiscovery'
+import KanaExercise from './components/kana/KanaExercise'
+
 // Dico
 import SignCategoryCard from './components/signs/SignCategoryCard'
 import SignDetail from './components/signs/SignDetail'
@@ -75,16 +81,6 @@ function DicoPage() {
   )
 }
 
-function KanaPlaceholder() {
-  return (
-    <div className="phrase-card p-6 text-center">
-      <p className="relative z-10 font-jp text-[32px] font-bold text-[var(--text)]">あ ア</p>
-      <p className="relative z-10 text-[16px] font-bold text-[var(--text)] mt-2">Kana — Bientôt disponible</p>
-      <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-1">Apprends les hiragana et katakana</p>
-    </div>
-  )
-}
-
 export default function App() {
   return (
     <>
@@ -105,7 +101,10 @@ export default function App() {
           <Route path="/entrainement/:scenarioId/repeat" element={<DetailShell><RepeatMode /></DetailShell>} />
 
           {/* Kana */}
-          <Route path="/kana" element={<Shell><KanaPlaceholder /></Shell>} />
+          <Route path="/kana" element={<Shell><KanaHome /></Shell>} />
+          <Route path="/kana/:type" element={<DetailShell><KanaGroupList /></DetailShell>} />
+          <Route path="/kana/:type/:groupId" element={<DetailShell><KanaDiscovery /></DetailShell>} />
+          <Route path="/kana/:type/:groupId/exercise" element={<DetailShell><KanaExercise /></DetailShell>} />
 
           {/* Dico */}
           <Route path="/dico" element={<Shell><DicoPage /></Shell>} />
