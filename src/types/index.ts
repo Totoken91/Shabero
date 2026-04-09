@@ -27,3 +27,31 @@ export interface SignCategory {
   description: string
   signs: Sign[]
 }
+
+// === Cours ===
+export interface LessonStep {
+  context: string
+  jp: string
+  romaji: string
+  fr: string
+  explanation: string
+  tip?: string
+}
+
+export interface Lesson {
+  id: string
+  title: string
+  description: string
+  category: 'bases' | 'social' | 'survie' | 'avance'
+  steps: LessonStep[]
+}
+
+// === Quiz ===
+export type QuizMode = 'jp-fr' | 'fr-jp' | 'contexte'
+
+export interface QuizQuestion {
+  question: string
+  correct: string
+  options: string[]
+  explanation: string
+}

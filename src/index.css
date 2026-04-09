@@ -571,3 +571,41 @@ html, body, #root {
 .badge-reactions { background: linear-gradient(to bottom, #81C784 0%, #66BB6A 40%, #4CAF50 40%, #43A047 100%); border: 1px solid #2E7D32; }
 .badge-nightlife { background: linear-gradient(to bottom, #7986CB 0%, #5C6BC0 40%, #3F51B5 40%, #3949AB 100%); border: 1px solid #283593; }
 .badge-insultes { background: linear-gradient(to bottom, #90A4AE 0%, #607D8B 40%, #546E7A 40%, #37474F 100%); border: 1px solid #263238; }
+
+/* ==========================================
+   DICO TOGGLE — Aqua pill switch
+   ========================================== */
+.dico-toggle-btn {
+  padding: 6px 20px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  color: var(--text-light);
+  background: linear-gradient(to bottom, #F0F8FF 0%, #D8EDFA 50%, #CCE5F5 50%, #B8DCF0 100%);
+  transition: background 0.15s;
+}
+.dico-toggle-btn:first-child { border-radius: 8px 0 0 8px; }
+.dico-toggle-btn:last-child { border-radius: 0 8px 8px 0; }
+
+.dico-toggle-btn--active {
+  color: white;
+  background: linear-gradient(to bottom, #5DADE2 0%, #2196F3 40%, #1976D2 40%, #1565C0 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+}
+
+/* ==========================================
+   QUIZ — correct/wrong feedback
+   ========================================== */
+.quiz-correct {
+  background: linear-gradient(160deg, #E8F5E9 0%, #C8E6C9 40%, #A5D6A7 100%) !important;
+  border-color: #66BB6A !important;
+  box-shadow: 0 0 0 2px #66BB6A, 0 2px 8px rgba(76,175,80,0.2) !important;
+}
+.quiz-wrong {
+  background: linear-gradient(160deg, #FFEBEE 0%, #FFCDD2 40%, #EF9A9A 100%) !important;
+  border-color: #EF5350 !important;
+  box-shadow: 0 0 0 2px #EF5350, 0 2px 8px rgba(244,67,54,0.2) !important;
+}

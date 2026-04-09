@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ChatText, Signpost } from '@phosphor-icons/react'
+import { GraduationCap, Lightning, Book } from '@phosphor-icons/react'
 
 const TABS = [
-  { id: 'phrases', label: 'Phrases', icon: ChatText, path: '/' },
-  { id: 'panneaux', label: 'Panneaux', icon: Signpost, path: '/panneaux' },
+  { id: 'cours', label: 'Cours', icon: GraduationCap, path: '/cours' },
+  { id: 'quiz', label: 'Quiz', icon: Lightning, path: '/quiz' },
+  { id: 'dico', label: 'Dico', icon: Book, path: '/dico' },
 ] as const
 
 export default function TabNav() {
@@ -11,10 +12,8 @@ export default function TabNav() {
   const navigate = useNavigate()
 
   const currentTab = TABS.find((t) =>
-    t.path === '/'
-      ? location.pathname === '/' || location.pathname.startsWith('/scenario')
-      : location.pathname.startsWith(t.path)
-  )?.id ?? 'phrases'
+    location.pathname === t.path || location.pathname.startsWith(t.path + '/')
+  )?.id ?? 'cours'
 
   return (
     <nav className="tab-nav">

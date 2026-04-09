@@ -82,7 +82,7 @@ export default function ScenarioDetail() {
   return (
     <div className="pb-8">
       <motion.button
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/dico')}
         className="mb-3 flex items-center gap-1.5 text-white font-bold text-[14px] cursor-pointer bg-transparent border-none p-0"
         style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}
         whileHover={{ x: -3 }}
