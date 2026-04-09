@@ -8,6 +8,7 @@ import {
   ChatCircleDots,
   Smiley,
   MoonStars,
+  Skull,
 } from '@phosphor-icons/react'
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
@@ -22,6 +23,7 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   socialiser: ChatCircleDots,
   reactions: Smiley,
   nightlife: MoonStars,
+  insultes: Skull,
 }
 
 // Aqua-style gradient: light top → main → dark bottom + border
@@ -34,6 +36,7 @@ const ICON_STYLES: Record<string, { bg: string; border: string }> = {
   socialiser: { bg: 'linear-gradient(to bottom, #BA68C8 0%, #9C27B0 45%, #6A1B9A 100%)', border: '#4A148C' },
   reactions:  { bg: 'linear-gradient(to bottom, #81C784 0%, #66BB6A 45%, #43A047 100%)', border: '#2E7D32' },
   nightlife:  { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },
+  insultes:   { bg: 'linear-gradient(to bottom, #78909C 0%, #546E7A 45%, #37474F 100%)', border: '#263238' },
 }
 
 interface CategoryCardProps {
