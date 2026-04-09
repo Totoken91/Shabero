@@ -443,6 +443,65 @@ html, body, #root {
 }
 
 /* ==========================================
+   TAB NAVIGATION — WMP11 style
+   ========================================== */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 16px 8px;
+  background: linear-gradient(to bottom, #3B8FCF 0%, #2B7BB8 100%);
+  border-bottom: 1px solid rgba(0,60,120,0.3);
+  box-shadow: 0 2px 6px rgba(0,50,100,0.12);
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s ease;
+
+  /* Inactive tab */
+  background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid transparent;
+  border-bottom: none;
+}
+
+.tab-btn:hover {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+  color: rgba(255,255,255,0.9);
+}
+
+/* Active tab — opaque glossy panel */
+.tab-btn--active {
+  background: linear-gradient(to bottom, #EAF6FF 0%, #D4EDFB 50%, #C8E5F5 50%, #B8DCF0 100%);
+  color: var(--text);
+  border: 1px solid #8CC4DE;
+  border-bottom: 1px solid #B8DCF0;
+  box-shadow: 0 -1px 3px rgba(0,80,140,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+  margin-bottom: -1px;
+}
+
+.tab-btn--active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, transparent 100%);
+  border-radius: 8px 8px 0 0;
+  pointer-events: none;
+}
+
+/* ==========================================
    FOOTER BANDEAU
    ========================================== */
 .footer-aero {
