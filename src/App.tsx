@@ -21,6 +21,7 @@ import KanaHome from './components/kana/KanaHome'
 import KanaGroupList from './components/kana/KanaGroupList'
 import KanaDiscovery from './components/kana/KanaDiscovery'
 import KanaExercise from './components/kana/KanaExercise'
+import { KanjiCategoryList, KanjiDetail } from './components/kana/KanjiSection'
 
 // Dico
 import SignCategoryCard from './components/signs/SignCategoryCard'
@@ -105,6 +106,8 @@ export default function App() {
           <Route path="/kana/:type" element={<DetailShell><KanaGroupList /></DetailShell>} />
           <Route path="/kana/:type/:groupId" element={<DetailShell><KanaDiscovery /></DetailShell>} />
           <Route path="/kana/:type/:groupId/exercise" element={<DetailShell><KanaExercise /></DetailShell>} />
+          <Route path="/kana/kanji" element={<DetailShell><KanjiCategoryList /></DetailShell>} />
+          <Route path="/kana/kanji/:categoryId" element={<DetailShell><KanjiDetail /></DetailShell>} />
 
           {/* Dico */}
           <Route path="/dico" element={<Shell><DicoPage /></Shell>} />

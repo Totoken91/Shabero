@@ -48,6 +48,25 @@ export default function KanaHome() {
             <span className="text-[12px] text-[var(--text-light)]">Pour les mots étrangers — 46 kana en 10 groupes</span>
           </div>
         </motion.button>
+
+        <motion.button
+          onClick={() => navigate('/kana/kanji')}
+          className="aero-card cursor-pointer p-5 flex items-center gap-4 text-left"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.16 }}
+          whileHover={{ y: -2, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <div className="icon-aqua shrink-0"
+            style={{ background: 'linear-gradient(to bottom, #81C784 0%, #4CAF50 40%, #388E3C 40%, #2E7D32 100%)', borderColor: '#1B5E20' }}>
+            <span className="text-white font-jp text-[20px] font-bold relative z-10">漢</span>
+          </div>
+          <div className="relative z-10">
+            <span className="font-bold text-[16px] text-[var(--text)] block">Kanji essentiels</span>
+            <span className="text-[12px] text-[var(--text-light)]">Nombres, directions, panneaux — le minimum pour voyager</span>
+          </div>
+        </motion.button>
       </div>
     </div>
   )
