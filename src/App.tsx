@@ -2,60 +2,43 @@ import { useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import AeroBackground from './components/AeroBackground'
 import ShineLogo from './components/ShineLogo'
-import TabNav from './components/TabNav'
+import BottomNav from './components/BottomNav'
 
-// Cours
-import LessonCard from './components/cours/LessonCard'
-import LessonPlayer from './components/cours/LessonPlayer'
-import { lessons } from './data/lessons'
+// Situations
+import CategoryCard from './components/CategoryCard'
+import SituationDetail from './components/situations/SituationDetail'
+import { scenarios } from './data/scenarios'
 
-// Quiz
+// Entraînement (quiz)
 import QuizModeSelect from './components/quiz/QuizModeSelect'
 import QuizSession from './components/quiz/QuizSession'
 
 // Dico
-import CategoryCard from './components/CategoryCard'
-import ScenarioDetail from './components/scenarios/ScenarioDetail'
 import SignCategoryCard from './components/signs/SignCategoryCard'
 import SignDetail from './components/signs/SignDetail'
 import DicoToggle from './components/dico/DicoToggle'
-import { scenarios } from './data/scenarios'
 import { signCategories } from './data/signs'
 
-function Footer() {
-  return (
-    <footer className="footer-aero mt-8">
-      <p className="relative z-10">
-        Fait avec <span role="img" aria-label="bubble">🫧</span> pour les voyageurs curieux
-      </p>
-      <p className="relative z-10 mt-1 text-[11px] opacity-60">
-        Shabero — しゃべろう
-      </p>
-    </footer>
-  )
-}
-
-function Shell({ children }: { children: React.ReactNode }) {
+function Shell({ children, showHeader = true }: { children: React.ReactNode; showHeader?: boolean }) {
   return (
     <>
-      <ShineLogo />
-      <TabNav />
-      <div className="max-w-[900px] mx-auto px-4 py-6">{children}</div>
-      <Footer />
+      {showHeader && <ShineLogo />}
+      <div className="max-w-[900px] mx-auto px-4 py-4 pb-nav">{children}</div>
+      <BottomNav />
     </>
   )
 }
 
-function CoursPage() {
+function SituationsPage() {
   const navigate = useNavigate()
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {lessons.map((lesson, i) => (
-        <LessonCard
-          key={lesson.id}
-          lesson={lesson}
+      {scenarios.map((scenario, i) => (
+        <CategoryCard
+          key={scenario.id}
+          scenario={scenario}
           index={i}
-          onClick={() => navigate(`/cours/${lesson.id}`)}
+          onClick={() => navigate(`/situations/${scenario.id}`)}
         />
       ))}
     </div>
@@ -71,12 +54,12 @@ function DicoPage() {
       <DicoToggle active={tab} onChange={setTab} />
       {tab === 'phrases' ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {scenarios.map((scenario, i) => (
+          {scenarios.map((s, i) => (
             <CategoryCard
-              key={scenario.id}
-              scenario={scenario}
+              key={s.id}
+              scenario={s}
               index={i}
-              onClick={() => navigate(`/dico/scenario/${scenario.id}`)}
+              onClick={() => navigate(`/dico/scenario/${s.id}`)}
             />
           ))}
         </div>
@@ -96,27 +79,81 @@ function DicoPage() {
   )
 }
 
+function KanaPlaceholder() {
+  return (
+    <div className="phrase-card p-6 text-center">
+      <p className="relative z-10 font-jp text-[32px] font-bold text-[var(--text)]">あ ア</p>
+      <p className="relative z-10 text-[16px] font-bold text-[var(--text)] mt-2">Kana — Bientôt disponible</p>
+      <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-1">
+        Apprends les hiragana et katakana pour lire le japonais
+      </p>
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <>
       <AeroBackground />
       <div className="relative z-10">
         <Routes>
-          {/* Redirect root to cours */}
-          <Route path="/" element={<Navigate to="/cours" replace />} />
+          <Route path="/" element={<Navigate to="/situations" replace />} />
 
-          {/* Cours */}
-          <Route path="/cours" element={<Shell><CoursPage /></Shell>} />
-          <Route path="/cours/:id" element={<div className="max-w-lg mx-auto px-4 py-4"><LessonPlayer /></div>} />
+          {/* Situations */}
+          <Route path="/situations" element={<Shell><SituationsPage /></Shell>} />
+          <Route
+            path="/situations/:id"
+            element={
+              <>
+                <div className="max-w-lg mx-auto px-4 py-4 pb-nav">
+                  <SituationDetail />
+                </div>
+                <BottomNav />
+              </>
+            }
+          />
 
-          {/* Quiz */}
-          <Route path="/quiz" element={<Shell><QuizModeSelect /></Shell>} />
-          <Route path="/quiz/:mode" element={<div className="max-w-lg mx-auto px-4 py-4"><QuizSession /></div>} />
+          {/* Entraînement */}
+          <Route path="/entrainement" element={<Shell><QuizModeSelect /></Shell>} />
+          <Route
+            path="/entrainement/:mode"
+            element={
+              <>
+                <div className="max-w-lg mx-auto px-4 py-4 pb-nav">
+                  <QuizSession />
+                </div>
+                <BottomNav />
+              </>
+            }
+          />
+
+          {/* Kana */}
+          <Route path="/kana" element={<Shell><KanaPlaceholder /></Shell>} />
 
           {/* Dico */}
           <Route path="/dico" element={<Shell><DicoPage /></Shell>} />
-          <Route path="/dico/scenario/:id" element={<div className="max-w-lg mx-auto px-4 py-4"><ScenarioDetail /></div>} />
-          <Route path="/dico/panneaux/:id" element={<div className="max-w-lg mx-auto px-4 py-4"><SignDetail /></div>} />
+          <Route
+            path="/dico/scenario/:id"
+            element={
+              <>
+                <div className="max-w-lg mx-auto px-4 py-4 pb-nav">
+                  <SituationDetail />
+                </div>
+                <BottomNav />
+              </>
+            }
+          />
+          <Route
+            path="/dico/panneaux/:id"
+            element={
+              <>
+                <div className="max-w-lg mx-auto px-4 py-4 pb-nav">
+                  <SignDetail />
+                </div>
+                <BottomNav />
+              </>
+            }
+          />
         </Routes>
       </div>
     </>

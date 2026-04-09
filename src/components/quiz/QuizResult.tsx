@@ -38,7 +38,7 @@ export default function QuizResult({ score, total, onReplay }: Props) {
           <span className="relative z-10">Rejouer</span>
         </button>
         <button
-          onClick={() => navigate('/quiz')}
+          onClick={() => navigate('/entrainement')}
           className="aero-card flex-1 cursor-pointer p-3 flex items-center justify-center gap-2 text-[13px] font-bold text-[var(--text)]"
         >
           <House size={16} weight="bold" className="relative z-10" />

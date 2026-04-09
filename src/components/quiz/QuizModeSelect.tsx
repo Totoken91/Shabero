@@ -42,7 +42,7 @@ export default function QuizModeSelect() {
           return (
             <motion.button
               key={mode.id}
-              onClick={() => navigate(`/quiz/${mode.id}`)}
+              onClick={() => navigate(`/entrainement/${mode.id}`)}
               className="aero-card cursor-pointer p-5 flex items-center gap-4 text-left"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

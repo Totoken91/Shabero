@@ -1,10 +1,19 @@
+// === Phrases (Situations) ===
 export interface Phrase {
+  // Existing fields
   jp: string
   romaji: string
   fr: string
-  note: string
+  note?: string
   noteType?: 'default' | 'green' | 'blue'
   who?: 'them' | 'you'
+  // New fields (optional for now, enriched progressively)
+  id?: string
+  situation?: string
+  hiragana?: string
+  audioText?: string
+  tip?: string
+  difficulty?: 1 | 2 | 3
 }
 
 export interface Scenario {
@@ -14,6 +23,7 @@ export interface Scenario {
   phrases: Phrase[]
 }
 
+// === Signs ===
 export interface Sign {
   jp: string
   romaji: string
@@ -55,3 +65,6 @@ export interface QuizQuestion {
   options: string[]
   explanation: string
 }
+
+// === User Progress ===
+export type DisplayMode = 'romaji' | 'romaji+kana' | 'all'

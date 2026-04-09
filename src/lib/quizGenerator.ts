@@ -14,62 +14,52 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
-function pickDistractors(correct: Phrase, pool: Phrase[], count: number, key: keyof Phrase): string[] {
+function pickDistractors(correct: Phrase, pool: Phrase[], count: number, key: 'fr' | 'jp'): string[] {
   const filtered = pool.filter((p) => p[key] !== correct[key])
-  const shuffled = shuffle(filtered)
-  return shuffled.slice(0, count).map((p) => p[key] as string)
+  return shuffle(filtered).slice(0, count).map((p) => p[key])
 }
 
 function generateJpFr(phrases: Phrase[], count: number): QuizQuestion[] {
-  const selected = shuffle(phrases).slice(0, count)
-  return selected.map((p) => {
+  return shuffle(phrases).slice(0, count).map((p) => {
     const distractors = pickDistractors(p, phrases, 3, 'fr')
     return {
       question: p.jp,
       correct: p.fr,
       options: shuffle([p.fr, ...distractors]),
-      explanation: `${p.romaji} — ${p.note}`,
+      explanation: `${p.romaji} — ${p.tip ?? p.note ?? p.situation ?? ''}`,
     }
   })
 }
 
 function generateFrJp(phrases: Phrase[], count: number): QuizQuestion[] {
-  const selected = shuffle(phrases).slice(0, count)
-  return selected.map((p) => {
+  return shuffle(phrases).slice(0, count).map((p) => {
     const distractors = pickDistractors(p, phrases, 3, 'jp')
     return {
       question: p.fr,
       correct: p.jp,
       options: shuffle([p.jp, ...distractors]),
-      explanation: `${p.romaji} — ${p.note}`,
+      explanation: `${p.romaji} — ${p.tip ?? p.note ?? p.situation ?? ''}`,
     }
   })
 }
 
 function generateContexte(phrases: Phrase[], count: number): QuizQuestion[] {
-  const withContext = phrases.filter((p) => p.who === 'you' || p.who === 'them')
-  const selected = shuffle(withContext).slice(0, count)
-  return selected.map((p) => {
+  return shuffle(phrases).slice(0, count).map((p) => {
     const distractors = pickDistractors(p, phrases, 3, 'jp')
-    const situationPrefix = p.who === 'them' ? 'On te dit : ' : 'Tu veux dire : '
     return {
-      question: `${situationPrefix}${p.fr}`,
+      question: p.situation ?? p.fr,
       correct: p.jp,
       options: shuffle([p.jp, ...distractors]),
-      explanation: `${p.romaji} — ${p.note}`,
+      explanation: `${p.romaji} — ${p.tip ?? p.note ?? p.fr}`,
     }
   })
 }
 
 export function generateQuiz(mode: QuizMode, count = 10): QuizQuestion[] {
   const phrases = getAllPhrases()
-
   switch (mode) {
-    case 'jp-fr':
-      return generateJpFr(phrases, count)
-    case 'fr-jp':
-      return generateFrJp(phrases, count)
-    case 'contexte':
-      return generateContexte(phrases, count)
+    case 'jp-fr': return generateJpFr(phrases, count)
+    case 'fr-jp': return generateFrJp(phrases, count)
+    case 'contexte': return generateContexte(phrases, count)
   }
 }
