@@ -131,7 +131,7 @@ const phrases = [
   { id: 'insult-8', text: 'だまれ' },
   { id: 'insult-9', text: 'やめろよ' },
   { id: 'insult-10', text: 'むかつく' },
-  { id: 'insult-11', text: 'しね' },
+  { id: 'insult-11', text: '死ね' },
   { id: 'insult-12', text: 'くそやろう' },
   { id: 'insult-13', text: 'ちくしょう' },
   { id: 'insult-14', text: 'なめんなよ' },
