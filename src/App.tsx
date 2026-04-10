@@ -4,6 +4,9 @@ import AeroBackground from './components/AeroBackground'
 import ShineLogo from './components/ShineLogo'
 import BottomNav from './components/BottomNav'
 
+// Hub
+import Hub from './components/Hub'
+
 // Situations
 import CategoryCard from './components/CategoryCard'
 import SituationDetail from './components/situations/SituationDetail'
@@ -18,6 +21,7 @@ import QuizModeSelect from './components/quiz/QuizModeSelect'
 import ListenMode from './components/quiz/ListenMode'
 import SpeakMode from './components/quiz/SpeakMode'
 import RepeatMode from './components/quiz/RepeatMode'
+import DailyReview from './components/quiz/DailyReview'
 
 // Kana
 import KanaHome from './components/kana/KanaHome'
@@ -51,16 +55,6 @@ function DetailShell({ children }: { children: React.ReactNode }) {
   )
 }
 
-function SituationsPage() {
-  const navigate = useNavigate()
-  return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {scenarios.map((s, i) => (
-        <CategoryCard key={s.id} scenario={s} index={i} onClick={() => navigate(`/situations/${s.id}`)} />
-      ))}
-    </div>
-  )
-}
 
 function DicoPage() {
   const navigate = useNavigate()
@@ -93,8 +87,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/situations" replace />} />
 
-          {/* Situations */}
-          <Route path="/situations" element={<Shell><SituationsPage /></Shell>} />
+          {/* Situations — Hub as main page */}
+          <Route path="/situations" element={<Shell><Hub /></Shell>} />
           <Route path="/situations/:id" element={<DetailShell><SituationDetail /></DetailShell>} />
           <Route path="/situations/:id/listen" element={<DetailShell><StepListen /></DetailShell>} />
           <Route path="/situations/:id/understand" element={<DetailShell><StepUnderstand /></DetailShell>} />
@@ -102,6 +96,7 @@ export default function App() {
 
           {/* Entraînement */}
           <Route path="/entrainement" element={<Shell><QuizCategorySelect /></Shell>} />
+          <Route path="/entrainement/review" element={<DetailShell><DailyReview /></DetailShell>} />
           <Route path="/entrainement/:scenarioId" element={<DetailShell><QuizModeSelect /></DetailShell>} />
           <Route path="/entrainement/:scenarioId/listen" element={<DetailShell><ListenMode /></DetailShell>} />
           <Route path="/entrainement/:scenarioId/speak" element={<DetailShell><SpeakMode /></DetailShell>} />
