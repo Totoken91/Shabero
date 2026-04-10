@@ -102,7 +102,7 @@ export default function StepSpeak() {
               let cls = ''; if (show && isC) cls = 'quiz-correct'; else if (show && isCh && !isC) cls = 'quiz-wrong'
               return (
                 <div key={idx} className={`phrase-card p-3 flex items-center gap-3 ${cls}`}>
-                  <button onClick={() => speakJapanese(opt.audioText ?? opt.jp)} className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full shrink-0 cursor-pointer" style={{ background: 'linear-gradient(to bottom, #F0F8FF 0%, #D8EDFA 45%, #CCE5F5 45%, #B0D4EA 100%)', border: '1px solid #98C4DE' }}>
+                  <button onClick={() => speakJapanese(opt.audioText ?? opt.jp, 0.85, opt.id)} className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full shrink-0 cursor-pointer" style={{ background: 'linear-gradient(to bottom, #F0F8FF 0%, #D8EDFA 45%, #CCE5F5 45%, #B0D4EA 100%)', border: '1px solid #98C4DE' }}>
                     <SpeakerHigh size={18} weight="bold" className="text-[var(--text)]" />
                   </button>
                   <button onClick={() => handleSelect(idx)} disabled={show} className="relative z-10 flex-1 text-left cursor-pointer bg-transparent border-none p-0">

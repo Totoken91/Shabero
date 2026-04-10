@@ -31,7 +31,7 @@ export default function Marathon() {
   const record = getMarathonRecord()
 
   useEffect(() => {
-    if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 300)
+    if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 300)
   }, [current, isLast])
 
   const handleSelect = useCallback((opt: string) => {
@@ -39,7 +39,7 @@ export default function Marathon() {
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
     if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id) }
-    else { if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 500) }
+    else { if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
 
   if (isLast) {
@@ -95,7 +95,7 @@ export default function Marathon() {
       <AnimatePresence mode="wait">
         <motion.div key={current} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
           <div className="phrase-card p-8 mb-4 text-center">
-            <button onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp)} className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full cursor-pointer" style={{ background: 'linear-gradient(to bottom, #EF5350 0%, #F44336 40%, #D32F2F 40%, #C62828 100%)', border: '2px solid #A01010', boxShadow: '0 4px 12px rgba(160,16,16,0.3), inset 0 1px 0 rgba(255,255,255,0.3)' }}>
+            <button onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id)} className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full cursor-pointer" style={{ background: 'linear-gradient(to bottom, #EF5350 0%, #F44336 40%, #D32F2F 40%, #C62828 100%)', border: '2px solid #A01010', boxShadow: '0 4px 12px rgba(160,16,16,0.3), inset 0 1px 0 rgba(255,255,255,0.3)' }}>
               <SpeakerHigh size={28} weight="bold" className="text-white" />
             </button>
           </div>

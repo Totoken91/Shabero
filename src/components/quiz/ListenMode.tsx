@@ -22,7 +22,7 @@ export default function ListenMode() {
   // Auto-play audio on new question
   useEffect(() => {
     if (!isLast && q) {
-      const timer = setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 300)
+      const timer = setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 300)
       return () => clearTimeout(timer)
     }
   }, [current, isLast, q])
@@ -36,7 +36,7 @@ export default function ListenMode() {
 
     // Replay audio on wrong answer
     if (!correct) {
-      setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 500)
+      setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500)
     }
   }, [selected, q, scenarioId])
 
@@ -110,7 +110,7 @@ export default function ListenMode() {
           {/* Big play button */}
           <div className="phrase-card p-8 mb-4 text-center">
             <button
-              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp)}
+              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id)}
               className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full cursor-pointer"
               style={{
                 background: 'linear-gradient(to bottom, #5DADE2 0%, #2196F3 40%, #1976D2 40%, #1565C0 100%)',

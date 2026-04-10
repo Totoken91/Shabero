@@ -33,7 +33,7 @@ export default function StepUnderstand() {
   const isLast = current >= questions.length
 
   useEffect(() => {
-    if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 300)
+    if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 300)
   }, [current, isLast])
 
   const handleSelect = useCallback((opt: string) => {
@@ -41,7 +41,7 @@ export default function StepUnderstand() {
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
     if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id) }
-    else { if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp), 500) }
+    else { if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
 
   const handleNext = useCallback(() => { setSelected(null); setCurrent((c) => c + 1) }, [])
@@ -87,7 +87,7 @@ export default function StepUnderstand() {
       <AnimatePresence mode="wait">
         <motion.div key={current} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
           <div className="phrase-card p-8 mb-4 text-center">
-            <button onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp)} className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full cursor-pointer" style={{ background: 'linear-gradient(to bottom, #5DADE2 0%, #2196F3 40%, #1976D2 40%, #1565C0 100%)', border: '2px solid #0D47A1', boxShadow: '0 4px 12px rgba(0,80,160,0.3), inset 0 1px 0 rgba(255,255,255,0.4)' }}>
+            <button onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id)} className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-full cursor-pointer" style={{ background: 'linear-gradient(to bottom, #5DADE2 0%, #2196F3 40%, #1976D2 40%, #1565C0 100%)', border: '2px solid #0D47A1', boxShadow: '0 4px 12px rgba(0,80,160,0.3), inset 0 1px 0 rgba(255,255,255,0.4)' }}>
               <SpeakerHigh size={28} weight="bold" className="text-white" />
             </button>
             <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-3">Écoute la phrase</p>

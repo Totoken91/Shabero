@@ -60,7 +60,7 @@ export default function RepeatMode() {
           {/* Big play button */}
           <div className="phrase-card p-8 mb-4 text-center">
             <button
-              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.75)}
+              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.75, q.phrase.id)}
               className="relative z-10 inline-flex items-center justify-center w-20 h-20 rounded-full cursor-pointer"
               style={{
                 background: 'linear-gradient(to bottom, #FFA940 0%, #FF8C00 40%, #E67300 40%, #CC6200 100%)',
@@ -94,7 +94,7 @@ export default function RepeatMode() {
           {/* Nav buttons */}
           <div className="flex gap-3 mt-4">
             <button
-              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.55)}
+              onClick={() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.55, q.phrase.id)}
               className="speaker-btn !w-auto !rounded-lg px-4 py-2 flex items-center gap-1.5 text-[13px] font-bold"
             >
               <SpeakerHigh size={14} weight="bold" />

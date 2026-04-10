@@ -100,7 +100,7 @@ export default function SpeakMode() {
               return (
                 <div key={idx} className={`phrase-card p-3 flex items-center gap-3 ${cls}`}>
                   <button
-                    onClick={() => speakJapanese(opt.audioText ?? opt.jp)}
+                    onClick={() => speakJapanese(opt.audioText ?? opt.jp, 0.85, opt.id)}
                     className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-full shrink-0 cursor-pointer"
                     style={{
                       background: 'linear-gradient(to bottom, #F0F8FF 0%, #D8EDFA 45%, #CCE5F5 45%, #B0D4EA 100%)',
