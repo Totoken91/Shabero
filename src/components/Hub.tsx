@@ -75,18 +75,18 @@ function StartCTA() {
 
   return (
     <motion.button
-      onClick={() => navigate('/situations/konbini/listen')}
+      onClick={() => navigate('/situations/politesse/listen')}
       className="aero-card cursor-pointer p-5 flex items-center gap-4 text-left w-full"
       style={{ borderColor: '#E67300', borderWidth: 2 }}
       whileHover={{ y: -3, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
       whileTap={{ scale: 0.98 }}
     >
-      <div className="icon-aqua shrink-0" style={{ background: 'linear-gradient(to bottom, #FFA940 0%, #FF8C00 40%, #E67300 40%, #CC6200 100%)', borderColor: '#B55500' }}>
+      <div className="icon-aqua shrink-0" style={{ background: 'linear-gradient(to bottom, #FFD54F 0%, #FFC107 40%, #FFA000 40%, #FF8F00 100%)', borderColor: '#E65100' }}>
         <Headphones size={22} weight="bold" className="text-white relative z-10" />
       </div>
       <div className="relative z-10 flex-1">
-        <span className="font-bold text-[16px] text-[var(--text)] block">Commence par Konbini</span>
-        <span className="text-[12px] text-[var(--text-light)]">Écoute tes premières phrases japonaises</span>
+        <span className="font-bold text-[16px] text-[var(--text)] block">Commence par la Politesse</span>
+        <span className="text-[12px] text-[var(--text-light)]">Les 10 phrases que tu diras 100 fois par jour</span>
       </div>
       <motion.div
         className="relative z-10"
