@@ -6,6 +6,7 @@ import BottomNav from './components/BottomNav'
 
 // Hub
 import Hub from './components/Hub'
+import Passport from './components/Passport'
 
 // Situations
 import CategoryCard from './components/CategoryCard'
@@ -93,6 +94,9 @@ export default function App() {
           <Route path="/situations/:id/listen" element={<DetailShell><StepListen /></DetailShell>} />
           <Route path="/situations/:id/understand" element={<DetailShell><StepUnderstand /></DetailShell>} />
           <Route path="/situations/:id/speak" element={<DetailShell><StepSpeak /></DetailShell>} />
+
+          {/* Passport */}
+          <Route path="/passeport" element={<DetailShell><Passport /></DetailShell>} />
 
           {/* Entraînement */}
           <Route path="/entrainement" element={<Shell><QuizCategorySelect /></Shell>} />

@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { speakJapanese } from '../../lib/audio'
-import { completeStep3, addWrongPhrase, removeWrongPhrase } from '../../lib/store'
+import { completeStep3, addWrongPhrase, removeWrongPhrase, getCategoryProgress } from '../../lib/store'
+import { celebrate } from '../../lib/celebrate'
 import type { Phrase } from '../../types'
 
 function shuffle<T>(arr: T[]): T[] {
@@ -43,17 +44,27 @@ export default function StepSpeak() {
   if (!scenario) return null
 
   if (isLast) {
+    const wasMastered = getCategoryProgress(id!).stampEarned
     const score = Math.round((correct / questions.length) * 100)
     completeStep3(id!, score)
     const passed = score >= 80
+    const nowMastered = getCategoryProgress(id!).stampEarned
+
+    // Celebrate if stamp was just earned
+    if (nowMastered && !wasMastered) {
+      setTimeout(() => celebrate(), 300)
+    }
 
     return (
       <div className="max-w-[400px] mx-auto">
         <div className="phrase-card p-6 text-center">
           <p className="relative z-10 text-[28px] font-[900] text-[var(--text)]">{score}%</p>
           <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">{correct}/{questions.length} bonnes réponses</p>
+          {nowMastered && !wasMastered && (
+            <p className="relative z-10 text-[16px] font-[800] text-amber-600 mt-2">🎉 Catégorie maîtrisée ! Tampon gagné !</p>
+          )}
           <p className="relative z-10 text-[13px] mt-2" style={{ color: passed ? '#34A853' : '#E53935' }}>
-            {passed ? 'Étape validée ! 🎉' : 'Il faut 80% pour valider. Réécoute les phrases !'}
+            {passed ? (nowMastered ? '' : 'Étape validée !') : 'Il faut 80% pour valider. Réécoute les phrases !'}
           </p>
         </div>
         <div className="flex gap-3 mt-4">
