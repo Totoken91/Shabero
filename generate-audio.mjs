@@ -3,6 +3,7 @@
 // Requires: ELEVENLABS_API_KEY in .env or as environment variable
 // npm install dotenv
 
+import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -13,12 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // CONFIG
 // ============================================================
 
-const API_KEY = process.env.ELEVENLABS_API_KEY || 'ta_clé_ici';
-
-// Voice ID — choisis une voix japonaise sur ElevenLabs
-// Va sur https://elevenlabs.io/voice-library et cherche une voix japonaise
-// Copie son voice_id ici
-const VOICE_ID = 'ton_voice_id_ici';
+const API_KEY = process.env.ELEVENLABS_API_KEY;
+const VOICE_ID = '3JDquces8E8bkmvbh6Bc';
 
 // Model — utilise eleven_multilingual_v2 pour le japonais
 const MODEL_ID = 'eleven_multilingual_v2';
