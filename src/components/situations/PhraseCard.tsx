@@ -7,9 +7,10 @@ interface Props {
   phrase: Phrase
   index: number
   displayMode: DisplayMode
+  onListen?: () => void
 }
 
-export default function PhraseCard({ phrase, index, displayMode }: Props) {
+export default function PhraseCard({ phrase, index, displayMode, onListen }: Props) {
   const [playing, setPlaying] = useState(false)
   const ttsText = phrase.audioText ?? phrase.jp
   const tip = phrase.tip ?? phrase.note
@@ -22,6 +23,7 @@ export default function PhraseCard({ phrase, index, displayMode }: Props) {
         return
       }
       setPlaying(true)
+      onListen?.()
       const u = new SpeechSynthesisUtterance(ttsText)
       u.lang = 'ja-JP'
       u.rate = rate

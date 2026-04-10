@@ -654,3 +654,19 @@ html, body, #root {
 .pb-nav {
   padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
 }
+
+/* ==========================================
+   MASTERED BADGE — Gold glossy pill
+   ========================================== */
+.mastered-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5C3A00;
+  background: linear-gradient(to bottom, #FFD700 0%, #EABC00 40%, #D4A800 40%, #B8920A 100%);
+  border: 1px solid #9A7B00;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+  text-shadow: 0 1px 0 rgba(255,255,200,0.5);
+}

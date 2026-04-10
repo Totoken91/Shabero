@@ -7,6 +7,9 @@ import BottomNav from './components/BottomNav'
 // Situations
 import CategoryCard from './components/CategoryCard'
 import SituationDetail from './components/situations/SituationDetail'
+import StepListen from './components/situations/StepListen'
+import StepUnderstand from './components/situations/StepUnderstand'
+import StepSpeak from './components/situations/StepSpeak'
 import { scenarios } from './data/scenarios'
 
 // Entraînement
@@ -93,6 +96,9 @@ export default function App() {
           {/* Situations */}
           <Route path="/situations" element={<Shell><SituationsPage /></Shell>} />
           <Route path="/situations/:id" element={<DetailShell><SituationDetail /></DetailShell>} />
+          <Route path="/situations/:id/listen" element={<DetailShell><StepListen /></DetailShell>} />
+          <Route path="/situations/:id/understand" element={<DetailShell><StepUnderstand /></DetailShell>} />
+          <Route path="/situations/:id/speak" element={<DetailShell><StepSpeak /></DetailShell>} />
 
           {/* Entraînement */}
           <Route path="/entrainement" element={<Shell><QuizCategorySelect /></Shell>} />

@@ -13,6 +13,7 @@ import {
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
 import type { Scenario } from '../types'
+import { getCategoryProgress, getCategoryStepInfo } from '../lib/store'
 
 const ICONS: Record<string, ComponentType<IconProps>> = {
   konbini: Storefront,
@@ -78,9 +79,26 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
         {scenario.description}
       </span>
 
-      <div className="relative z-10 mt-auto">
-        <span className={`phrase-badge badge-${scenario.id}`}>{scenario.phrases.length} phrases</span>
-      </div>
+      {/* Step indicators + progress */}
+      {(() => {
+        const prog = getCategoryProgress(scenario.id)
+        const { pct } = getCategoryStepInfo(scenario.id)
+        return (
+          <div className="relative z-10 mt-auto w-full">
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className={`w-4 h-4 rounded-full text-[8px] font-bold flex items-center justify-center ${prog.step1Complete ? 'bg-emerald-500 text-white' : 'bg-[#D4E8F5] text-[var(--text-light)]'}`}>1</span>
+              <span className={`w-4 h-4 rounded-full text-[8px] font-bold flex items-center justify-center ${prog.step2Complete ? 'bg-emerald-500 text-white' : 'bg-[#D4E8F5] text-[var(--text-light)]'}`}>2</span>
+              <span className={`w-4 h-4 rounded-full text-[8px] font-bold flex items-center justify-center ${prog.step3Complete ? 'bg-emerald-500 text-white' : 'bg-[#D4E8F5] text-[var(--text-light)]'}`}>3</span>
+              {prog.stampEarned && <span className="mastered-badge ml-auto !text-[9px] !px-1.5 !py-0">★</span>}
+            </div>
+            {pct > 0 && (
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#D4E8F5', border: '1px solid #B0D0E5' }}>
+                <div className="h-full rounded-full" style={{ width: `${pct}%`, background: pct >= 100 ? '#D4A800' : '#34A853' }} />
+              </div>
+            )}
+          </div>
+        )
+      })()}
     </motion.button>
   )
 }
