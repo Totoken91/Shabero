@@ -59,7 +59,7 @@ export const scenarios: Scenario[] = [
       { id: 'navi-6', situation: 'Tu montres un lieu sur ton tel et demandes le chemin :', jp: 'ここに行きたいんですけど', hiragana: 'ここに いきたいんですけど', romaji: 'Koko ni ikitai n desu kedo', fr: 'Je veux aller ici.', audioText: 'ここに行きたいんですけど', tip: 'LA technique ultime : Google Maps + cette phrase = 100% de réussite.', who: 'you', difficulty: 1 },
       { id: 'navi-7', situation: 'Urgence toilettes :', jp: 'トイレはどこですか？', hiragana: 'トイレは どこですか？', romaji: 'Toire wa doko desu ka?', fr: 'Où sont les toilettes ?', audioText: 'トイレはどこですか', tip: 'Konbini, gares, centres co — y\'a des toilettes partout au Japon.', who: 'you', difficulty: 1 },
       { id: 'navi-8', situation: 'Tu veux donner une adresse au taxi :', jp: 'この住所までお願いします', hiragana: 'このじゅうしょまで おねがいします', romaji: 'Kono jūsho made onegai shimasu', fr: 'À cette adresse svp.', audioText: 'この住所までお願いします', tip: 'Montre l\'adresse sur ton tel. Les portes du taxi s\'ouvrent TOUTES SEULES.', who: 'you', difficulty: 1 },
-      { id: 'navi-9', situation: 'Google Maps bug :', jp: 'Googleマップが動かない', hiragana: 'グーグルマップが うごかない', romaji: 'Gūguru mappu ga ugokanai', fr: 'Google Maps marche pas.', audioText: 'グーグルマップが動かない', audioText: 'グーグルマップが動かない', tip: 'Télécharge les cartes offline AVANT de partir.', who: 'you', difficulty: 3 },
+      { id: 'navi-9', situation: 'Google Maps bug :', jp: 'Googleマップが動かない', hiragana: 'グーグルマップが うごかない', romaji: 'Gūguru mappu ga ugokanai', fr: 'Google Maps marche pas.', audioText: 'グーグルマップが動かない', tip: 'Télécharge les cartes offline AVANT de partir.', who: 'you', difficulty: 3 },
       { id: 'navi-10', situation: 'Tu veux savoir combien de temps ça prend :', jp: 'どのくらいかかりますか？', hiragana: 'どのくらい かかりますか？', romaji: 'Dono kurai kakarimasu ka?', fr: 'Ça prend combien de temps ?', audioText: 'どのくらいかかりますか', tip: '分 (fun) = minutes, 時間 (jikan) = heures. 30分 = 30 min.', who: 'you', difficulty: 1 },
     ],
   },
@@ -91,7 +91,7 @@ export const scenarios: Scenario[] = [
         id: 'konbini-6', situation: 'Tu ne veux pas de sac plastique :', jp: '袋いらないです', hiragana: 'ふくろいらないです', romaji: 'Fukuro iranai desu', fr: 'Pas besoin de sac', audioText: '袋いらないです', tip: 'Les sacs sont payants au Japon (3-5¥)', who: 'you', difficulty: 1,
       },
       {
-        id: 'konbini-7', situation: 'Tu veux payer avec ta carte transport :', jp: 'Suicaで', hiragana: 'スイカで', romaji: 'Suica de', fr: 'En Suica', audioText: 'スイカで', audioText: 'スイカで', tip: 'Juste "[moyen de paiement] + で" suffit. PayPayで, カードで...', who: 'you', difficulty: 1,
+        id: 'konbini-7', situation: 'Tu veux payer avec ta carte transport :', jp: 'Suicaで', hiragana: 'スイカで', romaji: 'Suica de', fr: 'En Suica', audioText: 'スイカで', tip: 'Juste "[moyen de paiement] + で" suffit. PayPayで, カードで...', who: 'you', difficulty: 1,
       },
       {
         id: 'konbini-8', situation: 'Tu ne veux pas de ticket de caisse :', jp: 'レシートいらないです', hiragana: 'レシートいらないです', romaji: 'Reshīto iranai desu', fr: 'Pas besoin du ticket', audioText: 'レシートいらないです', tip: 'Ils te le filent systématiquement sinon', who: 'you', difficulty: 2,
