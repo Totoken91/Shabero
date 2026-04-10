@@ -3,6 +3,9 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import AeroBackground from './components/AeroBackground'
 import ShineLogo from './components/ShineLogo'
 import BottomNav from './components/BottomNav'
+import EncouragementToast from './components/EncouragementToast'
+import Onboarding from './components/Onboarding'
+import { isOnboardingDone } from './lib/store'
 
 // Hub
 import Hub from './components/Hub'
@@ -18,11 +21,13 @@ import { scenarios } from './data/scenarios'
 
 // Entraînement
 import QuizCategorySelect from './components/quiz/QuizCategorySelect'
+import QuizCategoryList from './components/quiz/QuizCategoryList'
 import QuizModeSelect from './components/quiz/QuizModeSelect'
 import ListenMode from './components/quiz/ListenMode'
 import SpeakMode from './components/quiz/SpeakMode'
 import RepeatMode from './components/quiz/RepeatMode'
 import DailyReview from './components/quiz/DailyReview'
+import Marathon from './components/quiz/Marathon'
 
 // Kana
 import KanaHome from './components/kana/KanaHome'
@@ -56,7 +61,6 @@ function DetailShell({ children }: { children: React.ReactNode }) {
   )
 }
 
-
 function DicoPage() {
   const navigate = useNavigate()
   const [tab, setTab] = useState<'phrases' | 'panneaux'>('phrases')
@@ -81,14 +85,26 @@ function DicoPage() {
 }
 
 export default function App() {
+  const [onboarded, setOnboarded] = useState(isOnboardingDone)
+
+  if (!onboarded) {
+    return (
+      <>
+        <AeroBackground />
+        <Onboarding onComplete={() => setOnboarded(true)} />
+      </>
+    )
+  }
+
   return (
     <>
       <AeroBackground />
+      <EncouragementToast />
       <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Navigate to="/situations" replace />} />
 
-          {/* Situations — Hub as main page */}
+          {/* Situations — Hub */}
           <Route path="/situations" element={<Shell><Hub /></Shell>} />
           <Route path="/situations/:id" element={<DetailShell><SituationDetail /></DetailShell>} />
           <Route path="/situations/:id/listen" element={<DetailShell><StepListen /></DetailShell>} />
@@ -101,6 +117,8 @@ export default function App() {
           {/* Entraînement */}
           <Route path="/entrainement" element={<Shell><QuizCategorySelect /></Shell>} />
           <Route path="/entrainement/review" element={<DetailShell><DailyReview /></DetailShell>} />
+          <Route path="/entrainement/marathon" element={<DetailShell><Marathon /></DetailShell>} />
+          <Route path="/entrainement/categories" element={<DetailShell><QuizCategoryList /></DetailShell>} />
           <Route path="/entrainement/:scenarioId" element={<DetailShell><QuizModeSelect /></DetailShell>} />
           <Route path="/entrainement/:scenarioId/listen" element={<DetailShell><ListenMode /></DetailShell>} />
           <Route path="/entrainement/:scenarioId/speak" element={<DetailShell><SpeakMode /></DetailShell>} />
