@@ -1,3 +1,4 @@
+import { playCorrect, playWrong } from '../../lib/sounds'
 import { useState, useCallback, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -40,8 +41,8 @@ export default function StepUnderstand() {
     if (selected) return
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
-    if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id) }
-    else { if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
+    if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id); playCorrect() }
+    else { playWrong(); if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
 
   const handleNext = useCallback(() => { setSelected(null); setCurrent((c) => c + 1) }, [])

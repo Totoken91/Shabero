@@ -1,3 +1,4 @@
+import { playCorrect, playWrong } from '../../lib/sounds'
 import { useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -23,7 +24,7 @@ export default function SpeakMode() {
     if (selected !== null) return
     setSelected(idx)
     const correct = q.options[idx].jp === q.correctPhrase.jp
-    if (correct) setScore((s) => s + 1)
+    if (correct) { setScore((s) => s + 1); playCorrect() } else { playWrong() }
     recordAnswer(scenarioId!, q.correctPhrase.id ?? '', correct)
   }, [selected, q, scenarioId])
 

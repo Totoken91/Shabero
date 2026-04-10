@@ -1,3 +1,4 @@
+import { playCorrect, playWrong } from '../../lib/sounds'
 import { useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -82,7 +83,7 @@ export default function KanaExercise() {
     if (selected) return
     setSelected(opt)
     const correct = opt === questions[current].correct
-    if (!correct) setErrors((e) => e + 1)
+    if (correct) { playCorrect() } else { setErrors((e) => e + 1); playWrong() }
     speakJapanese(questions[current].kana.character, 0.7)
   }, [selected, current, questions])
 

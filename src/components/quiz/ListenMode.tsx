@@ -1,3 +1,4 @@
+import { playCorrect, playWrong } from '../../lib/sounds'
 import { useState, useCallback, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -31,9 +32,10 @@ export default function ListenMode() {
     if (selected) return
     setSelected(option)
     const correct = option === q.phrase.fr
-    if (correct) setScore((s) => s + 1)
+    if (correct) { setScore((s) => s + 1); playCorrect() }
     recordAnswer(scenarioId!, q.phrase.id ?? '', correct)
 
+    if (!correct) playWrong()
     // Replay audio on wrong answer
     if (!correct) {
       setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500)

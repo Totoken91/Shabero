@@ -1,3 +1,4 @@
+import { playCorrect, playWrong } from '../../lib/sounds'
 import { useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -7,6 +8,12 @@ import { speakJapanese } from '../../lib/audio'
 import { completeStep3, addWrongPhrase, removeWrongPhrase, getCategoryProgress } from '../../lib/store'
 import { celebrate } from '../../lib/celebrate'
 import type { Phrase } from '../../types'
+
+const STAMP_ICONS: Record<string, string> = {
+  konbini: '🍙', izakaya: '🍶', trains: '🚅', shopping: '🛍️', urgences: '🏥',
+  socialiser: '🤝', reactions: '💬', nightlife: '🌙', insultes: '🤬',
+  hotel: '🏨', navigation: '🗺️', politesse: '🙏', nombres: '🔢',
+}
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a
@@ -37,8 +44,8 @@ export default function StepSpeak() {
     if (selected !== null) return
     setSelected(idx)
     const isCorrect = q.options[idx].jp === q.correctPhrase.jp
-    if (isCorrect) { setCorrect((c) => c + 1); if (q.correctPhrase.id) removeWrongPhrase(q.correctPhrase.id) }
-    else { if (q.correctPhrase.id) addWrongPhrase(q.correctPhrase.id) }
+    if (isCorrect) { setCorrect((c) => c + 1); if (q.correctPhrase.id) removeWrongPhrase(q.correctPhrase.id); playCorrect() }
+    else { playWrong(); if (q.correctPhrase.id) addWrongPhrase(q.correctPhrase.id) }
   }, [selected, q])
 
   if (!scenario) return null
@@ -61,7 +68,12 @@ export default function StepSpeak() {
           <p className="relative z-10 text-[28px] font-[900] text-[var(--text)]">{score}%</p>
           <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">{correct}/{questions.length} bonnes réponses</p>
           {nowMastered && !wasMastered && (
-            <p className="relative z-10 text-[16px] font-[800] text-amber-600 mt-2">🎉 Catégorie maîtrisée ! Tampon gagné !</p>
+            <div className="relative z-10 mt-3">
+              <div className="stamp-impact inline-flex items-center justify-center w-20 h-20 rounded-full mx-auto stamp-glow" style={{ border: '4px solid #C0392B', background: 'rgba(192,57,43,0.08)' }}>
+                <span className="text-[40px]">{STAMP_ICONS[id!] ?? '🏅'}</span>
+              </div>
+              <p className="text-[16px] font-[800] text-amber-600 mt-2">Catégorie maîtrisée !</p>
+            </div>
           )}
           <p className="relative z-10 text-[13px] mt-2" style={{ color: passed ? '#34A853' : '#E53935' }}>
             {passed ? (nowMastered ? '' : 'Étape validée !') : 'Il faut 80% pour valider. Réécoute les phrases !'}

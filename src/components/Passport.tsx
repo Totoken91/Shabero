@@ -13,7 +13,11 @@ const STAMPS: Record<string, { icon: string; label: string }> = {
   socialiser: { icon: '🤝', label: 'Social' },
   reactions:  { icon: '💬', label: 'Réactions' },
   nightlife:  { icon: '🌙', label: 'Nightlife' },
-  insultes:   { icon: '💀', label: 'Insultes' },
+  insultes:   { icon: '🤬', label: 'Slang' },
+  hotel:      { icon: '🏨', label: 'Hôtel' },
+  navigation: { icon: '🗺️', label: 'Navigation' },
+  politesse:  { icon: '🙏', label: 'Politesse' },
+  nombres:    { icon: '🔢', label: 'Nombres' },
 }
 
 export default function Passport() {
