@@ -1,6 +1,10 @@
 // generate-audio.mjs
-// Usage: node generate-audio.mjs
-// Requires: ELEVENLABS_API_KEY in .env or as environment variable
+// Usage:
+//   node generate-audio.mjs              — génère tout (skip les existants)
+//   node generate-audio.mjs --regen      — supprime tout et régénère
+//   node generate-audio.mjs --regen react-1 react-3 night-1  — régénère seulement ceux-là
+//
+// Requires: ELEVENLABS_API_KEY in .env
 // npm install dotenv
 
 import 'dotenv/config';
@@ -16,21 +20,62 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const API_KEY = process.env.ELEVENLABS_API_KEY;
 const VOICE_ID = '3JDquces8E8bkmvbh6Bc';
-
-// Model — utilise eleven_multilingual_v2 pour le japonais
-const MODEL_ID = 'eleven_multilingual_v2';
-
-// Dossier de sortie
+const MODEL_ID = 'eleven_v3';
 const OUTPUT_DIR = path.join(__dirname, 'public', 'audio');
-
-// Délai entre chaque requête (ms) pour éviter le rate limiting
 const DELAY_MS = 500;
 
 // ============================================================
-// PHRASES — Toutes les phrases de Shabero
+// CLI ARGS
+// ============================================================
+
+const args = process.argv.slice(2);
+const regenMode = args[0] === '--regen';
+const regenIds = regenMode ? args.slice(1) : []; // empty = regen ALL
+const regenAll = regenMode && regenIds.length === 0;
+
+// ============================================================
+// PHRASES — 113 phrases de Shabero
+// audioText overrides text for TTS when the displayed text
+// contains placeholders, latin chars, or slashes
 // ============================================================
 
 const phrases = [
+  // === POLITESSE ===
+  { id: 'polite-1', text: 'ありがとうございます' },
+  { id: 'polite-2', text: 'すみません' },
+  { id: 'polite-3', text: '大丈夫です' },
+  { id: 'polite-4', text: 'いただきます' },
+  { id: 'polite-5', text: 'ごちそうさまでした' },
+  { id: 'polite-6', text: '失礼します' },
+  { id: 'polite-7', text: 'はい、お願いします' },
+  { id: 'polite-8', text: 'ちょっと、大丈夫です' },
+  { id: 'polite-9', text: 'お先に失礼します' },
+  { id: 'polite-10', text: '初めまして、よろしくお願いします' },
+
+  // === NOMBRES ===
+  { id: 'numbers-1', text: '一つください' },
+  { id: 'numbers-2', text: '二つください' },
+  { id: 'numbers-3', text: '一人です' },
+  { id: 'numbers-4', text: '二人です' },
+  { id: 'numbers-5', text: 'いくらですか？' },
+  { id: 'numbers-6', text: '一、二、三、四、五、六、七、八、九、十', audioText: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう' },
+  { id: 'numbers-7', text: '三つください' },
+  { id: 'numbers-8', text: '何時から何時までですか？' },
+  { id: 'numbers-9', text: '[X]円になります', audioText: '千三百円になります' },
+  { id: 'numbers-10', text: 'カードで大丈夫ですか？' },
+
+  // === SE REPÉRER ===
+  { id: 'navi-1', text: 'すみません、ここはどこですか？' },
+  { id: 'navi-2', text: 'この辺にコンビニありますか？' },
+  { id: 'navi-3', text: '歩いて行けますか？' },
+  { id: 'navi-4', text: 'まっすぐ行って、右に曲がってください' },
+  { id: 'navi-5', text: 'ごめんなさい、もう一回お願いします' },
+  { id: 'navi-6', text: 'ここに行きたいんですけど' },
+  { id: 'navi-7', text: 'トイレはどこですか？' },
+  { id: 'navi-8', text: 'この住所までお願いします' },
+  { id: 'navi-9', text: 'グーグルマップが動かない' },
+  { id: 'navi-10', text: 'どのくらいかかりますか？' },
+
   // === KONBINI ===
   { id: 'konbini-1', text: 'ポイントカードはありますか？' },
   { id: 'konbini-2', text: 'あ、大丈夫っす' },
@@ -73,6 +118,18 @@ const phrases = [
   { id: 'shopping-7', text: 'これにする' },
   { id: 'shopping-8', text: '見てるだけです' },
 
+  // === HÔTEL ===
+  { id: 'hotel-1', text: 'チェックインお願いします' },
+  { id: 'hotel-2', text: '荷物預かってもらえますか？' },
+  { id: 'hotel-3', text: 'ワイファイのパスワードは何ですか？' },
+  { id: 'hotel-4', text: 'エアコンの使い方がわからないんですけど' },
+  { id: 'hotel-5', text: 'チェックアウトは何時ですか？' },
+  { id: 'hotel-6', text: 'すみません、部屋のシャワーが壊れているんですけど' },
+  { id: 'hotel-7', text: 'タオルもう一枚もらえますか？' },
+  { id: 'hotel-8', text: 'もう一泊延長できますか？' },
+  { id: 'hotel-9', text: 'パスポートを見せていただけますか？' },
+  { id: 'hotel-10', text: 'お世話になりました' },
+
   // === URGENCES ===
   { id: 'urgences-1', text: '助けてください' },
   { id: 'urgences-2', text: '警察呼んでください' },
@@ -90,7 +147,7 @@ const phrases = [
   { id: 'social-5', text: 'いやいや、全然だよ' },
   { id: 'social-6', text: '仕事何' },
   { id: 'social-7', text: '趣味とかある' },
-  { id: 'social-8', text: 'LINE交換しよ' },
+  { id: 'social-8', text: 'ライン交換しよ' },
   { id: 'social-9', text: 'また遊ぼう' },
   { id: 'social-10', text: 'めっちゃ楽しかった。ありがとね' },
 
@@ -135,54 +192,6 @@ const phrases = [
   { id: 'insult-12', text: 'くそやろう' },
   { id: 'insult-13', text: 'ちくしょう' },
   { id: 'insult-14', text: 'なめんなよ' },
-
-  // === HÔTEL (NOUVEAU) ===
-  { id: 'hotel-1', text: 'チェックインお願いします' },
-  { id: 'hotel-2', text: '荷物預かってもらえますか？' },
-  { id: 'hotel-3', text: 'Wi-Fiのパスワードは何ですか？' },
-  { id: 'hotel-4', text: 'エアコンの使い方がわからないんですけど' },
-  { id: 'hotel-5', text: 'チェックアウトは何時ですか？' },
-  { id: 'hotel-6', text: 'すみません、部屋のシャワーが壊れているんですけど' },
-  { id: 'hotel-7', text: 'タオルもう一枚もらえますか？' },
-  { id: 'hotel-8', text: 'もう一泊延長できますか？' },
-  { id: 'hotel-9', text: 'パスポートを見せていただけますか？' },
-  { id: 'hotel-10', text: 'お世話になりました' },
-
-  // === SE REPÉRER (NOUVEAU) ===
-  { id: 'navi-1', text: 'すみません、ここはどこですか？' },
-  { id: 'navi-2', text: 'この辺にコンビニありますか？' },
-  { id: 'navi-3', text: '歩いて行けますか？' },
-  { id: 'navi-4', text: 'まっすぐ行って、右に曲がってください' },
-  { id: 'navi-5', text: 'ごめんなさい、もう一回お願いします' },
-  { id: 'navi-6', text: 'ここに行きたいんですけど' },
-  { id: 'navi-7', text: 'トイレはどこですか？' },
-  { id: 'navi-8', text: 'この住所までお願いします' },
-  { id: 'navi-9', text: 'Googleマップが動かない' },
-  { id: 'navi-10', text: 'どのくらいかかりますか？' },
-
-  // === POLITESSE (NOUVEAU) ===
-  { id: 'polite-1', text: 'ありがとうございます' },
-  { id: 'polite-2', text: 'すみません' },
-  { id: 'polite-3', text: '大丈夫です' },
-  { id: 'polite-4', text: 'いただきます' },
-  { id: 'polite-5', text: 'ごちそうさまでした' },
-  { id: 'polite-6', text: '失礼します' },
-  { id: 'polite-7', text: 'はい、お願いします' },
-  { id: 'polite-8', text: 'ちょっと…大丈夫です' },
-  { id: 'polite-9', text: 'お先に失礼します' },
-  { id: 'polite-10', text: '初めまして、よろしくお願いします' },
-
-  // === NOMBRES (NOUVEAU) ===
-  { id: 'numbers-1', text: '一つください' },
-  { id: 'numbers-2', text: '二つください' },
-  { id: 'numbers-3', text: '一人です' },
-  { id: 'numbers-4', text: '二人です' },
-  { id: 'numbers-5', text: 'いくらですか？' },
-  { id: 'numbers-6', text: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう' },
-  { id: 'numbers-7', text: '三つください' },
-  { id: 'numbers-8', text: '何時から何時までですか？' },
-  { id: 'numbers-9', text: '千三百円になります' },
-  { id: 'numbers-10', text: 'カードで大丈夫ですか？' },
 ];
 
 // ============================================================
@@ -191,7 +200,7 @@ const phrases = [
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function generateAudio(phrase) {
+async function generateAudio(textToSend) {
   const response = await fetch(
     `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`,
     {
@@ -201,12 +210,12 @@ async function generateAudio(phrase) {
         'xi-api-key': API_KEY,
       },
       body: JSON.stringify({
-        text: phrase.text,
+        text: textToSend,
         model_id: MODEL_ID,
         voice_settings: {
-          stability: 0.6,        // Un peu de variation naturelle
-          similarity_boost: 0.8,  // Fidèle à la voix choisie
-          style: 0.3,            // Léger style conversationnel
+          stability: 0.75,
+          similarity_boost: 0.85,
+          style: 0.0,
           use_speaker_boost: true,
         },
       }),
@@ -215,46 +224,71 @@ async function generateAudio(phrase) {
 
   if (!response.ok) {
     const error = await response.text();
-    throw new Error(`Erreur API pour ${phrase.id}: ${response.status} — ${error}`);
+    throw new Error(`${response.status} — ${error}`);
   }
 
-  const buffer = await response.arrayBuffer();
-  return Buffer.from(buffer);
+  return Buffer.from(await response.arrayBuffer());
 }
 
 async function main() {
-  // Créer le dossier de sortie
+  if (!API_KEY) {
+    console.error('❌ ELEVENLABS_API_KEY manquante. Crée un fichier .env avec ta clé.');
+    process.exit(1);
+  }
+
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
-  console.log(`\n🎙️  Génération de ${phrases.length} fichiers audio\n`);
-  console.log(`📁 Sortie : ${OUTPUT_DIR}`);
-  console.log(`🔊 Voice ID : ${VOICE_ID}`);
-  console.log(`⏱️  Délai entre requêtes : ${DELAY_MS}ms\n`);
+  // Filter phrases based on mode
+  let toProcess = phrases;
+  if (regenMode && !regenAll) {
+    toProcess = phrases.filter(p => regenIds.includes(p.id));
+    console.log(`\n🔄 Mode --regen : ${toProcess.length} phrase(s) à régénérer\n`);
+  } else if (regenAll) {
+    console.log(`\n🔄 Mode --regen ALL : suppression de tous les MP3...\n`);
+    const existing = fs.readdirSync(OUTPUT_DIR).filter(f => f.endsWith('.mp3'));
+    existing.forEach(f => fs.unlinkSync(path.join(OUTPUT_DIR, f)));
+  }
+
+  console.log(`🎙️  ${toProcess.length} fichiers audio à traiter`);
+  console.log(`📁 ${OUTPUT_DIR}`);
+  console.log(`🔊 Voice: ${VOICE_ID} | Model: ${MODEL_ID}\n`);
   console.log('─'.repeat(50));
 
   let success = 0;
+  let skipped = 0;
   let errors = 0;
   const startTime = Date.now();
 
-  for (let i = 0; i < phrases.length; i++) {
-    const phrase = phrases[i];
+  for (let i = 0; i < toProcess.length; i++) {
+    const phrase = toProcess[i];
     const outputPath = path.join(OUTPUT_DIR, `${phrase.id}.mp3`);
 
-    // Skip si le fichier existe déjà
-    if (fs.existsSync(outputPath)) {
-      console.log(`⏭️  [${i + 1}/${phrases.length}] ${phrase.id} — déjà généré, skip`);
-      success++;
+    // In regen mode for specific IDs, delete existing first
+    if (regenMode && fs.existsSync(outputPath)) {
+      fs.unlinkSync(outputPath);
+    }
+
+    // Skip if exists (normal mode)
+    if (!regenMode && fs.existsSync(outputPath)) {
+      skipped++;
       continue;
     }
 
+    // Prepare text for TTS
+    let textToSend = phrase.audioText || phrase.text;
+    // Add Japanese period to short phrases to help language detection
+    if (textToSend.length < 8) {
+      textToSend = textToSend + '。';
+    }
+
     try {
-      process.stdout.write(`🎧 [${i + 1}/${phrases.length}] ${phrase.id} — "${phrase.text.substring(0, 25)}..." `);
-      
-      const audioBuffer = await generateAudio(phrase);
+      process.stdout.write(`🎧 [${i + 1}/${toProcess.length}] ${phrase.id} — "${textToSend.substring(0, 30)}" `);
+
+      const audioBuffer = await generateAudio(textToSend);
       fs.writeFileSync(outputPath, audioBuffer);
-      
+
       const sizeKB = (audioBuffer.length / 1024).toFixed(1);
       console.log(`✅ (${sizeKB} KB)`);
       success++;
@@ -263,8 +297,7 @@ async function main() {
       errors++;
     }
 
-    // Attendre entre les requêtes
-    if (i < phrases.length - 1) {
+    if (i < toProcess.length - 1) {
       await sleep(DELAY_MS);
     }
   }
@@ -273,12 +306,13 @@ async function main() {
 
   console.log('\n' + '─'.repeat(50));
   console.log(`\n✨ Terminé en ${elapsed}s`);
-  console.log(`   ✅ ${success} fichiers générés`);
-  console.log(`   ❌ ${errors} erreurs`);
+  console.log(`   ✅ ${success} générés`);
+  if (skipped > 0) console.log(`   ⏭️  ${skipped} skippés (déjà existants)`);
+  if (errors > 0) console.log(`   ❌ ${errors} erreurs`);
   console.log(`   📁 ${OUTPUT_DIR}\n`);
 
   if (errors > 0) {
-    console.log('💡 Relance le script pour régénérer les fichiers manquants (les existants seront skippés).\n');
+    console.log('💡 Relance avec --regen [ids] pour régénérer les fichiers en erreur.\n');
   }
 }
 
