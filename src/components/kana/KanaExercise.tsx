@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
@@ -60,13 +60,14 @@ export default function KanaExercise() {
   const navigate = useNavigate()
 
   const groups = type === 'katakana' ? katakanaGroups : hiraganaGroups
-  const allKana = groups.flatMap((g) => g.kana)
   const group = groups.find((g) => g.id === Number(groupId))
 
-  const questions = useMemo(
-    () => (group ? generateQuestions(group.kana, allKana) : []),
-    [group, allKana]
-  )
+  // Generate questions ONCE on mount — stable reference
+  const [questions] = useState(() => {
+    if (!group) return []
+    const allKana = groups.flatMap((g) => g.kana)
+    return generateQuestions(group.kana, allKana)
+  })
 
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
