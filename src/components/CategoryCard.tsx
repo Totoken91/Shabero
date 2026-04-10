@@ -9,6 +9,10 @@ import {
   Smiley,
   MoonStars,
   Skull,
+  Buildings,
+  MapTrifold,
+  HandsPraying,
+  Hash,
 } from '@phosphor-icons/react'
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
@@ -25,6 +29,10 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   reactions: Smiley,
   nightlife: MoonStars,
   insultes: Skull,
+  hotel: Buildings,
+  navigation: MapTrifold,
+  politesse: HandsPraying,
+  nombres: Hash,
 }
 
 // Aqua-style gradient: light top → main → dark bottom + border
@@ -38,6 +46,10 @@ const ICON_STYLES: Record<string, { bg: string; border: string }> = {
   reactions:  { bg: 'linear-gradient(to bottom, #81C784 0%, #66BB6A 45%, #43A047 100%)', border: '#2E7D32' },
   nightlife:  { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },
   insultes:   { bg: 'linear-gradient(to bottom, #78909C 0%, #546E7A 45%, #37474F 100%)', border: '#263238' },
+  hotel:      { bg: 'linear-gradient(to bottom, #5C6BC0 0%, #3F51B5 45%, #283593 100%)', border: '#1A237E' },
+  navigation: { bg: 'linear-gradient(to bottom, #4DD0E1 0%, #00ACC1 45%, #00838F 100%)', border: '#006064' },
+  politesse:  { bg: 'linear-gradient(to bottom, #FFD54F 0%, #FFC107 45%, #FFA000 100%)', border: '#E65100' },
+  nombres:    { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },
 }
 
 interface CategoryCardProps {
