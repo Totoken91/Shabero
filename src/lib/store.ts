@@ -185,8 +185,12 @@ export function getStreak() {
   const today = new Date().toISOString().split('T')[0]
   const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
 
-  // If last active was before yesterday, streak is broken
+  // If last active was before yesterday, streak is broken — reset stored value
   if (d.streak.lastActiveDate !== today && d.streak.lastActiveDate !== yesterday) {
+    if (d.streak.current !== 0) {
+      d.streak.current = 0
+      save(d)
+    }
     return { current: 0, longest: d.streak.longest }
   }
   return { current: d.streak.current, longest: d.streak.longest }

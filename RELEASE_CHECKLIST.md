@@ -34,10 +34,8 @@
 
 ## ℹ️ Mineur (pas urgent)
 
-- [ ] **Streak storage inconsistency**
-  - `getStreak()` retourne `current: 0` si streak cassé, mais la valeur stockée reste à l'ancienne
-  - Pas visible pour l'user, mais à nettoyer si on ajoute un "streak repair" plus tard
-  - Fix : dans `recordActivity()`, reset `d.streak.current = 0` si la date n'est pas hier
+- [x] **Streak storage inconsistency**
+  - `getStreak()` reset maintenant `d.streak.current = 0` en storage si le streak est cassé
 
 ---
 
