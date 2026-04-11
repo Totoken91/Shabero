@@ -17,22 +17,14 @@
 
 ## ⚠️ Importants (rétention et UX)
 
-- [ ] **Fix Math.random() dans Passport** (`src/components/Passport.tsx:70`)
-  - Problème : rotation recalculée à chaque render → tampons qui "bougent"
-  - Fix : dériver la rotation depuis le `s.id` (hash stable) plutôt que Math.random()
-  ```ts
-  // Avant
-  transform: `rotate(${(Math.random() * 10 - 5).toFixed(1)}deg)`
-  // Après — ex: hash du id pour une rotation stable
-  const rot = (s.id.charCodeAt(0) % 11) - 5
-  transform: `rotate(${rot}deg)`
-  ```
+- [x] **Fix Math.random() dans Passport** (`src/components/Passport.tsx:70`)
+  - Rotation dérivée des charCodes du `s.id` → stable entre les renders
 
-- [ ] **Notifications locales pour le streak**
-  - Package : `@capacitor/local-notifications`
-  - Programmer une notif quotidienne au moment de l'onboarding
-  - Exemple : "Ton streak t'attend 🔥 — 5 min suffisent aujourd'hui"
-  - Annuler / reprogrammer quand l'user est actif ce jour-là
+- [x] **Notifications locales pour le streak**
+  - `@capacitor/local-notifications` installé et synced
+  - `src/lib/notifications.ts` : permission + schedule/cancel
+  - Demande de permission au dernier écran de l'onboarding
+  - Replanifie pour demain 19h à chaque `recordActivity()` dans le store
 
 - [ ] **Prompt de review in-app**
   - Package : `@capacitor-community/in-app-review`

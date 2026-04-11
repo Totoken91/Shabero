@@ -1,4 +1,5 @@
 import { schedulePush } from './sync'
+import { scheduleStreakReminder } from './notifications'
 
 const KEY = 'shabero-user'
 
@@ -163,6 +164,7 @@ function recordActivity() {
   }
   d.streak.lastActiveDate = today
   save(d)
+  scheduleStreakReminder() // replanifie pour demain 19h
 }
 
 export function getStreak() {

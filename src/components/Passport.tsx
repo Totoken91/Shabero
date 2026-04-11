@@ -67,7 +67,7 @@ export default function Passport() {
             >
               {/* Stamp circle */}
               <div className={`stamp-circle mx-auto ${prog.stampEarned ? 'stamp-circle--earned' : 'stamp-circle--empty'}`}
-                style={prog.stampEarned ? { transform: `rotate(${(Math.random() * 10 - 5).toFixed(1)}deg)` } : {}}>
+                style={prog.stampEarned ? { transform: `rotate(${((s.id.charCodeAt(0) + s.id.charCodeAt(s.id.length - 1)) % 11) - 5}deg)` } : {}}>
                 {prog.stampEarned ? (
                   <span className="text-[28px]">{stamp.icon}</span>
                 ) : (

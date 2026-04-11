@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Airplane, Calendar, Cloud } from '@phosphor-icons/react'
 import { completeOnboarding } from '../lib/store'
+import { requestNotificationPermission, scheduleStreakReminder } from '../lib/notifications'
 
 const MODES = [
   { id: 'intensive' as const, icon: Airplane, label: 'Dans moins de 2 semaines', desc: 'Mode intensif — 10 phrases/jour', color: '#E53935' },
@@ -74,7 +75,14 @@ export default function Onboarding({ onComplete }: Props) {
               ))}
             </div>
 
-            <button onClick={onComplete} className="phrase-badge !text-[14px] !px-6 !py-3 !rounded-lg cursor-pointer mt-6 mx-auto block">
+            <button
+              onClick={async () => {
+                await requestNotificationPermission()
+                await scheduleStreakReminder()
+                onComplete()
+              }}
+              className="phrase-badge !text-[14px] !px-6 !py-3 !rounded-lg cursor-pointer mt-6 mx-auto block"
+            >
               Commencer
             </button>
           </motion.div>
