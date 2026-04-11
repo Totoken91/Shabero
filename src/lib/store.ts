@@ -1,5 +1,6 @@
 import { schedulePush } from './sync'
 import { scheduleStreakReminder } from './notifications'
+import { Capacitor } from '@capacitor/core'
 
 const KEY = 'shabero-user'
 
@@ -115,16 +116,28 @@ export function completeStep2(categoryId: string, score: number) {
 }
 
 export function completeStep3(categoryId: string, score: number) {
+  let justEarnedFirstStamp = false
+
   updateCategory(categoryId, (c) => {
     c.step3Score = Math.max(c.step3Score, score)
     if (score >= 80) c.step3Complete = true
     if (c.step1Complete && c.step2Complete && c.step3Complete && !c.stampEarned) {
       c.stampEarned = true
       c.stampDate = new Date().toISOString().split('T')[0]
+      // First stamp ever?
+      const d = load()
+      const totalStamps = Object.values(d.categories).filter((cat) => cat.stampEarned).length
+      if (totalStamps === 0) justEarnedFirstStamp = true
     }
   })
   recordQuizComplete()
   recordActivity()
+
+  if (justEarnedFirstStamp && Capacitor.isNativePlatform()) {
+    import('@capacitor-community/in-app-review').then(({ InAppReview }) => {
+      InAppReview.requestReview()
+    })
+  }
 }
 
 export function getCategoryStepInfo(id: string): { current: 1 | 2 | 3; pct: number } {

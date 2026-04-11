@@ -26,10 +26,9 @@
   - Demande de permission au dernier écran de l'onboarding
   - Replanifie pour demain 19h à chaque `recordActivity()` dans le store
 
-- [ ] **Prompt de review in-app**
-  - Package : `@capacitor-community/in-app-review`
-  - Déclencheur idéal : premier tampon gagné
-  - Fichier concerné : `src/lib/store.ts` → `completeStep3()` quand `stampEarned` passe à true
+- [x] **Prompt de review in-app**
+  - `@capacitor-community/in-app-review` installé et synced
+  - Déclenché dans `completeStep3()` lors du tout premier tampon gagné (dynamic import)
 
 ---
 
