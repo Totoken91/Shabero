@@ -4,6 +4,7 @@ import { Lightning, ArrowRight, Stamp, Headphones } from '@phosphor-icons/react'
 import { scenarios } from '../data/scenarios'
 import { getStreak, getGlobalProgress, getUserData, isReviewDoneToday, getCategoryStepInfo, getCategoryProgress, getWrongPhrases } from '../lib/store'
 import CategoryCard from './CategoryCard'
+import TipOfTheDay from './TipOfTheDay'
 
 type HubState = 'fresh' | 'listened' | 'quizzed'
 
@@ -215,6 +216,9 @@ export default function Hub() {
         <Stamp size={18} weight="bold" className="relative z-10 text-[var(--text)]" />
         <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Mon Passeport</span>
       </motion.button>
+
+      {/* Tip of the day */}
+      <TipOfTheDay />
 
       {/* Category grid */}
       <p className="text-[12px] font-bold text-white text-center mt-2" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}>
