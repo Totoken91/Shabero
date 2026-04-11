@@ -421,6 +421,7 @@ html, body, #root {
 .header-aero {
   background: linear-gradient(to bottom, #2B7BC0 0%, #4A9ADB 30%, #5AADEA 60%, #7CC3F0 100%);
   padding: 32px 20px 28px;
+  padding-top: calc(32px + env(safe-area-inset-top, 0px));
   text-align: center;
   position: relative;
   border-bottom: 1px solid rgba(0,80,140,0.3);
@@ -551,7 +552,7 @@ html, body, #root {
    MOBILE COMPACT
    ========================================== */
 @media (max-width: 768px) {
-  .header-aero { padding: 18px 16px 14px; }
+  .header-aero { padding: 18px 16px 14px; padding-top: calc(18px + env(safe-area-inset-top, 0px)); }
   .header-aero h1 { font-size: 2rem !important; }
   .header-aero p { font-size: 0.85rem; margin-top: 4px; }
   .header-ornament { margin-top: 10px; width: 140px; }

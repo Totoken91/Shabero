@@ -1,3 +1,5 @@
+import { schedulePush } from './sync'
+
 const KEY = 'shabero-user'
 
 export interface CategoryProgress {
@@ -67,6 +69,7 @@ function load(): ShaberoUserData {
 
 function save(d: ShaberoUserData) {
   localStorage.setItem(KEY, JSON.stringify(d))
+  schedulePush()
 }
 
 export function getUserData(): ShaberoUserData {

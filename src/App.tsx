@@ -5,7 +5,9 @@ import ShineLogo from './components/ShineLogo'
 import BottomNav from './components/BottomNav'
 import EncouragementToast from './components/EncouragementToast'
 import Onboarding from './components/Onboarding'
+import AuthScreen from './components/AuthScreen'
 import { isOnboardingDone } from './lib/store'
+import { useAuth } from './lib/auth'
 
 // Hub
 import Hub from './components/Hub'
@@ -55,7 +57,12 @@ function Shell({ children }: { children: React.ReactNode }) {
 function DetailShell({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="max-w-lg mx-auto px-4 py-4 pb-nav">{children}</div>
+      <div
+        className="max-w-lg mx-auto px-4 pb-nav"
+        style={{ paddingTop: 'calc(16px + env(safe-area-inset-top, 0px))' }}
+      >
+        {children}
+      </div>
       <BottomNav />
     </>
   )
@@ -85,7 +92,24 @@ function DicoPage() {
 }
 
 export default function App() {
+  const { user, loading } = useAuth()
   const [onboarded, setOnboarded] = useState(isOnboardingDone)
+
+
+  if (loading) {
+    return (
+      <>
+        <AeroBackground />
+        <div className="min-h-dvh flex items-center justify-center">
+          <span className="text-[32px]">✈️</span>
+        </div>
+      </>
+    )
+  }
+
+  if (!user) {
+    return <AuthScreen />
+  }
 
   if (!onboarded) {
     return (

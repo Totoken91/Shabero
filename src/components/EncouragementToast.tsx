@@ -25,7 +25,8 @@ export default function EncouragementToast() {
     <AnimatePresence>
       {message && (
         <motion.div
-          className="fixed top-4 left-4 right-4 z-[100] flex justify-center"
+          className="fixed left-4 right-4 z-[100] flex justify-center"
+          style={{ top: 'calc(16px + env(safe-area-inset-top, 0px))' }}
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
