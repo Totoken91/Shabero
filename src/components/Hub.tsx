@@ -1,23 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Lightning, ArrowRight, Stamp, Headphones } from '@phosphor-icons/react'
+import { ArrowRight, Stamp } from '@phosphor-icons/react'
 import { scenarios } from '../data/scenarios'
-import { getStreak, getGlobalProgress, getUserData, isReviewDoneToday, getCategoryStepInfo, getCategoryProgress, getWrongPhrases } from '../lib/store'
+import { getStreak, getGlobalProgress, getCategoryStepInfo } from '../lib/store'
 import CategoryCard from './CategoryCard'
 import TipOfTheDay from './TipOfTheDay'
+import DailyObjective from './DailyObjective'
 
-type HubState = 'fresh' | 'listened' | 'quizzed'
+type HubState = 'fresh' | 'started'
 
 function getHubState(): HubState {
-  const data = getUserData()
-  const cats = Object.values(data.categories)
-  const anyStep1 = cats.some((c) => c.step1Complete)
-  const anyQuiz = cats.some((c) => c.step2Complete || c.step2Score > 0 || c.step3Score > 0)
-  const hasWrong = getWrongPhrases().length > 0
-
-  if (!anyStep1) return 'fresh'
-  if (!anyQuiz && !hasWrong) return 'listened'
-  return 'quizzed'
+  return getGlobalProgress(scenarios.length) > 0 ? 'started' : 'fresh'
 }
 
 function StreakDisplay() {
@@ -71,88 +64,6 @@ function GlobalGauge() {
   )
 }
 
-function StartCTA() {
-  const navigate = useNavigate()
-
-  return (
-    <motion.button
-      onClick={() => navigate('/situations/politesse/listen')}
-      className="aero-card cursor-pointer p-5 flex items-center gap-4 text-left w-full"
-      style={{ borderColor: '#E67300', borderWidth: 2 }}
-      whileHover={{ y: -3, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <div className="icon-aqua shrink-0" style={{ background: 'linear-gradient(to bottom, #FFD54F 0%, #FFC107 40%, #FFA000 40%, #FF8F00 100%)', borderColor: '#E65100' }}>
-        <Headphones size={22} weight="bold" className="text-white relative z-10" />
-      </div>
-      <div className="relative z-10 flex-1">
-        <span className="font-bold text-[16px] text-[var(--text)] block">Commence par la Politesse</span>
-        <span className="text-[12px] text-[var(--text-light)]">Les 10 phrases que tu diras 100 fois par jour</span>
-      </div>
-      <motion.div
-        className="relative z-10"
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <ArrowRight size={20} weight="bold" className="text-[#E67300]" />
-      </motion.div>
-    </motion.button>
-  )
-}
-
-function FirstQuizCTA() {
-  const navigate = useNavigate()
-
-  // Find the first category with step1 complete
-  const cat = scenarios.find((s) => getCategoryProgress(s.id).step1Complete)
-  if (!cat) return null
-
-  return (
-    <motion.button
-      onClick={() => navigate(`/situations/${cat.id}/understand`)}
-      className="aero-card cursor-pointer p-4 flex items-center gap-3 text-left w-full"
-      style={{ borderColor: '#D4A800', borderWidth: 2 }}
-      whileHover={{ y: -2, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <div className="icon-aqua shrink-0" style={{ background: 'linear-gradient(to bottom, #FFD54F 0%, #FFB300 40%, #FFA000 40%, #FF8F00 100%)', borderColor: '#E65100' }}>
-        <Lightning size={22} weight="bold" className="text-white relative z-10" />
-      </div>
-      <div className="relative z-10 flex-1">
-        <span className="font-bold text-[14px] text-[var(--text)] block">Teste-toi sur {cat.name}</span>
-        <span className="text-[11px] text-[var(--text-light)]">Vérifie que tu as bien retenu</span>
-      </div>
-      <ArrowRight size={18} weight="bold" className="relative z-10 text-[var(--text-light)]" />
-    </motion.button>
-  )
-}
-
-function DailyReview() {
-  const navigate = useNavigate()
-  const done = isReviewDoneToday()
-  const data = getUserData()
-  const reviewCount = data.travelMode === 'intensive' ? 10 : data.travelMode === 'zen' ? 3 : 5
-
-  return (
-    <motion.button
-      onClick={() => !done && navigate('/entrainement/review')}
-      className={`aero-card cursor-pointer p-4 flex items-center gap-3 text-left w-full ${done ? 'opacity-60' : ''}`}
-      whileHover={done ? {} : { y: -2, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
-      whileTap={done ? {} : { scale: 0.98 }}
-      style={!done ? { borderColor: '#D4A800', borderWidth: 2 } : {}}
-    >
-      <div className="icon-aqua shrink-0" style={{ background: done ? 'linear-gradient(to bottom, #90A4AE 0%, #607D8B 40%, #546E7A 40%, #37474F 100%)' : 'linear-gradient(to bottom, #FFD54F 0%, #FFB300 40%, #FFA000 40%, #FF8F00 100%)', borderColor: done ? '#37474F' : '#E65100' }}>
-        <Lightning size={22} weight="bold" className="text-white relative z-10" />
-      </div>
-      <div className="relative z-10 flex-1">
-        <span className="font-bold text-[14px] text-[var(--text)] block">{done ? 'Révision faite !' : 'Révision du jour'}</span>
-        <span className="text-[11px] text-[var(--text-light)]">{done ? 'Reviens demain' : `${reviewCount} phrases à revoir`}</span>
-      </div>
-      {!done && <ArrowRight size={18} weight="bold" className="relative z-10 text-[var(--text-light)]" />}
-    </motion.button>
-  )
-}
-
 function ContinueCard() {
   const navigate = useNavigate()
 
@@ -198,10 +109,8 @@ export default function Hub() {
         <GlobalGauge />
       </div>
 
-      {/* Contextual main CTA */}
-      {state === 'fresh' && <StartCTA />}
-      {state === 'listened' && <FirstQuizCTA />}
-      {state === 'quizzed' && <DailyReview />}
+      {/* Daily objective */}
+      <DailyObjective />
 
       {/* Continue */}
       {state !== 'fresh' && <ContinueCard />}

@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh, ArrowRight } from '@phosphor-icons/react'
 import { generateRepeatDrill } from '../../lib/quizGenerator'
 import { speakJapanese } from '../../lib/audio'
+import { completeSession } from '../../lib/store'
 import type { RepeatQuestion } from '../../lib/quizGenerator'
 
 export default function RepeatMode() {
@@ -16,6 +17,14 @@ export default function RepeatMode() {
 
   const isLast = current >= questions.length
   const q = questions[current]
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (isLast && !tracked.current) {
+      tracked.current = true
+      completeSession('quick_quiz')
+    }
+  }, [isLast])
 
   if (isLast) {
     return (

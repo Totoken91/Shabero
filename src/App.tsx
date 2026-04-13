@@ -4,6 +4,7 @@ import AeroBackground from './components/AeroBackground'
 import ShineLogo from './components/ShineLogo'
 import BottomNav from './components/BottomNav'
 import EncouragementToast from './components/EncouragementToast'
+import StreakAnimation from './components/StreakAnimation'
 import Onboarding from './components/Onboarding'
 import AuthScreen from './components/AuthScreen'
 import { isOnboardingDone } from './lib/store'
@@ -124,6 +125,7 @@ export default function App() {
     <>
       <AeroBackground />
       <EncouragementToast />
+      <StreakAnimation />
       <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Navigate to="/situations" replace />} />

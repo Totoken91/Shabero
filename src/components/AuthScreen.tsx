@@ -30,7 +30,6 @@ export default function AuthScreen() {
       } else if (mode === 'signup') {
         const { error } = await supabase.auth.signUp({ email, password })
         if (error) setError(getErrorMessage(error.message))
-        else setSuccess('Vérifie ta boîte mail pour confirmer ton compte !')
       } else if (mode === 'forgot') {
         const { error } = await supabase.auth.resetPasswordForEmail(email)
         if (error) setError(getErrorMessage(error.message))

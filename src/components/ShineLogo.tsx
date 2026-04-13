@@ -28,58 +28,73 @@ export default function ShineLogo() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      {/* Bouton settings */}
-      <div
-        className="absolute right-4 z-20"
-        style={{ top: 'calc(50% + env(safe-area-inset-top, 0px) / 2)' }}
+      {/* Bouton settings — 44px tap target minimum */}
+      <button
+        onClick={() => { setMenuOpen(!menuOpen); setConfirmDelete(false); setDeleteError(null) }}
+        className="absolute right-3 z-20 flex items-center justify-center bg-transparent border-none cursor-pointer"
+        style={{
+          top: 'calc(50% + env(safe-area-inset-top, 0px) / 2)',
+          transform: 'translateY(-50%)',
+          width: 44,
+          height: 44,
+          color: 'white',
+        }}
+        title="Paramètres"
       >
-        <button
-          onClick={() => { setMenuOpen(!menuOpen); setConfirmDelete(false); setDeleteError(null) }}
-          className="flex items-center bg-transparent border-none cursor-pointer opacity-60 hover:opacity-100 transition-opacity p-1"
-          style={{ color: 'white' }}
-          title="Paramètres"
-        >
-          <Gear size={18} weight="bold" />
-        </button>
+        <Gear size={22} weight="bold" style={{ opacity: 0.7 }} />
+      </button>
 
-        <AnimatePresence>
-          {menuOpen && (
+      {/* Menu overlay — fixed pour être au-dessus de tout */}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: -6 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9998]"
+              onClick={() => { setMenuOpen(false); setConfirmDelete(false) }}
+            />
+
+            {/* Menu */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: -8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -6 }}
+              exit={{ opacity: 0, scale: 0.9, y: -8 }}
               transition={{ duration: 0.15 }}
-              className="absolute right-0 mt-1 rounded-xl overflow-hidden"
+              className="fixed right-4 z-[9999] rounded-xl overflow-hidden"
               style={{
+                top: 'calc(env(safe-area-inset-top, 0px) + 70px)',
                 background: 'linear-gradient(to bottom, #EAF4FC, #D6EBF8)',
                 border: '1px solid #8CC4DE',
-                boxShadow: '0 4px 16px rgba(0,80,140,0.2)',
-                minWidth: 200,
+                boxShadow: '0 4px 20px rgba(0,80,140,0.25)',
+                minWidth: 220,
               }}
             >
               {!confirmDelete ? (
                 <>
                   <button
                     onClick={() => { signOut(); setMenuOpen(false) }}
-                    className="w-full flex items-center gap-2.5 px-4 py-3 text-[13px] font-bold bg-transparent border-none cursor-pointer text-left hover:bg-white/40 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-3.5 text-[14px] font-bold bg-transparent border-none cursor-pointer text-left active:bg-white/50"
                     style={{ color: 'var(--text)' }}
                   >
-                    <SignOut size={15} weight="bold" style={{ color: '#1976D2' }} />
+                    <SignOut size={17} weight="bold" style={{ color: '#1976D2' }} />
                     Se déconnecter
                   </button>
                   <div style={{ height: 1, background: '#B8DCF0' }} />
                   <button
                     onClick={() => setConfirmDelete(true)}
-                    className="w-full flex items-center gap-2.5 px-4 py-3 text-[13px] font-bold bg-transparent border-none cursor-pointer text-left hover:bg-white/40 transition-colors"
+                    className="w-full flex items-center gap-2.5 px-4 py-3.5 text-[14px] font-bold bg-transparent border-none cursor-pointer text-left active:bg-white/50"
                     style={{ color: '#C62828' }}
                   >
-                    <Trash size={15} weight="bold" />
+                    <Trash size={17} weight="bold" />
                     Supprimer mon compte
                   </button>
                 </>
               ) : (
                 <div className="p-4 flex flex-col gap-3">
-                  <p className="text-[12px] font-bold text-center m-0" style={{ color: 'var(--text)' }}>
+                  <p className="text-[13px] font-bold text-center m-0" style={{ color: 'var(--text)' }}>
                     Toute ta progression sera perdue. Es-tu sûr ?
                   </p>
                   {deleteError && (
@@ -88,14 +103,14 @@ export default function ShineLogo() {
                   <button
                     onClick={handleDelete}
                     disabled={deleting}
-                    className="w-full py-2 rounded-lg text-[13px] font-bold text-white border-none cursor-pointer"
+                    className="w-full py-2.5 rounded-lg text-[14px] font-bold text-white border-none cursor-pointer"
                     style={{ background: deleting ? '#EF9A9A' : '#C62828' }}
                   >
                     {deleting ? '...' : 'Oui, supprimer définitivement'}
                   </button>
                   <button
                     onClick={() => { setConfirmDelete(false); setDeleteError(null) }}
-                    className="w-full py-2 rounded-lg text-[13px] font-bold border-none cursor-pointer"
+                    className="w-full py-2.5 rounded-lg text-[14px] font-bold border-none cursor-pointer"
                     style={{ background: 'transparent', color: 'var(--text-light)' }}
                   >
                     Annuler
@@ -103,9 +118,9 @@ export default function ShineLogo() {
                 </div>
               )}
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
 
       <div className="relative z-10 flex items-center justify-center gap-3">
         <div className="icon-airplane">

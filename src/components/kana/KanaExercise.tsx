@@ -1,11 +1,12 @@
 import { playCorrect, playWrong } from '../../lib/sounds'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { hiraganaGroups, katakanaGroups, type Kana } from '../../data/kana'
 import { speakJapanese } from '../../lib/audio'
 import { recordKanaAnswer, isKanaGroupMastered } from '../../lib/progress'
+import { completeSession } from '../../lib/store'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -78,6 +79,14 @@ export default function KanaExercise() {
 
   const total = questions.length
   const isLast = current >= total
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (isLast && !tracked.current) {
+      tracked.current = true
+      completeSession('kana_group')
+    }
+  }, [isLast])
 
   const handleSelect = useCallback((opt: string) => {
     if (selected) return

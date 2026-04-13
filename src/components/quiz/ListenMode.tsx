@@ -1,11 +1,12 @@
 import { playCorrect, playWrong } from '../../lib/sounds'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { generateListenQuiz } from '../../lib/quizGenerator'
 import { speakJapanese } from '../../lib/audio'
 import { recordAnswer, getConfidence } from '../../lib/progress'
+import { completeSession } from '../../lib/store'
 import type { ListenQuestion } from '../../lib/quizGenerator'
 
 export default function ListenMode() {
@@ -19,6 +20,14 @@ export default function ListenMode() {
 
   const q = questions[current]
   const isLast = current >= questions.length
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (isLast && !tracked.current) {
+      tracked.current = true
+      completeSession('quick_quiz')
+    }
+  }, [isLast])
 
   // Auto-play audio on new question
   useEffect(() => {

@@ -15,6 +15,20 @@ export interface CategoryProgress {
   phrasesListened: string[]   // IDs marked as "compris" in step1
 }
 
+export interface DailyQuota {
+  date: string
+  sessionsRequired: number
+  sessionsCompleted: string[]
+  streakEarned: boolean
+}
+
+export type SessionType =
+  | 'daily_review'
+  | 'category_step'
+  | 'quick_quiz'
+  | 'marathon'
+  | 'kana_group'
+
 export interface ShaberoUserData {
   onboardingDone: boolean
   travelMode: 'intensive' | 'normal' | 'zen'
@@ -24,6 +38,8 @@ export interface ShaberoUserData {
     longest: number
     lastActiveDate: string
   }
+
+  dailyQuota: DailyQuota
 
   categories: Record<string, CategoryProgress>
 
@@ -45,6 +61,7 @@ const defaults = (): ShaberoUserData => ({
   onboardingDone: false,
   travelMode: 'normal',
   streak: { current: 0, longest: 0, lastActiveDate: '' },
+  dailyQuota: { date: '', sessionsRequired: 2, sessionsCompleted: [], streakEarned: false },
   categories: {},
   quiz: { wrongPhrases: [], lastReviewDate: '', reviewDoneToday: false, marathonRecord: 0 },
   displayMode: 'all',
@@ -103,7 +120,7 @@ export function markPhraseListened(categoryId: string, phraseId: string) {
 
 export function completeStep1(categoryId: string) {
   updateCategory(categoryId, (c) => { c.step1Complete = true })
-  recordActivity()
+  completeSession('category_step')
 }
 
 export function completeStep2(categoryId: string, score: number) {
@@ -112,7 +129,7 @@ export function completeStep2(categoryId: string, score: number) {
     if (score >= 80) c.step2Complete = true
   })
   recordQuizComplete()
-  recordActivity()
+  completeSession('category_step')
 }
 
 export function completeStep3(categoryId: string, score: number) {
@@ -124,14 +141,13 @@ export function completeStep3(categoryId: string, score: number) {
     if (c.step1Complete && c.step2Complete && c.step3Complete && !c.stampEarned) {
       c.stampEarned = true
       c.stampDate = new Date().toISOString().split('T')[0]
-      // First stamp ever?
       const d = load()
       const totalStamps = Object.values(d.categories).filter((cat) => cat.stampEarned).length
       if (totalStamps === 0) justEarnedFirstStamp = true
     }
   })
   recordQuizComplete()
-  recordActivity()
+  completeSession('category_step')
 
   if (justEarnedFirstStamp && Capacitor.isNativePlatform()) {
     import('@capacitor-community/in-app-review').then(({ InAppReview }) => {
@@ -160,26 +176,85 @@ export function getGlobalProgress(totalCategories: number): number {
   return Math.round((steps / (totalCategories * 3)) * 100)
 }
 
-// --- Streak ---
-function recordActivity() {
-  const d = load()
-  const today = new Date().toISOString().split('T')[0]
-  if (d.streak.lastActiveDate === today) return
-
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
-  if (d.streak.lastActiveDate === yesterday) {
-    d.streak.current += 1
-  } else {
-    d.streak.current = 1
-  }
-  if (d.streak.current > d.streak.longest) {
-    d.streak.longest = d.streak.current
-  }
-  d.streak.lastActiveDate = today
-  save(d)
-  scheduleStreakReminder() // replanifie pour demain 19h
+// --- Daily Quota ---
+function getRequiredSessions(mode: 'intensive' | 'normal' | 'zen'): number {
+  return mode === 'intensive' ? 3 : mode === 'normal' ? 2 : 1
 }
 
+export function getDailyQuota(): DailyQuota {
+  const d = load()
+  const today = new Date().toISOString().split('T')[0]
+  if (d.dailyQuota.date !== today) {
+    return {
+      date: today,
+      sessionsRequired: getRequiredSessions(d.travelMode),
+      sessionsCompleted: [],
+      streakEarned: false,
+    }
+  }
+  return d.dailyQuota
+}
+
+export function completeSession(type: SessionType) {
+  const d = load()
+  const today = new Date().toISOString().split('T')[0]
+
+  // Init quota for today if needed
+  if (d.dailyQuota.date !== today) {
+    d.dailyQuota = {
+      date: today,
+      sessionsRequired: getRequiredSessions(d.travelMode),
+      sessionsCompleted: [],
+      streakEarned: false,
+    }
+  }
+
+  // Add session (avoid duplicates of same type in one day — except category_step and quick_quiz)
+  if (type === 'daily_review' || type === 'marathon' || type === 'kana_group') {
+    if (!d.dailyQuota.sessionsCompleted.includes(type)) {
+      d.dailyQuota.sessionsCompleted.push(type)
+    }
+  } else {
+    // category_step and quick_quiz can count multiple times
+    d.dailyQuota.sessionsCompleted.push(type)
+  }
+
+  // Check if quota is met
+  const quotaMet = d.dailyQuota.sessionsCompleted.length >= d.dailyQuota.sessionsRequired
+
+  if (quotaMet && !d.dailyQuota.streakEarned) {
+    d.dailyQuota.streakEarned = true
+
+    // Update streak
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
+    if (d.streak.lastActiveDate === yesterday) {
+      d.streak.current += 1
+    } else if (d.streak.lastActiveDate !== today) {
+      d.streak.current = 1
+    }
+    const isRecord = d.streak.current > d.streak.longest
+    if (isRecord) {
+      d.streak.longest = d.streak.current
+    }
+    d.streak.lastActiveDate = today
+
+    save(d)
+    scheduleStreakReminder()
+
+    // Dispatch event for streak animation
+    window.dispatchEvent(new CustomEvent('streak-earned', {
+      detail: { streak: d.streak.current, isRecord },
+    }))
+  } else {
+    // Track activity date even if quota not met yet
+    if (d.streak.lastActiveDate !== today) {
+      d.streak.lastActiveDate = today
+    }
+    save(d)
+  }
+}
+
+// --- Streak ---
 export function getStreak() {
   const d = load()
   const today = new Date().toISOString().split('T')[0]
@@ -226,7 +301,7 @@ export function setReviewDone() {
   d.quiz.reviewDoneToday = true
   d.quiz.lastReviewDate = new Date().toISOString().split('T')[0]
   save(d)
-  recordActivity()
+  completeSession('daily_review')
 }
 
 export function isReviewDoneToday(): boolean {
@@ -262,6 +337,17 @@ export function getTravelMode(): 'intensive' | 'normal' | 'zen' {
   return load().travelMode
 }
 
+export function setTravelMode(mode: 'intensive' | 'normal' | 'zen') {
+  const d = load()
+  d.travelMode = mode
+  // Recalculate today's quota requirement
+  const today = new Date().toISOString().split('T')[0]
+  if (d.dailyQuota.date === today) {
+    d.dailyQuota.sessionsRequired = getRequiredSessions(mode)
+  }
+  save(d)
+}
+
 // --- Marathon ---
 export function getMarathonRecord(): number {
   return load().quiz.marathonRecord
@@ -273,6 +359,7 @@ export function setMarathonRecord(score: number) {
     d.quiz.marathonRecord = score
   }
   save(d)
+  completeSession('marathon')
 }
 
 // --- Encouragements ---
