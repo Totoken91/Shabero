@@ -147,9 +147,6 @@ export default function StreakAnimation() {
 
       // Golden confetti for records
       if (r) setTimeout(() => launchGoldenConfetti(), 600)
-
-      // Auto-dismiss
-      setTimeout(() => setVisible(false), r ? 3500 : 2500)
     }
 
     window.addEventListener('streak-earned', handler)

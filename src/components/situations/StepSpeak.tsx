@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { speakJapanese } from '../../lib/audio'
-import { completeStep3, addWrongPhrase, removeWrongPhrase, getCategoryProgress } from '../../lib/store'
+import { completeStep3, addWrongPhrase, removeWrongPhrase, getCategoryProgress, awardQuizAnswerXP, awardStepXP, awardStampXP, awardPerfectScoreXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import { celebrate } from '../../lib/celebrate'
 import type { Phrase } from '../../types'
 
@@ -13,6 +14,7 @@ const STAMP_ICONS: Record<string, string> = {
   konbini: '🍙', izakaya: '🍶', trains: '🚅', shopping: '🛍️', urgences: '🏥',
   socialiser: '🤝', reactions: '💬', nightlife: '🌙', insultes: '🤬',
   hotel: '🏨', navigation: '🗺️', politesse: '🙏', nombres: '🔢',
+  parlersoi: '🪪',
 }
 
 function shuffle<T>(arr: T[]): T[] {
@@ -44,6 +46,8 @@ export default function StepSpeak() {
     if (selected !== null) return
     setSelected(idx)
     const isCorrect = q.options[idx].jp === q.correctPhrase.jp
+    const xp = awardQuizAnswerXP(isCorrect)
+    showXPToast(xp)
     if (isCorrect) { setCorrect((c) => c + 1); if (q.correctPhrase.id) removeWrongPhrase(q.correctPhrase.id); playCorrect() }
     else { playWrong(); if (q.correctPhrase.id) addWrongPhrase(q.correctPhrase.id) }
   }, [selected, q])
@@ -53,12 +57,17 @@ export default function StepSpeak() {
   if (isLast) {
     const wasMastered = getCategoryProgress(id!).stampEarned
     const score = Math.round((correct / questions.length) * 100)
+    const stepXP = awardStepXP(`${id}-step3`, 100)
+    if (stepXP > 0) showXPToast(stepXP, 'Etape 3 !')
+    if (score === 100) { const bonus = awardPerfectScoreXP(); if (bonus > 0) setTimeout(() => showXPToast(bonus, 'BONUS'), 400) }
     completeStep3(id!, score)
     const passed = score >= 80
     const nowMastered = getCategoryProgress(id!).stampEarned
 
     // Celebrate if stamp was just earned
     if (nowMastered && !wasMastered) {
+      const stampXP = awardStampXP(id!)
+      if (stampXP > 0) setTimeout(() => showXPToast(stampXP, 'Tampon !'), 600)
       setTimeout(() => celebrate(), 300)
     }
 

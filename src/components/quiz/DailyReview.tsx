@@ -1,11 +1,12 @@
 import { playCorrect, playWrong } from '../../lib/sounds'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { speakJapanese } from '../../lib/audio'
-import { getWrongPhrases, setReviewDone, getUserData, addWrongPhrase, removeWrongPhrase } from '../../lib/store'
+import { getWrongPhrases, setReviewDone, getUserData, addWrongPhrase, removeWrongPhrase, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { Phrase } from '../../types'
 
 function shuffle<T>(arr: T[]): T[] {
@@ -43,6 +44,17 @@ export default function DailyReview() {
 
   const q = questions[current]
   const isLast = current >= questions.length
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (isLast && !tracked.current) {
+      tracked.current = true
+      addXP(30)
+      showXPToast(30, 'Revision !')
+      if (correct === questions.length) { const b = awardPerfectScoreXP(); if (b > 0) setTimeout(() => showXPToast(b, 'PARFAIT !'), 400) }
+      setReviewDone()
+    }
+  }, [isLast])
 
   useEffect(() => {
     if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 300)
@@ -52,12 +64,13 @@ export default function DailyReview() {
     if (selected) return
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
+    const xp = awardQuizAnswerXP(isCorrect)
+    showXPToast(xp)
     if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id); playCorrect() }
     else { playWrong(); if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
 
   if (isLast) {
-    setReviewDone()
     return (
       <div className="max-w-[400px] mx-auto">
         <div className="phrase-card p-6 text-center">

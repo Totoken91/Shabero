@@ -6,7 +6,8 @@ import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { generateSpeakQuiz } from '../../lib/quizGenerator'
 import { speakJapanese } from '../../lib/audio'
 import { recordAnswer, getConfidence } from '../../lib/progress'
-import { completeSession } from '../../lib/store'
+import { completeSession, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { SpeakQuestion } from '../../lib/quizGenerator'
 
 export default function SpeakMode() {
@@ -25,6 +26,9 @@ export default function SpeakMode() {
   useEffect(() => {
     if (isLast && !tracked.current) {
       tracked.current = true
+      addXP(40)
+      showXPToast(40, 'Quiz !')
+      if (score === questions.length) { const b = awardPerfectScoreXP(); if (b > 0) setTimeout(() => showXPToast(b, 'PARFAIT !'), 400) }
       completeSession('quick_quiz')
     }
   }, [isLast])
@@ -33,6 +37,8 @@ export default function SpeakMode() {
     if (selected !== null) return
     setSelected(idx)
     const correct = q.options[idx].jp === q.correctPhrase.jp
+    const xp = awardQuizAnswerXP(correct)
+    showXPToast(xp)
     if (correct) { setScore((s) => s + 1); playCorrect() } else { playWrong() }
     recordAnswer(scenarioId!, q.correctPhrase.id ?? '', correct)
   }, [selected, q, scenarioId])

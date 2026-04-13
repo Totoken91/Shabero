@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Stamp } from '@phosphor-icons/react'
 import { scenarios } from '../data/scenarios'
-import { getStreak, getGlobalProgress, getCategoryStepInfo } from '../lib/store'
+import { getStreak, getGlobalProgress, getCategoryStepInfo, getXPData, getLevelFromXP, getXPForNextLevel } from '../lib/store'
 import CategoryCard from './CategoryCard'
 import TipOfTheDay from './TipOfTheDay'
 import DailyObjective from './DailyObjective'
@@ -34,6 +34,41 @@ function StreakDisplay() {
             {longest > 0 && <span className="text-[11px] text-[var(--text-light)] block">Record : {longest} jours</span>}
           </>
         )}
+      </div>
+    </div>
+  )
+}
+
+function XPBar() {
+  const xp = getXPData()
+  const info = getLevelFromXP(xp.totalXP)
+  const next = getXPForNextLevel(info.level)
+  const pct = info.level >= 30 ? 100 : Math.round(((xp.totalXP - next.current) / (next.next - next.current)) * 100)
+  const remaining = info.level >= 30 ? 0 : next.next - xp.totalXP
+
+  return (
+    <div className="phrase-card p-4">
+      <div className="relative z-10 flex items-center gap-3 mb-2">
+        <div
+          className="level-badge shrink-0"
+          style={{ background: `linear-gradient(to bottom, var(--card-top), var(--card-bot))`, width: 40, height: 40, fontSize: 20 }}
+        >
+          {info.badge}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-[13px] font-bold text-[var(--text)] truncate">{info.badge} {info.title} — Niveau {info.level}</p>
+          <div className="xp-bar-container mt-1">
+            <motion.div
+              className={`xp-bar-fill ${info.tier}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.max(pct, 2)}%` }}
+              transition={{ duration: 0.8 }}
+            />
+          </div>
+          <p className="text-[10px] text-[var(--text-light)] mt-0.5">
+            {info.level >= 30 ? 'Niveau max !' : `${remaining.toLocaleString()} XP jusqu'au niveau ${info.level + 1}`}
+          </p>
+        </div>
       </div>
     </div>
   )
@@ -108,6 +143,9 @@ export default function Hub() {
         <StreakDisplay />
         <GlobalGauge />
       </div>
+
+      {/* XP bar */}
+      <XPBar />
 
       {/* Daily objective */}
       <DailyObjective />

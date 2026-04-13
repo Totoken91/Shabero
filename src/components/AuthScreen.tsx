@@ -309,5 +309,6 @@ function getErrorMessage(msg: string): string {
   if (msg.includes('User already registered')) return 'Un compte existe déjà avec cet email'
   if (msg.includes('Password should be')) return 'Le mot de passe doit faire au moins 6 caractères'
   if (msg.includes('Unable to validate email')) return 'Email invalide'
-  return 'Une erreur est survenue, réessaie'
+  if (msg.includes('rate') || msg.includes('429')) return 'Trop de tentatives, réessaie dans quelques minutes'
+  return `Une erreur est survenue : ${msg}`
 }

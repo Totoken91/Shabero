@@ -6,7 +6,8 @@ import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { hiraganaGroups, katakanaGroups, type Kana } from '../../data/kana'
 import { speakJapanese } from '../../lib/audio'
 import { recordKanaAnswer, isKanaGroupMastered } from '../../lib/progress'
-import { completeSession } from '../../lib/store'
+import { completeSession, awardQuizAnswerXP, awardKanaGroupXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -92,6 +93,8 @@ export default function KanaExercise() {
     if (selected) return
     setSelected(opt)
     const correct = opt === questions[current].correct
+    const xp = awardQuizAnswerXP(correct)
+    showXPToast(xp)
     if (correct) { playCorrect() } else { setErrors((e) => e + 1); playWrong() }
     speakJapanese(questions[current].kana.character, 0.7)
   }, [selected, current, questions])
@@ -101,10 +104,16 @@ export default function KanaExercise() {
     setCurrent((c) => c + 1)
   }, [])
 
+  const xpTracked = useRef(false)
   if (isLast) {
     const perfect = errors === 0
     recordKanaAnswer(type!, Number(groupId), perfect)
     const mastered = isKanaGroupMastered(type!, Number(groupId))
+    if (mastered && !xpTracked.current) {
+      xpTracked.current = true
+      const kxp = awardKanaGroupXP(`${type}-${groupId}`)
+      if (kxp > 0) setTimeout(() => showXPToast(kxp, 'Kana !'), 300)
+    }
 
     return (
       <div className="max-w-[400px] mx-auto">

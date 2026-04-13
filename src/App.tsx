@@ -5,6 +5,7 @@ import ShineLogo from './components/ShineLogo'
 import BottomNav from './components/BottomNav'
 import EncouragementToast from './components/EncouragementToast'
 import StreakAnimation from './components/StreakAnimation'
+import LevelUpAnimation from './components/LevelUpAnimation'
 import Onboarding from './components/Onboarding'
 import AuthScreen from './components/AuthScreen'
 import { isOnboardingDone } from './lib/store'
@@ -44,6 +45,9 @@ import SignCategoryCard from './components/signs/SignCategoryCard'
 import SignDetail from './components/signs/SignDetail'
 import DicoToggle from './components/dico/DicoToggle'
 import { signCategories } from './data/signs'
+
+// Pages standalone
+import DeleteAccountPage from './components/DeleteAccountPage'
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -97,6 +101,11 @@ export default function App() {
   const [onboarded, setOnboarded] = useState(isOnboardingDone)
 
 
+  // Page standalone accessible sans auth
+  if (window.location.pathname === '/delete-account') {
+    return <DeleteAccountPage />
+  }
+
   if (loading) {
     return (
       <>
@@ -126,6 +135,7 @@ export default function App() {
       <AeroBackground />
       <EncouragementToast />
       <StreakAnimation />
+      <LevelUpAnimation />
       <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Navigate to="/situations" replace />} />
@@ -162,6 +172,9 @@ export default function App() {
           <Route path="/dico" element={<Shell><DicoPage /></Shell>} />
           <Route path="/dico/scenario/:id" element={<DetailShell><SituationDetail /></DetailShell>} />
           <Route path="/dico/panneaux/:id" element={<DetailShell><SignDetail /></DetailShell>} />
+
+          {/* Standalone */}
+          <Route path="/delete-account" element={<DeleteAccountPage />} />
         </Routes>
       </div>
     </>

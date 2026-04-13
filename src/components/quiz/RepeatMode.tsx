@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh, ArrowRight } from '@phosphor-icons/react'
 import { generateRepeatDrill } from '../../lib/quizGenerator'
 import { speakJapanese } from '../../lib/audio'
-import { completeSession } from '../../lib/store'
+import { completeSession, addXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { RepeatQuestion } from '../../lib/quizGenerator'
 
 export default function RepeatMode() {
@@ -22,6 +23,8 @@ export default function RepeatMode() {
   useEffect(() => {
     if (isLast && !tracked.current) {
       tracked.current = true
+      addXP(40)
+      showXPToast(40, 'Drill !')
       completeSession('quick_quiz')
     }
   }, [isLast])

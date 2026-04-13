@@ -4,7 +4,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { getDisplayMode, setDisplayMode as saveMode } from '../../lib/store'
-import { markPhraseListened, completeStep1, getCategoryProgress } from '../../lib/store'
+import { markPhraseListened, completeStep1, getCategoryProgress, awardStepXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { DisplayMode } from '../../types'
 import DisplayToggle from '../DisplayToggle'
 import PhraseCard from './PhraseCard'
@@ -22,6 +23,8 @@ export default function StepListen() {
   const handleModeChange = (m: DisplayMode) => { setMode(m); saveMode(m) }
 
   const handleComplete = () => {
+    const xp = awardStepXP(`${id}-step1`, 50)
+    if (xp > 0) showXPToast(xp, 'Etape 1 !')
     completeStep1(id!)
     navigate(`/situations/${id}`)
   }

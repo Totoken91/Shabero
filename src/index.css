@@ -576,6 +576,7 @@ html, body, #root {
 .badge-navigation { background: linear-gradient(to bottom, #4DD0E1 0%, #00ACC1 40%, #00838F 40%, #006064 100%); border: 1px solid #004D40; }
 .badge-politesse { background: linear-gradient(to bottom, #FFD54F 0%, #FFC107 40%, #FFA000 40%, #FF8F00 100%); border: 1px solid #E65100; }
 .badge-nombres { background: linear-gradient(to bottom, #7986CB 0%, #5C6BC0 40%, #3F51B5 40%, #3949AB 100%); border: 1px solid #283593; }
+.badge-parlersoi { background: linear-gradient(to bottom, #42A5F5 0%, #1E88E5 40%, #1565C0 40%, #0D47A1 100%); border: 1px solid #0D47A1; }
 
 /* ==========================================
    DICO TOGGLE — Aqua pill switch
@@ -859,4 +860,98 @@ html, body, #root {
 
 .quota-bar-fill.complete {
   background: linear-gradient(to bottom, #7ED56F 0%, #55C146 45%, #3AAD2B 45%, #2D8E22 100%);
+}
+
+/* ==========================================
+   XP BAR
+   ========================================== */
+.xp-bar-container {
+  height: 16px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #D8D8D8 0%, #C0C0C0 45%, #B0B0B0 45%, #A0A0A0 100%);
+  border: 1px solid #909090;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.xp-bar-fill.tourist {
+  background: linear-gradient(to bottom, #7ED56F 0%, #55C146 45%, #3AAD2B 45%, #2D8E22 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.xp-bar-fill.traveler {
+  background: linear-gradient(to bottom, #54B8F7 0%, #2196F3 45%, #1976D2 45%, #1565C0 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.xp-bar-fill.explorer {
+  background: linear-gradient(to bottom, #BA68C8 0%, #9C27B0 45%, #7B1FA2 45%, #6A1B9A 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.xp-bar-fill.adventurer {
+  background: linear-gradient(to bottom, #FFa040 0%, #FF8C00 45%, #E67300 45%, #CC6200 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.xp-bar-fill.local {
+  background: linear-gradient(to bottom, #F77066 0%, #F44336 45%, #D32F2F 45%, #C62828 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.xp-bar-fill.honor {
+  background: linear-gradient(to bottom, #FFD54F 0%, #FFC107 45%, #FFB300 45%, #FFA000 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.xp-bar-fill.master {
+  background: linear-gradient(to bottom, #FFE082 0%, #FFD700 45%, #FFC400 45%, #FFB300 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 10px rgba(255,215,0,0.3);
+}
+
+/* ==========================================
+   LEVEL BADGE
+   ========================================== */
+.level-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  position: relative;
+  border: 2px solid rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.level-badge::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 15%;
+  right: 15%;
+  height: 40%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 80%, transparent 100%);
+  border-radius: 50%;
+}
+
+/* ==========================================
+   LEVEL UP PARTICLES
+   ========================================== */
+@keyframes level-particle {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+/* ==========================================
+   XP TOAST
+   ========================================== */
+@keyframes xp-toast {
+  0% { opacity: 0; transform: translateX(-50%) translateY(0) scale(0.5); }
+  20% { opacity: 1; transform: translateX(-50%) translateY(-10px) scale(1.1); }
+  40% { transform: translateX(-50%) translateY(-20px) scale(1.0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-60px) scale(0.8); }
 }

@@ -6,7 +6,8 @@ import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { generateListenQuiz } from '../../lib/quizGenerator'
 import { speakJapanese } from '../../lib/audio'
 import { recordAnswer, getConfidence } from '../../lib/progress'
-import { completeSession } from '../../lib/store'
+import { completeSession, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { ListenQuestion } from '../../lib/quizGenerator'
 
 export default function ListenMode() {
@@ -25,6 +26,9 @@ export default function ListenMode() {
   useEffect(() => {
     if (isLast && !tracked.current) {
       tracked.current = true
+      addXP(40)
+      showXPToast(40, 'Quiz !')
+      if (score === questions.length) { const b = awardPerfectScoreXP(); if (b > 0) setTimeout(() => showXPToast(b, 'PARFAIT !'), 400) }
       completeSession('quick_quiz')
     }
   }, [isLast])
@@ -41,6 +45,8 @@ export default function ListenMode() {
     if (selected) return
     setSelected(option)
     const correct = option === q.phrase.fr
+    const xp = awardQuizAnswerXP(correct)
+    showXPToast(xp)
     if (correct) { setScore((s) => s + 1); playCorrect() }
     recordAnswer(scenarioId!, q.phrase.id ?? '', correct)
 

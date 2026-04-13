@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { SpeakerHigh, SpeakerSlash, Clock } from '@phosphor-icons/react'
 import type { Phrase, DisplayMode } from '../../types'
 import { speakJapanese, stopSpeaking } from '../../lib/audio'
+import { awardPhraseListenXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 
 interface Props {
   phrase: Phrase
@@ -25,6 +27,10 @@ export default function PhraseCard({ phrase, index, displayMode, onListen }: Pro
       }
       setPlaying(true)
       onListen?.()
+      if (phrase.id) {
+        const xp = awardPhraseListenXP(phrase.id)
+        if (xp > 0) showXPToast(xp)
+      }
       speakJapanese(ttsText, rate, phrase.id)
       // Auto-reset playing state after a reasonable time
       setTimeout(() => setPlaying(false), 4000)

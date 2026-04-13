@@ -1,11 +1,12 @@
 import { playCorrect, playWrong } from '../../lib/sounds'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh, Trophy } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { speakJapanese } from '../../lib/audio'
-import { getMarathonRecord, setMarathonRecord, addWrongPhrase, removeWrongPhrase } from '../../lib/store'
+import { getMarathonRecord, setMarathonRecord, addWrongPhrase, removeWrongPhrase, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]] } return a
@@ -30,6 +31,18 @@ export default function Marathon() {
   const q = questions[current]
   const isLast = current >= questions.length
   const record = getMarathonRecord()
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (isLast && !tracked.current) {
+      tracked.current = true
+      addXP(100)
+      showXPToast(100, 'Marathon !')
+      const score = Math.round((correct / questions.length) * 100)
+      if (score === 100) { const b = awardPerfectScoreXP(); if (b > 0) setTimeout(() => showXPToast(b, 'PARFAIT !'), 400) }
+      setMarathonRecord(score)
+    }
+  }, [isLast])
 
   useEffect(() => {
     if (!isLast && q) setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 300)
@@ -39,13 +52,14 @@ export default function Marathon() {
     if (selected) return
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
+    const xp = awardQuizAnswerXP(isCorrect)
+    showXPToast(xp)
     if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id); playCorrect() }
     else { playWrong(); if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
 
   if (isLast) {
     const score = Math.round((correct / questions.length) * 100)
-    setMarathonRecord(score)
     const isNewRecord = score > record && record > 0
     const msg = score >= 95 ? 'Parfait ! Tu es un pro 🏆' : score >= 80 ? 'Excellent ! 🔥' : score >= 50 ? 'Pas mal du tout ! 💪' : 'Continue l\'écoute, ça va venir ! 🌱'
 

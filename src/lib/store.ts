@@ -29,6 +29,21 @@ export type SessionType =
   | 'marathon'
   | 'kana_group'
 
+export interface XPData {
+  totalXP: number
+  currentLevel: number
+  phrasesListenedXP: string[]
+  phrasesComprisXP: string[]
+  stepsCompletedXP: string[]
+  stampsEarnedXP: string[]
+  kanaGroupsXP: string[]
+  welcomeXPEarned: boolean
+  totalXPFromQuiz: number
+  totalXPFromListening: number
+  perfectScores: number
+  levelUpDates: string[]
+}
+
 export interface ShaberoUserData {
   onboardingDone: boolean
   travelMode: 'intensive' | 'normal' | 'zen'
@@ -50,12 +65,29 @@ export interface ShaberoUserData {
     marathonRecord: number
   }
 
+  xp: XPData
+
   displayMode: 'romaji' | 'romaji+kana' | 'all'
   seenMessages: string[]
   totalPhrasesListened: number
   totalQuizCompleted: number
   firstUseDate: string
 }
+
+const defaultXP = (): XPData => ({
+  totalXP: 0,
+  currentLevel: 1,
+  phrasesListenedXP: [],
+  phrasesComprisXP: [],
+  stepsCompletedXP: [],
+  stampsEarnedXP: [],
+  kanaGroupsXP: [],
+  welcomeXPEarned: false,
+  totalXPFromQuiz: 0,
+  totalXPFromListening: 0,
+  perfectScores: 0,
+  levelUpDates: [],
+})
 
 const defaults = (): ShaberoUserData => ({
   onboardingDone: false,
@@ -64,6 +96,7 @@ const defaults = (): ShaberoUserData => ({
   dailyQuota: { date: '', sessionsRequired: 2, sessionsCompleted: [], streakEarned: false },
   categories: {},
   quiz: { wrongPhrases: [], lastReviewDate: '', reviewDoneToday: false, marathonRecord: 0 },
+  xp: defaultXP(),
   displayMode: 'all',
   seenMessages: [],
   totalPhrasesListened: 0,
@@ -81,7 +114,11 @@ const defaultCat = (): CategoryProgress => ({
 function load(): ShaberoUserData {
   try {
     const raw = localStorage.getItem(KEY)
-    if (raw) return { ...defaults(), ...JSON.parse(raw) }
+    if (raw) {
+      const parsed = { ...defaults(), ...JSON.parse(raw) }
+      if (!parsed.xp) parsed.xp = defaultXP()
+      return parsed
+    }
   } catch {}
   return defaults()
 }
@@ -225,7 +262,7 @@ export function completeSession(type: SessionType) {
   if (quotaMet && !d.dailyQuota.streakEarned) {
     d.dailyQuota.streakEarned = true
 
-    // Update streak
+    // Update streak — lastActiveDate reflects LAST day quota was met
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
     if (d.streak.lastActiveDate === yesterday) {
       d.streak.current += 1
@@ -241,15 +278,16 @@ export function completeSession(type: SessionType) {
     save(d)
     scheduleStreakReminder()
 
+    // Award streak XP
+    addXP(20)
+
     // Dispatch event for streak animation
     window.dispatchEvent(new CustomEvent('streak-earned', {
       detail: { streak: d.streak.current, isRecord },
     }))
   } else {
-    // Track activity date even if quota not met yet
-    if (d.streak.lastActiveDate !== today) {
-      d.streak.lastActiveDate = today
-    }
+    // Save session progress but DON'T set lastActiveDate
+    // lastActiveDate is only set when quota is met (streak earned)
     save(d)
   }
 }
@@ -260,8 +298,11 @@ export function getStreak() {
   const today = new Date().toISOString().split('T')[0]
   const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0]
 
-  // If last active was before yesterday, streak is broken — reset stored value
-  if (d.streak.lastActiveDate !== today && d.streak.lastActiveDate !== yesterday) {
+  // User is considered "active today" if they have sessions, even if quota not met yet
+  const activeToday = d.dailyQuota.date === today && d.dailyQuota.sessionsCompleted.length > 0
+
+  // Streak is alive if last earned was today/yesterday, OR user is active today
+  if (d.streak.lastActiveDate !== today && d.streak.lastActiveDate !== yesterday && !activeToday) {
     if (d.streak.current !== 0) {
       d.streak.current = 0
       save(d)
@@ -331,6 +372,7 @@ export function completeOnboarding(mode: 'intensive' | 'normal' | 'zen') {
   d.onboardingDone = true
   d.travelMode = mode
   save(d)
+  awardWelcomeXP()
 }
 
 export function getTravelMode(): 'intensive' | 'normal' | 'zen' {
@@ -373,4 +415,157 @@ export function markMessageSeen(id: string) {
     d.seenMessages.push(id)
   }
   save(d)
+}
+
+// --- XP & Levels ---
+const LEVEL_XPS = [
+  0, 0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700,
+  3300, 4000, 4800, 5700, 6700, 7900, 9300, 10900, 12700, 14700,
+  17200, 20200, 23700, 27700, 32200, 37200, 43200, 50200, 58200, 68200,
+]
+
+const TIERS = [
+  { maxLevel: 5, title: 'Touriste', badge: '\u{1F9F3}', tier: 'tourist' },
+  { maxLevel: 10, title: 'Voyageur', badge: '\u2708\uFE0F', tier: 'traveler' },
+  { maxLevel: 15, title: 'Explorateur', badge: '\u{1F9ED}', tier: 'explorer' },
+  { maxLevel: 20, title: 'Aventurier', badge: '\u26F0\uFE0F', tier: 'adventurer' },
+  { maxLevel: 25, title: 'Local', badge: '\u26E9\uFE0F', tier: 'local' },
+  { maxLevel: 29, title: "Japonais d'honneur", badge: '\u{1F3EF}', tier: 'honor' },
+  { maxLevel: 30, title: 'Ma\u00eetre', badge: '\u{1F451}', tier: 'master' },
+] as const
+
+export type TierKey = typeof TIERS[number]['tier']
+
+export function getLevelFromXP(totalXP: number) {
+  let level = 1
+  for (let i = 1; i < LEVEL_XPS.length; i++) {
+    if (totalXP >= LEVEL_XPS[i]) level = i
+    else break
+  }
+  const tierInfo = TIERS.find(t => level <= t.maxLevel)!
+  return { level, title: tierInfo.title, badge: tierInfo.badge, tier: tierInfo.tier as TierKey }
+}
+
+export function getXPForNextLevel(currentLevel: number) {
+  if (currentLevel >= 30) return { current: 68200, next: 68200, remaining: 0 }
+  return {
+    current: LEVEL_XPS[currentLevel],
+    next: LEVEL_XPS[currentLevel + 1],
+    remaining: LEVEL_XPS[currentLevel + 1] - LEVEL_XPS[currentLevel],
+  }
+}
+
+export function getXPData() {
+  const d = load()
+  return d.xp
+}
+
+export function addXP(amount: number, source: 'quiz' | 'listening' | 'other' = 'other'): {
+  newTotal: number
+  leveledUp: boolean
+  newLevel: number
+  oldLevel: number
+  tierChanged: boolean
+  newTier: TierKey
+} {
+  const d = load()
+  const oldInfo = getLevelFromXP(d.xp.totalXP)
+  d.xp.totalXP += amount
+  const newInfo = getLevelFromXP(d.xp.totalXP)
+
+  const leveledUp = newInfo.level > oldInfo.level
+  const tierChanged = newInfo.tier !== oldInfo.tier
+
+  if (leveledUp) {
+    d.xp.currentLevel = newInfo.level
+    d.xp.levelUpDates.push(new Date().toISOString())
+  }
+
+  if (source === 'quiz') d.xp.totalXPFromQuiz += amount
+  else if (source === 'listening') d.xp.totalXPFromListening += amount
+
+  save(d)
+
+  if (leveledUp) {
+    window.dispatchEvent(new CustomEvent('level-up', {
+      detail: { level: newInfo.level, title: newInfo.title, badge: newInfo.badge, tier: newInfo.tier, tierChanged },
+    }))
+  }
+
+  return {
+    newTotal: d.xp.totalXP,
+    leveledUp,
+    newLevel: newInfo.level,
+    oldLevel: oldInfo.level,
+    tierChanged,
+    newTier: newInfo.tier,
+  }
+}
+
+export function awardPhraseListenXP(phraseId: string) {
+  const d = load()
+  if (d.xp.phrasesListenedXP.includes(phraseId)) return 0
+  d.xp.phrasesListenedXP.push(phraseId)
+  save(d)
+  addXP(3, 'listening')
+  return 3
+}
+
+export function awardPhraseComprisXP(phraseId: string) {
+  const d = load()
+  if (d.xp.phrasesComprisXP.includes(phraseId)) return 0
+  d.xp.phrasesComprisXP.push(phraseId)
+  save(d)
+  addXP(5, 'listening')
+  return 5
+}
+
+export function awardStepXP(stepKey: string, amount: number) {
+  const d = load()
+  if (d.xp.stepsCompletedXP.includes(stepKey)) return 0
+  d.xp.stepsCompletedXP.push(stepKey)
+  save(d)
+  addXP(amount)
+  return amount
+}
+
+export function awardStampXP(categoryId: string) {
+  const d = load()
+  if (d.xp.stampsEarnedXP.includes(categoryId)) return 0
+  d.xp.stampsEarnedXP.push(categoryId)
+  save(d)
+  addXP(150)
+  return 150
+}
+
+export function awardQuizAnswerXP(correct: boolean) {
+  const amount = correct ? 10 : 3
+  addXP(amount, 'quiz')
+  return amount
+}
+
+export function awardPerfectScoreXP() {
+  const d = load()
+  d.xp.perfectScores += 1
+  save(d)
+  addXP(25, 'quiz')
+  return 25
+}
+
+export function awardKanaGroupXP(groupKey: string) {
+  const d = load()
+  if (d.xp.kanaGroupsXP.includes(groupKey)) return 0
+  d.xp.kanaGroupsXP.push(groupKey)
+  save(d)
+  addXP(60)
+  return 60
+}
+
+export function awardWelcomeXP() {
+  const d = load()
+  if (d.xp.welcomeXPEarned) return 0
+  d.xp.welcomeXPEarned = true
+  save(d)
+  addXP(50)
+  return 50
 }

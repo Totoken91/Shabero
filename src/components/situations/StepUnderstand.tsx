@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, SpeakerHigh } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { speakJapanese } from '../../lib/audio'
-import { completeStep2, addWrongPhrase, removeWrongPhrase } from '../../lib/store'
+import { completeStep2, addWrongPhrase, removeWrongPhrase, awardQuizAnswerXP, awardStepXP, awardPerfectScoreXP } from '../../lib/store'
+import { showXPToast } from '../../lib/xpToast'
 import type { Phrase } from '../../types'
 
 function shuffle<T>(arr: T[]): T[] {
@@ -41,6 +42,8 @@ export default function StepUnderstand() {
     if (selected) return
     setSelected(opt)
     const isCorrect = opt === q.phrase.fr
+    const xp = awardQuizAnswerXP(isCorrect)
+    showXPToast(xp)
     if (isCorrect) { setCorrect((c) => c + 1); if (q.phrase.id) removeWrongPhrase(q.phrase.id); playCorrect() }
     else { playWrong(); if (q.phrase.id) addWrongPhrase(q.phrase.id); setTimeout(() => speakJapanese(q.phrase.audioText ?? q.phrase.jp, 0.85, q.phrase.id), 500) }
   }, [selected, q])
@@ -51,6 +54,9 @@ export default function StepUnderstand() {
 
   if (isLast) {
     const score = Math.round((correct / questions.length) * 100)
+    const stepXP = awardStepXP(`${id}-step2`, 75)
+    if (stepXP > 0) showXPToast(stepXP, 'Etape 2 !')
+    if (score === 100) { const bonus = awardPerfectScoreXP(); if (bonus > 0) setTimeout(() => showXPToast(bonus, 'BONUS'), 400) }
     completeStep2(id!, score)
     const passed = score >= 80
 
