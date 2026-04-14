@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
+import DeleteAccountPage from './components/DeleteAccountPage'
 import { AuthProvider } from './lib/auth'
 import { Capacitor } from '@capacitor/core'
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
@@ -16,12 +17,18 @@ if (Capacitor.isNativePlatform()) {
   })
 }
 
+const isDeletePage = window.location.pathname === '/delete-account'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    {isDeletePage ? (
+      <DeleteAccountPage />
+    ) : (
+      <BrowserRouter>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </BrowserRouter>
+    )}
   </StrictMode>,
 )

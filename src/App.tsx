@@ -101,11 +101,6 @@ export default function App() {
   const [onboarded, setOnboarded] = useState(isOnboardingDone)
 
 
-  // Page standalone accessible sans auth
-  if (window.location.pathname === '/delete-account') {
-    return <DeleteAccountPage />
-  }
-
   if (loading) {
     return (
       <>
