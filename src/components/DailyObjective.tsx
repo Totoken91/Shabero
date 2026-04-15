@@ -132,7 +132,7 @@ export default function DailyObjective() {
       }}
     >
       <p style={{ fontSize: 14, fontWeight: 800, color: '#1A3A5C', margin: '0 0 12px' }}>
-        {isFresh ? '👋 Par où commencer ?' : '📋 Objectif du jour'}
+        {isFresh ? 'Par où commencer ?' : '📋 Objectif du jour'}
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -199,7 +199,7 @@ export default function DailyObjective() {
                   textShadow: '0 -1px 0 rgba(0,0,0,0.15)',
                   display: 'block',
                 }}>
-                  {isFresh && i === 0 ? 'Commencer' : getSuggestionLabel(type)}
+                  {getSuggestionLabel(type)}
                 </span>
                 {subtitle && (
                   <span style={{
