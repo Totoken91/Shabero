@@ -27,15 +27,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Use onAuthStateChange exclusively — it fires INITIAL_SESSION
-    // only AFTER PKCE code exchange completes (if ?code= is in URL)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const init = async () => {
+      // Handle PKCE callback: exchange ?code= for session
+      const params = new URLSearchParams(window.location.search)
+      const code = params.get('code')
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code)
+        window.history.replaceState({}, '', window.location.pathname)
+        if (error) console.error('OAuth code exchange failed:', error.message)
+      }
+
+      const { data: { session } } = await supabase.auth.getSession()
       setSession(session)
       setUser(session?.user ?? null)
       if (session?.user) syncFromCloud()
-      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
-        setLoading(false)
-      }
+      setLoading(false)
+    }
+
+    init()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+      setUser(session?.user ?? null)
+      if (session?.user) syncFromCloud()
     })
 
     return () => subscription.unsubscribe()
