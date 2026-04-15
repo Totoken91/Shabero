@@ -50,24 +50,28 @@ export default function AuthScreen() {
         const googleUser = await GoogleAuth.signIn()
         const idToken = googleUser.authentication.idToken
 
+        if (!idToken) {
+          setError('Google: aucun idToken reçu')
+          return
+        }
+
         const { error } = await supabase.auth.signInWithIdToken({
           provider: 'google',
           token: idToken,
         })
-        if (error) setError(getErrorMessage(error.message))
+        if (error) setError(`Auth: ${error.message}`)
       } else {
-        // Web : flow OAuth classique
+        // Web : flow OAuth classique via PKCE
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: { redirectTo: OAUTH_REDIRECT_WEB },
         })
-        if (error) setError(getErrorMessage(error.message))
+        if (error) setError(`OAuth: ${error.message}`)
       }
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e)
-      if (!msg.includes('cancelled') && !msg.includes('popup_closed')) {
-        setError('Connexion Google annulée ou échouée')
-      }
+      // Show raw error for debugging — includes error code for Google Sign-In issues
+      const msg = e instanceof Error ? e.message : JSON.stringify(e)
+      setError(`Google: ${msg}`)
     } finally {
       setLoading(false)
     }
