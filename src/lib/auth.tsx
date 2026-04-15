@@ -27,20 +27,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Listen for auth changes FIRST (prevents race conditions)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    // Use onAuthStateChange exclusively — it fires INITIAL_SESSION
+    // only AFTER PKCE code exchange completes (if ?code= is in URL)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
       if (session?.user) syncFromCloud()
-      setLoading(false)
-    })
-
-    // Get initial session (also handles implicit OAuth callback from URL hash)
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      setUser(session?.user ?? null)
-      if (session?.user) syncFromCloud()
-      setLoading(false)
+      if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+        setLoading(false)
+      }
     })
 
     return () => subscription.unsubscribe()
