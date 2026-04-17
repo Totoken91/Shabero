@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { scenarios } from '../data/scenarios'
 import { getCategoryProgress, getGlobalProgress } from '../lib/store'
+import { useUI, useT, useLocale } from '../lib/locale'
 
 const STAMPS: Record<string, { icon: string; label: string }> = {
   konbini:    { icon: '🍙', label: 'Onigiri' },
@@ -24,6 +25,9 @@ export default function Passport() {
   const navigate = useNavigate()
   const globalPct = getGlobalProgress(scenarios.length)
   const earned = scenarios.filter((s) => getCategoryProgress(s.id).stampEarned).length
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
   return (
     <div className="pb-8">
@@ -34,7 +38,7 @@ export default function Passport() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       {/* Passport cover */}
@@ -43,11 +47,11 @@ export default function Passport() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <p className="text-[14px] font-bold tracking-widest uppercase opacity-70">Passeport</p>
+        <p className="text-[14px] font-bold tracking-widest uppercase opacity-70">{ui('passport.title')}</p>
         <p className="text-[28px] font-[900] mt-1">しゃべろう</p>
-        <p className="text-[13px] mt-1 opacity-80">Shabero — Parle comme un vrai Japonais</p>
+        <p className="text-[13px] mt-1 opacity-80">{ui('passport.tagline')}</p>
         <div className="mt-3 inline-block px-4 py-1 rounded-full text-[12px] font-bold" style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)' }}>
-          {earned}/{scenarios.length} tampons • {globalPct}% complété
+          {earned}/{scenarios.length} {ui('passport.stamps')} • {globalPct}% {ui('passport.completed')}
         </div>
       </motion.div>
 
@@ -75,17 +79,17 @@ export default function Passport() {
                 )}
               </div>
 
-              <p className="relative z-10 text-[12px] font-bold text-[var(--text)] mt-2">{s.name}</p>
+              <p className="relative z-10 text-[12px] font-bold text-[var(--text)] mt-2">{t(s.name, s.name_en)}</p>
 
               {prog.stampEarned && prog.stampDate && (
                 <p className="relative z-10 text-[10px] text-[var(--text-light)] mt-0.5">
-                  {new Date(prog.stampDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+                  {new Date(prog.stampDate).toLocaleDateString(lang === 'en' ? 'en-US' : 'fr-FR', { day: 'numeric', month: 'short' })}
                 </p>
               )}
 
               {!prog.stampEarned && (
                 <p className="relative z-10 text-[10px] text-[var(--text-light)] mt-0.5">
-                  Pas encore
+                  {ui('passport.notYet')}
                 </p>
               )}
             </motion.div>
@@ -101,10 +105,10 @@ export default function Passport() {
           animate={{ opacity: 1 }}
         >
           <p className="relative z-10 text-[18px] font-[800] text-[var(--text)]">
-            🎌 Passeport complet !
+            {ui('passport.complete')}
           </p>
           <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-1">
-            Tu es officiellement prêt pour le Japon. Bon voyage ! いってらっしゃい！
+            {ui('passport.completeMsg')}
           </p>
         </motion.div>
       )}

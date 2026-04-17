@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getDailyQuota, getUserData, getCategoryProgress, getWrongPhrases, getXPData } from '../lib/store'
 import { scenarios } from '../data/scenarios'
+import { useUI, useT } from '../lib/locale'
+import type { UIKey } from '../i18n/ui'
 
 type UserState = 'no_content' | 'listened_only' | 'has_quizzed'
 
@@ -15,26 +17,6 @@ function getUserState(): UserState {
   if (!anyStep1) return 'no_content'
   if (!anyQuiz && !hasWrong) return 'listened_only'
   return 'has_quizzed'
-}
-
-function getSessionLabel(type: string): string {
-  if (type === 'daily_review') return 'Révision du jour'
-  if (type === 'category_step') {
-    const cat = scenarios.find((s) => {
-      const p = getCategoryProgress(s.id)
-      return !p.step1Complete || !p.step2Complete || !p.step3Complete
-    })
-    if (cat) {
-      const p = getCategoryProgress(cat.id)
-      const step = !p.step1Complete ? 'Écoute' : !p.step2Complete ? 'Comprends' : 'Parle'
-      return `${cat.name} — ${step}`
-    }
-    return 'Avancer une catégorie'
-  }
-  if (type === 'quick_quiz') return 'Quiz rapide'
-  if (type === 'marathon') return 'Marathon'
-  if (type === 'kana_group') return 'Kana'
-  return 'Session du jour'
 }
 
 function getSuggestedSessions(mode: 'intensive' | 'normal' | 'zen', state: UserState): string[] {
@@ -53,10 +35,14 @@ function getSuggestedSessions(mode: 'intensive' | 'normal' | 'zen', state: UserS
   return ['daily_review']
 }
 
-function getSuggestionLabel(type: string): string {
-  if (type === 'first_category') return 'Découvre ta première catégorie'
-  if (type === 'first_quiz') return 'Teste-toi sur tes premières phrases'
-  return getSessionLabel(type)
+function getSessionLabelKey(type: string): UIKey {
+  if (type === 'daily_review') return 'daily.reviewOfDay'
+  if (type === 'category_step') return 'daily.advanceCategory'
+  if (type === 'quick_quiz') return 'daily.quickQuiz'
+  if (type === 'marathon') return 'daily.marathon'
+  if (type === 'first_category') return 'daily.discoverFirst'
+  if (type === 'first_quiz') return 'daily.testFirst'
+  return 'daily.sessionOfDay'
 }
 
 function getSessionEmoji(type: string, index: number): string {
@@ -68,22 +54,6 @@ function getSessionEmoji(type: string, index: number): string {
   if (type === 'marathon') return '🏃'
   if (type === 'kana_group') return '🔤'
   return ['🎯', '📚', '💪'][index] ?? '🎯'
-}
-
-function getSessionSubtitle(type: string): string | null {
-  if (type === 'first_category') return 'Politesse de base'
-  if (type === 'first_quiz') {
-    const cat = scenarios.find((s) => getCategoryProgress(s.id).step1Complete)
-    return cat ? cat.name : null
-  }
-  if (type === 'category_step') {
-    const cat = scenarios.find((s) => {
-      const p = getCategoryProgress(s.id)
-      return !p.step1Complete || !p.step2Complete || !p.step3Complete
-    })
-    return cat ? cat.name : null
-  }
-  return null
 }
 
 function navigateToSession(type: string, navigate: ReturnType<typeof useNavigate>) {
@@ -112,10 +82,28 @@ export default function DailyObjective() {
   const state = getUserState()
   const suggestions = getSuggestedSessions(data.travelMode, state)
   const isFresh = xp.totalXP === 0 && quota.sessionsCompleted.length === 0
+  const ui = useUI()
+  const t = useT()
 
   const completed = quota.sessionsCompleted.length
   const required = quota.sessionsRequired
   const allDone = completed >= required
+
+  const getSubtitle = (type: string): string | null => {
+    if (type === 'first_category') return ui('daily.basicPoliteness')
+    if (type === 'first_quiz') {
+      const cat = scenarios.find((s) => getCategoryProgress(s.id).step1Complete)
+      return cat ? t(cat.name, cat.name_en) : null
+    }
+    if (type === 'category_step') {
+      const cat = scenarios.find((s) => {
+        const p = getCategoryProgress(s.id)
+        return !p.step1Complete || !p.step2Complete || !p.step3Complete
+      })
+      return cat ? t(cat.name, cat.name_en) : null
+    }
+    return null
+  }
 
   return (
     <motion.div
@@ -132,14 +120,15 @@ export default function DailyObjective() {
       }}
     >
       <p style={{ fontSize: 14, fontWeight: 800, color: '#1A3A5C', margin: '0 0 12px' }}>
-        {isFresh ? 'Par où commencer ?' : '📋 Objectif du jour'}
+        {isFresh ? ui('daily.whereToStart') : ui('daily.objectiveOfDay')}
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {suggestions.map((type, i) => {
           const isDone = i < completed
           const emoji = getSessionEmoji(type, i)
-          const subtitle = getSessionSubtitle(type)
+          const subtitle = getSubtitle(type)
+          const label = ui(getSessionLabelKey(type))
 
           if (isDone) {
             return (
@@ -164,7 +153,7 @@ export default function DailyObjective() {
                   textDecorationColor: 'rgba(90,122,90,0.4)',
                   fontFamily: 'Nunito, sans-serif',
                 }}>
-                  {getSuggestionLabel(type)}
+                  {label}
                 </span>
               </div>
             )
@@ -199,7 +188,7 @@ export default function DailyObjective() {
                   textShadow: '0 -1px 0 rgba(0,0,0,0.15)',
                   display: 'block',
                 }}>
-                  {getSuggestionLabel(type)}
+                  {label}
                 </span>
                 {subtitle && (
                   <span style={{
@@ -254,9 +243,9 @@ export default function DailyObjective() {
             margin: '8px 0 0',
           }}>
             {allDone ? (
-              `${completed}/${required} ✨ Streak maintenu !`
+              `${completed}/${required} ✨ ${ui('daily.streakKept')}`
             ) : (
-              `${completed}/${required} — Encore ${required - completed} session${required - completed > 1 ? 's' : ''} pour ton streak 🔥`
+              `${completed}/${required} — ${ui('daily.remaining')} ${required - completed} ${required - completed > 1 ? ui('daily.sessionsRemainingPlural') : ui('daily.sessionsRemaining')} ${ui('daily.forStreak')}`
             )}
           </p>
         </>

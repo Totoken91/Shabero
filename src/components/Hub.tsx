@@ -7,11 +7,13 @@ import { getStreak, getGlobalProgress, getCategoryStepInfo, getXPData, getLevelF
 import CategoryCard from './CategoryCard'
 import TipOfTheDay from './TipOfTheDay'
 import DailyObjective from './DailyObjective'
+import { useUI, useT } from '../lib/locale'
+import type { UIKey } from '../i18n/ui'
 
-const CATEGORY_GROUPS = [
-  { key: 'bases', emoji: '🎒', label: 'Les bases', ids: ['politesse', 'parlersoi', 'nombres', 'navigation'] },
-  { key: 'quotidien', emoji: '🍜', label: 'Quotidien', ids: ['konbini', 'izakaya', 'trains', 'shopping', 'hotel', 'urgences'] },
-  { key: 'social', emoji: '🎉', label: 'Social', ids: ['socialiser', 'reactions', 'nightlife', 'insultes'] },
+const CATEGORY_GROUPS: Array<{ key: string; emoji: string; labelKey: UIKey; ids: string[] }> = [
+  { key: 'bases', emoji: '🎒', labelKey: 'hub.groupBasics', ids: ['politesse', 'parlersoi', 'nombres', 'navigation'] },
+  { key: 'quotidien', emoji: '🍜', labelKey: 'hub.groupDaily', ids: ['konbini', 'izakaya', 'trains', 'shopping', 'hotel', 'urgences'] },
+  { key: 'social', emoji: '🎉', labelKey: 'hub.groupSocial', ids: ['socialiser', 'reactions', 'nightlife', 'insultes'] },
 ]
 
 // Determine how much to show based on progression
@@ -36,14 +38,16 @@ function getVisibility() {
 function StreakDisplay() {
   const { current, longest } = getStreak()
   const flames = current >= 14 ? '🔥🔥🔥' : current >= 7 ? '🔥🔥' : '🔥'
+  const ui = useUI()
+  const dayLabel = current > 1 ? ui('hub.dayMany') : ui('hub.dayOne')
 
   return (
     <div className="phrase-card p-4 flex items-center gap-3">
       <span className="relative z-10 text-[28px]">{flames}</span>
       <div className="relative z-10">
-        <span className="font-bold text-[18px] text-[var(--text)]">{current} jour{current > 1 ? 's' : ''}</span>
+        <span className="font-bold text-[18px] text-[var(--text)]">{current} {dayLabel}</span>
         {longest > current && (
-          <span className="text-[11px] text-[var(--text-light)] block">Record : {longest} jours</span>
+          <span className="text-[11px] text-[var(--text-light)] block">{ui('hub.record')} {longest} {ui('hub.dayMany')}</span>
         )}
       </div>
     </div>
@@ -81,13 +85,14 @@ function XPBar() {
 
 function GlobalGauge() {
   const pct = getGlobalProgress(scenarios.length)
-  const msg = pct >= 80 ? 'Tu es presque un local' : pct >= 50 ? 'Les Japonais vont être impressionnés' : pct >= 20 ? 'Tu comprends déjà plus que la plupart des touristes' : 'Les premiers pas sont les plus importants !'
+  const ui = useUI()
+  const msg = pct >= 80 ? ui('hub.progressAlmostLocal') : pct >= 50 ? ui('hub.progressImpressJapanese') : pct >= 20 ? ui('hub.progressBetterThanTourists') : ui('hub.progressFirstSteps')
   const barColor = pct >= 80 ? '#D4A800' : pct >= 50 ? '#34A853' : '#2196F3'
 
   return (
     <div className="phrase-card p-4">
       <div className="relative z-10 flex justify-between items-baseline mb-1">
-        <span className="text-[12px] font-bold text-[var(--text)]">Prêt pour le Japon</span>
+        <span className="text-[12px] font-bold text-[var(--text)]">{ui('hub.readyForJapan')}</span>
         <span className="text-[14px] font-[800]" style={{ color: barColor }}>{pct}%</span>
       </div>
       <div className="relative z-10 h-3 rounded-full overflow-hidden" style={{ background: 'linear-gradient(to bottom, #E0E0E0, #C8C8C8)', border: '1px solid #B0B0B0', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.1)' }}>
@@ -123,6 +128,7 @@ function CategoryGroup({ group, defaultOpen, navigate }: {
   const [open, setOpen] = useState(defaultOpen)
   const cats = group.ids.map(id => scenarios.find(s => s.id === id)!).filter(Boolean)
   const { started, done, total } = getGroupProgress(group.ids)
+  const ui = useUI()
 
   return (
     <div>
@@ -134,7 +140,7 @@ function CategoryGroup({ group, defaultOpen, navigate }: {
       >
         <span className="relative z-10 text-[18px]">{group.emoji}</span>
         <span className="relative z-10 flex-1 text-left font-bold text-[14px] text-[var(--text)]">
-          {group.label}
+          {ui(group.labelKey)}
         </span>
         {!open && started > 0 && (
           <span className="relative z-10 text-[11px] font-bold text-[var(--text-light)]">
@@ -173,11 +179,13 @@ function CategoryGroup({ group, defaultOpen, navigate }: {
 
 function ContinueCard() {
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
 
   for (const s of scenarios) {
     const { current, pct } = getCategoryStepInfo(s.id)
     if (pct < 100) {
-      const stepLabel = current === 1 ? 'Écoute' : current === 2 ? 'Comprends' : 'Parle'
+      const stepLabel = current === 1 ? ui('hub.stepListen') : current === 2 ? ui('hub.stepUnderstand') : ui('hub.stepSpeak')
       return (
         <motion.button
           onClick={() => navigate(`/situations/${s.id}`)}
@@ -186,9 +194,9 @@ function ContinueCard() {
           whileTap={{ scale: 0.98 }}
         >
           <div className="relative z-10 flex-1">
-            <span className="text-[11px] text-[var(--text-light)] block">Continuer</span>
-            <span className="font-bold text-[14px] text-[var(--text)] block">{s.name}</span>
-            <span className="text-[11px] text-[var(--text-light)]">Étape {current}/3 — {stepLabel}</span>
+            <span className="text-[11px] text-[var(--text-light)] block">{ui('hub.continue')}</span>
+            <span className="font-bold text-[14px] text-[var(--text)] block">{t(s.name, s.name_en)}</span>
+            <span className="text-[11px] text-[var(--text-light)]">{ui('hub.step')} {current}/3 — {stepLabel}</span>
           </div>
           <div className="relative z-10 w-14">
             <div className="h-2 rounded-full overflow-hidden" style={{ background: '#D4E8F5', border: '1px solid #B0D0E5' }}>
@@ -209,6 +217,7 @@ export default function Hub() {
   const vis = getVisibility()
   const quota = getDailyQuota()
   const allDone = quota.sessionsCompleted.length >= quota.sessionsRequired
+  const ui = useUI()
 
   return (
     <div className="flex flex-col gap-3">
@@ -237,7 +246,7 @@ export default function Hub() {
         whileTap={{ scale: 0.98 }}
       >
         <Stamp size={18} weight="bold" className="relative z-10 text-[var(--text)]" />
-        <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Mon Passeport</span>
+        <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{ui('hub.myPassport')}</span>
       </motion.button>
 
       {/* Tip of the day */}
@@ -245,7 +254,7 @@ export default function Hub() {
 
       {/* Category groups */}
       <p className="text-[12px] font-bold text-white text-center mt-2" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}>
-        Toutes les catégories
+        {ui('hub.allCategories')}
       </p>
       <div className="flex flex-col gap-3">
         {CATEGORY_GROUPS.map((g) => (

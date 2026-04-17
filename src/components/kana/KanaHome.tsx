@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { useLocale } from '../../lib/locale'
 
 export default function KanaHome() {
   const navigate = useNavigate()
+  const lang = useLocale((s) => s.lang)
 
   return (
     <div className="max-w-[500px] mx-auto">
       <div className="phrase-card p-5 mb-4 text-center">
         <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">Kana</h2>
-        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">Apprends à lire les caractères japonais</p>
+        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">{lang === 'en' ? 'Learn to read Japanese characters' : 'Apprends à lire les caractères japonais'}</p>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -26,7 +28,7 @@ export default function KanaHome() {
           </div>
           <div className="relative z-10">
             <span className="font-bold text-[16px] text-[var(--text)] block">Hiragana</span>
-            <span className="text-[12px] text-[var(--text-light)]">Les caractères de base — 46 kana en 10 groupes</span>
+            <span className="text-[12px] text-[var(--text-light)]">{lang === 'en' ? 'Basic characters — 46 kana in 10 groups' : 'Les caractères de base — 46 kana en 10 groupes'}</span>
           </div>
         </motion.button>
 
@@ -45,7 +47,7 @@ export default function KanaHome() {
           </div>
           <div className="relative z-10">
             <span className="font-bold text-[16px] text-[var(--text)] block">Katakana</span>
-            <span className="text-[12px] text-[var(--text-light)]">Pour les mots étrangers — 46 kana en 10 groupes</span>
+            <span className="text-[12px] text-[var(--text-light)]">{lang === 'en' ? 'For foreign words — 46 kana in 10 groups' : 'Pour les mots étrangers — 46 kana en 10 groupes'}</span>
           </div>
         </motion.button>
 
@@ -63,8 +65,8 @@ export default function KanaHome() {
             <span className="text-white font-jp text-[20px] font-bold relative z-10">漢</span>
           </div>
           <div className="relative z-10">
-            <span className="font-bold text-[16px] text-[var(--text)] block">Kanji essentiels</span>
-            <span className="text-[12px] text-[var(--text-light)]">Nombres, directions, panneaux — le minimum pour voyager</span>
+            <span className="font-bold text-[16px] text-[var(--text)] block">{lang === 'en' ? 'Essential Kanji' : 'Kanji essentiels'}</span>
+            <span className="text-[12px] text-[var(--text-light)]">{lang === 'en' ? 'Numbers, directions, signs — travel essentials' : 'Nombres, directions, panneaux — le minimum pour voyager'}</span>
           </div>
         </motion.button>
       </div>

@@ -3,10 +3,14 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Lock, Star } from '@phosphor-icons/react'
 import { hiraganaGroups, katakanaGroups } from '../../data/kana'
 import { isKanaGroupMastered, getKanaStreak } from '../../lib/progress'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function KanaGroupList() {
   const { type } = useParams<{ type: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
   const groups = type === 'katakana' ? katakanaGroups : hiraganaGroups
   const label = type === 'katakana' ? 'Katakana' : 'Hiragana'
 
@@ -19,12 +23,12 @@ export default function KanaGroupList() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-5 mb-4 text-center">
         <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">{label}</h2>
-        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">10 groupes — 5 kana par groupe</p>
+        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">{lang === 'en' ? '10 groups — 5 kana per group' : '10 groupes — 5 kana par groupe'}</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -52,7 +56,7 @@ export default function KanaGroupList() {
               </div>
 
               <div className="relative z-10 flex-1 min-w-0">
-                <span className="font-bold text-[14px] text-[var(--text)] block">{group.name}</span>
+                <span className="font-bold text-[14px] text-[var(--text)] block">{t(group.name, group.name_en)}</span>
                 <span className="text-[11px] text-[var(--text-light)] block">
                   {group.kana.map((k) => k.character).join(' ')}
                 </span>
@@ -63,7 +67,7 @@ export default function KanaGroupList() {
                 {mastered ? (
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white"
                     style={{ background: 'linear-gradient(to bottom, #FFD54F 0%, #FFB300 40%, #FFA000 40%, #FF8F00 100%)', border: '1px solid #E65100' }}>
-                    <Star size={10} weight="fill" /> Maîtrisé
+                    <Star size={10} weight="fill" /> {lang === 'en' ? 'Mastered' : 'Maîtrisé'}
                   </span>
                 ) : streak > 0 ? (
                   <span className="text-[11px] font-bold text-sky-600">{streak}/3</span>

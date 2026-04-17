@@ -9,11 +9,15 @@ import { showXPToast } from '../../lib/xpToast'
 import type { DisplayMode } from '../../types'
 import DisplayToggle from '../DisplayToggle'
 import PhraseCard from './PhraseCard'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function StepListen() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [mode, setMode] = useState<DisplayMode>(getDisplayMode)
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
   const scenario = scenarios.find((s) => s.id === id)
   if (!scenario) return null
@@ -38,12 +42,12 @@ export default function StepListen() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="detail-header p-4 text-white text-center mb-4">
-        <h1 className="relative z-10 text-[18px] font-[800] m-0">Étape 1 — Écoute</h1>
-        <p className="relative z-10 text-[12px] text-white/70 mt-1">{scenario.name} • {scenario.phrases.length} phrases</p>
+        <h1 className="relative z-10 text-[18px] font-[800] m-0">{ui('hub.step')} 1 — {ui('hub.stepListen')}</h1>
+        <p className="relative z-10 text-[12px] text-white/70 mt-1">{t(scenario.name, scenario.name_en)} • {scenario.phrases.length} {lang === 'en' ? 'phrases' : 'phrases'}</p>
       </div>
 
       <DisplayToggle mode={mode} onChange={handleModeChange} />
@@ -64,7 +68,7 @@ export default function StepListen() {
         onClick={handleComplete}
         className="phrase-badge !text-[14px] !px-6 !py-3 !rounded-lg cursor-pointer mt-6 mx-auto block"
       >
-        {progress.step1Complete ? 'Réécouter terminé' : 'J\'ai tout écouté'}
+        {progress.step1Complete ? (lang === 'en' ? 'Listen again — done' : 'Réécouter terminé') : (lang === 'en' ? 'I\'ve listened to all' : 'J\'ai tout écouté')}
       </button>
     </div>
   )

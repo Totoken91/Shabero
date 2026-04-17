@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { useUI } from '../lib/locale'
 
 export default function DeleteAccountPage() {
   const [email, setEmail] = useState('')
@@ -7,6 +8,7 @@ export default function DeleteAccountPage() {
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const ui = useUI()
 
   const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -14,20 +16,18 @@ export default function DeleteAccountPage() {
     setLoading(true)
 
     try {
-      // Sign in first
       const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
       if (signInError) {
-        setError('Email ou mot de passe incorrect')
+        setError(ui('auth.errBadCreds'))
         return
       }
 
       const { data: { session } } = await supabase.auth.getSession()
       if (!session) {
-        setError('Erreur de connexion')
+        setError(ui('delete.loginFailed'))
         return
       }
 
-      // Call delete account edge function
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
         method: 'POST',
         headers: {
@@ -37,14 +37,14 @@ export default function DeleteAccountPage() {
       })
 
       if (!res.ok) {
-        setError('Erreur lors de la suppression')
+        setError(ui('delete.deleteFailed'))
         return
       }
 
       await supabase.auth.signOut()
       setDone(true)
     } catch {
-      setError('Une erreur est survenue')
+      setError(ui('delete.unknownError'))
     } finally {
       setLoading(false)
     }
@@ -54,9 +54,9 @@ export default function DeleteAccountPage() {
     return (
       <div style={styles.container}>
         <div style={styles.card}>
-          <h1 style={styles.title}>Compte supprimé</h1>
+          <h1 style={styles.title}>{ui('delete.success')}</h1>
           <p style={styles.text}>
-            Ton compte et toutes tes données ont été supprimés définitivement.
+            {ui('delete.successMsg')}
           </p>
         </div>
       </div>
@@ -66,16 +66,15 @@ export default function DeleteAccountPage() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h1 style={styles.title}>Supprimer mon compte Shabero</h1>
+        <h1 style={styles.title}>{ui('delete.title')}</h1>
         <p style={styles.text}>
-          Cette action est irréversible. Toutes tes données de progression,
-          tes scores et ton compte seront supprimés définitivement.
+          {ui('delete.warning')}
         </p>
 
         <form onSubmit={handleDelete} style={styles.form}>
           <input
             type="email"
-            placeholder="ton@email.com"
+            placeholder={ui('auth.emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -83,7 +82,7 @@ export default function DeleteAccountPage() {
           />
           <input
             type="password"
-            placeholder="Mot de passe"
+            placeholder={ui('auth.passwordPlaceholder')}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -93,7 +92,7 @@ export default function DeleteAccountPage() {
           {error && <p style={styles.error}>{error}</p>}
 
           <button type="submit" disabled={loading} style={styles.button}>
-            {loading ? 'Suppression...' : 'Supprimer définitivement mon compte'}
+            {loading ? ui('delete.deleting') : ui('delete.confirmBtn')}
           </button>
         </form>
       </div>

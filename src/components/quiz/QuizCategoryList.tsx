@@ -3,9 +3,12 @@ import { motion } from 'framer-motion'
 import { ArrowLeft } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { getCategoryStepInfo } from '../../lib/store'
+import { useUI, useT } from '../../lib/locale'
 
 export default function QuizCategoryList() {
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
 
   return (
     <div className="max-w-[500px] mx-auto">
@@ -15,12 +18,12 @@ export default function QuizCategoryList() {
         style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }}
         whileTap={{ scale: 0.95 }}
       >
-        <ArrowLeft size={18} weight="bold" /> Retour
+        <ArrowLeft size={18} weight="bold" /> {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-5 mb-4 text-center">
-        <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">Quiz par catégorie</h2>
-        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">Choisis ta catégorie</p>
+        <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">{ui('quiz.byCategory')}</h2>
+        <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">{ui('quiz.chooseCategory')}</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -38,7 +41,7 @@ export default function QuizCategoryList() {
               whileTap={{ scale: 0.98 }}
             >
               <div className="relative z-10 flex-1 min-w-0">
-                <span className="font-bold text-[14px] text-[var(--text)] block truncate">{s.name}</span>
+                <span className="font-bold text-[14px] text-[var(--text)] block truncate">{t(s.name, s.name_en)}</span>
                 <span className="text-[11px] text-[var(--text-light)]">{s.phrases.length} phrases</span>
               </div>
               <div className="relative z-10 w-16 shrink-0">

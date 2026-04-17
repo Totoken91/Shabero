@@ -9,12 +9,16 @@ import { recordAnswer, getConfidence } from '../../lib/progress'
 import { completeSession, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
 import { showXPToast } from '../../lib/xpToast'
 import type { ListenQuestion } from '../../lib/quizGenerator'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function ListenMode() {
   const { scenarioId } = useParams<{ scenarioId: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
-  const [questions] = useState<ListenQuestion[]>(() => generateListenQuiz(scenarioId!, 10))
+  const [questions] = useState<ListenQuestion[]>(() => generateListenQuiz(scenarioId!, 10, lang))
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
   const [score, setScore] = useState(0)
@@ -44,7 +48,7 @@ export default function ListenMode() {
   const handleSelect = useCallback((option: string) => {
     if (selected) return
     setSelected(option)
-    const correct = option === q.phrase.fr
+    const correct = option === q.correctAnswer
     const xp = awardQuizAnswerXP(correct)
     showXPToast(xp)
     if (correct) { setScore((s) => s + 1); playCorrect() }
@@ -71,10 +75,10 @@ export default function ListenMode() {
         <div className="phrase-card p-6 text-center">
           <p className="relative z-10 text-[28px] font-[900] text-[var(--text)]">{score}/{questions.length}</p>
           <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">
-            {score >= 8 ? 'Sugoi !' : score >= 5 ? 'Pas mal !' : 'Ganbatte !'}
+            {score >= 8 ? 'Sugoi !' : score >= 5 ? (lang === 'en' ? 'Not bad!' : 'Pas mal !') : 'Ganbatte !'}
           </p>
           <div className="relative z-10 mt-4">
-            <p className="text-[11px] font-bold text-[var(--text-light)] mb-1">Confiance : {confidence}%</p>
+            <p className="text-[11px] font-bold text-[var(--text-light)] mb-1">{ui('quiz.confidence')} : {confidence}%</p>
             <div className="h-3 rounded-full bg-[#D4E8F5] overflow-hidden border border-[#B0D0E5]">
               <div className="h-full rounded-full" style={{ width: `${confidence}%`, background: barColor }} />
             </div>
@@ -82,10 +86,10 @@ export default function ListenMode() {
         </div>
         <div className="flex gap-3 mt-4">
           <button onClick={() => navigate(`/entrainement/${scenarioId}`)} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Modes</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Modes' : 'Modes'}</span>
           </button>
           <button onClick={() => { setCurrent(0); setScore(0); setSelected(null) }} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Rejouer</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Replay' : 'Rejouer'}</span>
           </button>
         </div>
       </div>
@@ -101,7 +105,7 @@ export default function ListenMode() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       {/* Progress */}
@@ -137,13 +141,13 @@ export default function ListenMode() {
             >
               <SpeakerHigh size={28} weight="bold" className="text-white" />
             </button>
-            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-3">Écoute la phrase</p>
+            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-3">{lang === 'en' ? 'Listen to the phrase' : 'Écoute la phrase'}</p>
           </div>
 
           {/* 4 FR options */}
           <div className="flex flex-col gap-2">
             {q.options.map((opt) => {
-              const isCorrect = opt === q.phrase.fr
+              const isCorrect = opt === q.correctAnswer
               const isSelected = selected === opt
               const showResult = selected !== null
 
@@ -168,10 +172,10 @@ export default function ListenMode() {
           {selected && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="phrase-card p-4 mt-3">
               <p className="relative z-10 text-[13px] font-bold text-[var(--text)]">
-                {selected === q.phrase.fr ? '✓ Correct !' : `✗ C'était : ${q.phrase.fr}`}
+                {selected === q.correctAnswer ? (lang === 'en' ? '✓ Correct!' : '✓ Correct !') : (lang === 'en' ? `✗ It was: ${q.correctAnswer}` : `✗ C'était : ${q.correctAnswer}`)}
               </p>
               <p className="relative z-10 text-[12px] text-sky-700 mt-1">{q.phrase.romaji}</p>
-              {q.phrase.tip && <p className="relative z-10 text-[11px] text-[var(--text-light)] mt-1">{q.phrase.tip}</p>}
+              {q.phrase.tip && <p className="relative z-10 text-[11px] text-[var(--text-light)] mt-1">{t(q.phrase.tip, q.phrase.tip_en)}</p>}
             </motion.div>
           )}
 
@@ -182,7 +186,7 @@ export default function ListenMode() {
               onClick={handleNext}
               className="phrase-badge !text-[13px] !px-5 !py-2 !rounded-lg cursor-pointer mt-3 ml-auto block"
             >
-              {current + 1 >= questions.length ? 'Voir le résultat' : 'Suivant →'}
+              {current + 1 >= questions.length ? (lang === 'en' ? 'See result' : 'Voir le résultat') : (lang === 'en' ? 'Next →' : 'Suivant →')}
             </motion.button>
           )}
         </motion.div>

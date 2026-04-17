@@ -1,9 +1,13 @@
+import { useLocale } from '../../lib/locale'
+
 interface Props {
   active: 'phrases' | 'panneaux'
   onChange: (tab: 'phrases' | 'panneaux') => void
 }
 
 export default function DicoToggle({ active, onChange }: Props) {
+  const lang = useLocale((s) => s.lang)
+
   return (
     <div className="flex justify-center mb-4">
       <div className="inline-flex rounded-lg overflow-hidden border border-[#8CC4DE]">
@@ -11,13 +15,13 @@ export default function DicoToggle({ active, onChange }: Props) {
           onClick={() => onChange('phrases')}
           className={`dico-toggle-btn ${active === 'phrases' ? 'dico-toggle-btn--active' : ''}`}
         >
-          Phrases
+          {lang === 'en' ? 'Phrases' : 'Phrases'}
         </button>
         <button
           onClick={() => onChange('panneaux')}
           className={`dico-toggle-btn ${active === 'panneaux' ? 'dico-toggle-btn--active' : ''}`}
         >
-          Panneaux
+          {lang === 'en' ? 'Signs' : 'Panneaux'}
         </button>
       </div>
     </div>

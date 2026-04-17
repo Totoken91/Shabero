@@ -19,6 +19,7 @@ import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
 import type { Scenario } from '../types'
 import { getCategoryProgress, getCategoryStepInfo } from '../lib/store'
+import { useT } from '../lib/locale'
 
 const ICONS: Record<string, ComponentType<IconProps>> = {
   konbini: Storefront,
@@ -64,6 +65,7 @@ interface CategoryCardProps {
 export default function CategoryCard({ scenario, index, onClick }: CategoryCardProps) {
   const Icon = ICONS[scenario.id] ?? Storefront
   const iconStyle = ICON_STYLES[scenario.id] ?? ICON_STYLES.konbini
+  const t = useT()
 
   return (
     <motion.button
@@ -87,11 +89,11 @@ export default function CategoryCard({ scenario, index, onClick }: CategoryCardP
       </div>
 
       <span className="relative z-10 font-bold text-[14px] text-[var(--text)] leading-tight">
-        {scenario.name}
+        {t(scenario.name, scenario.name_en)}
       </span>
 
       <span className="relative z-10 text-[11px] text-[var(--text-light)] leading-snug">
-        {scenario.description}
+        {t(scenario.description, scenario.description_en)}
       </span>
 
       {/* Step indicators + progress */}

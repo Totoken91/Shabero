@@ -3,19 +3,23 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Headphones, Brain, Microphone, Check } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { getCategoryProgress, getCategoryStepInfo } from '../../lib/store'
-
-const STEPS = [
-  { key: 1 as const, label: 'Écoute', icon: Headphones, desc: 'Parcours et écoute les phrases' },
-  { key: 2 as const, label: 'Comprends', icon: Brain, desc: 'Quiz audio → traduction FR' },
-  { key: 3 as const, label: 'Parle', icon: Microphone, desc: 'Trouve la bonne phrase audio' },
-]
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function SituationDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
+
+  const STEPS = [
+    { key: 1 as const, label: ui('hub.stepListen'), icon: Headphones, desc: lang === 'en' ? 'Browse and listen to phrases' : 'Parcours et écoute les phrases' },
+    { key: 2 as const, label: ui('hub.stepUnderstand'), icon: Brain, desc: lang === 'en' ? 'Audio → translation quiz' : 'Quiz audio → traduction' },
+    { key: 3 as const, label: ui('hub.stepSpeak'), icon: Microphone, desc: lang === 'en' ? 'Pick the correct audio phrase' : 'Trouve la bonne phrase audio' },
+  ]
 
   const scenario = scenarios.find((s) => s.id === id)
-  if (!scenario) return <div className="p-6 text-center text-[var(--text-light)]">Catégorie introuvable.</div>
+  if (!scenario) return <div className="p-6 text-center text-[var(--text-light)]">{lang === 'en' ? 'Category not found.' : 'Catégorie introuvable.'}</div>
 
   const progress = getCategoryProgress(id!)
   const { pct } = getCategoryStepInfo(id!)
@@ -30,7 +34,7 @@ export default function SituationDetail() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <motion.div
@@ -38,10 +42,9 @@ export default function SituationDetail() {
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <h1 className="relative z-10 text-[20px] font-[800] m-0">{scenario.name}</h1>
-        <p className="relative z-10 text-[13px] text-white/80 mt-1">{scenario.description}</p>
+        <h1 className="relative z-10 text-[20px] font-[800] m-0">{t(scenario.name, scenario.name_en)}</h1>
+        <p className="relative z-10 text-[13px] text-white/80 mt-1">{t(scenario.description, scenario.description_en)}</p>
 
-        {/* Progress bar */}
         <div className="relative z-10 mt-3 h-3 rounded-full overflow-hidden"
           style={{ background: 'linear-gradient(to bottom, #E0E0E0, #C8C8C8)', border: '1px solid #B0B0B0', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.1)' }}>
           <motion.div
@@ -54,11 +57,10 @@ export default function SituationDetail() {
         </div>
 
         {progress.stampEarned && (
-          <span className="relative z-10 inline-block mt-2 mastered-badge">Maîtrisé</span>
+          <span className="relative z-10 inline-block mt-2 mastered-badge">{lang === 'en' ? 'Mastered' : 'Maîtrisé'}</span>
         )}
       </motion.div>
 
-      {/* 3 Steps */}
       <div className="flex flex-col gap-3">
         {STEPS.map((step, i) => {
           const done = step.key === 1 ? progress.step1Complete
@@ -102,17 +104,17 @@ export default function SituationDetail() {
 
               <div className="relative z-10 flex-1">
                 <span className="font-bold text-[15px] text-[var(--text)] block">
-                  Étape {step.key} — {step.label}
+                  {ui('hub.step')} {step.key} — {step.label}
                 </span>
                 <span className="text-[11px] text-[var(--text-light)]">{step.desc}</span>
                 {score > 0 && step.key !== 1 && (
-                  <span className="text-[11px] text-sky-600 block mt-0.5">Meilleur score : {score}%</span>
+                  <span className="text-[11px] text-sky-600 block mt-0.5">{lang === 'en' ? `Best score: ${score}%` : `Meilleur score : ${score}%`}</span>
                 )}
               </div>
 
               {done && (
                 <span className="relative z-10 text-[10px] font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-full border border-emerald-200">
-                  Fait
+                  {lang === 'en' ? 'Done' : 'Fait'}
                 </span>
               )}
             </motion.button>

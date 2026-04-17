@@ -9,6 +9,7 @@ import {
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
 import type { SignCategory } from '../../types'
+import { useT, useLocale } from '../../lib/locale'
 
 const ICONS: Record<string, ComponentType<IconProps>> = {
   gare: Train,
@@ -43,6 +44,8 @@ interface Props {
 export default function SignCategoryCard({ category, index, onClick }: Props) {
   const Icon = ICONS[category.id] ?? MapPin
   const style = ICON_STYLES[category.id] ?? ICON_STYLES.rue
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
   return (
     <motion.button
@@ -62,16 +65,16 @@ export default function SignCategoryCard({ category, index, onClick }: Props) {
       </div>
 
       <span className="relative z-10 font-bold text-[14px] text-[var(--text)] leading-tight">
-        {category.name}
+        {t(category.name, category.name_en)}
       </span>
 
       <span className="relative z-10 text-[11px] text-[var(--text-light)] leading-snug">
-        {category.description}
+        {t(category.description, category.description_en)}
       </span>
 
       <div className="relative z-10 mt-auto">
         <span className={`phrase-badge ${BADGE_CLASSES[category.id] ?? ''}`}>
-          {category.signs.length} panneaux
+          {category.signs.length} {lang === 'en' ? 'signs' : 'panneaux'}
         </span>
       </div>
     </motion.button>

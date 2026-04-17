@@ -7,10 +7,14 @@ import { speakJapanese } from '../../lib/audio'
 import { completeSession, addXP } from '../../lib/store'
 import { showXPToast } from '../../lib/xpToast'
 import type { RepeatQuestion } from '../../lib/quizGenerator'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function RepeatMode() {
   const { scenarioId } = useParams<{ scenarioId: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
   const [questions] = useState<RepeatQuestion[]>(() => generateRepeatDrill(scenarioId!, 10))
   const [current, setCurrent] = useState(0)
@@ -33,15 +37,15 @@ export default function RepeatMode() {
     return (
       <div className="max-w-[400px] mx-auto">
         <div className="phrase-card p-6 text-center">
-          <p className="relative z-10 text-[20px] font-[800] text-[var(--text)]">Drill terminé !</p>
-          <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-2">Tu as pratiqué {questions.length} phrases.</p>
+          <p className="relative z-10 text-[20px] font-[800] text-[var(--text)]">{lang === 'en' ? 'Drill complete!' : 'Drill terminé !'}</p>
+          <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-2">{lang === 'en' ? `You practiced ${questions.length} phrases.` : `Tu as pratiqué ${questions.length} phrases.`}</p>
         </div>
         <div className="flex gap-3 mt-4">
           <button onClick={() => navigate(`/entrainement/${scenarioId}`)} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Retour</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{ui('common.back')}</span>
           </button>
           <button onClick={() => { setCurrent(0); setRevealed(false) }} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Recommencer</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Restart' : 'Recommencer'}</span>
           </button>
         </div>
       </div>
@@ -57,7 +61,7 @@ export default function RepeatMode() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-3 mb-4 text-center">
@@ -82,19 +86,17 @@ export default function RepeatMode() {
             >
               <SpeakerHigh size={32} weight="bold" className="text-white" />
             </button>
-            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-3">Écoute et répète à voix haute</p>
+            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-3">{lang === 'en' ? 'Listen and repeat out loud' : 'Écoute et répète à voix haute'}</p>
           </div>
 
-          {/* Romaji (always visible) */}
           <div className="phrase-card p-5 mb-3 text-center">
             <p className="relative z-10 text-[22px] font-[800] text-[var(--text)]">{q.phrase.romaji}</p>
-            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-2">{q.phrase.fr}</p>
+            <p className="relative z-10 text-[13px] text-[var(--text-light)] mt-2">{t(q.phrase.fr, q.phrase.en)}</p>
           </div>
 
-          {/* Reveal kana/kanji */}
           {!revealed ? (
             <button onClick={() => setRevealed(true)} className="phrase-card p-3 w-full text-center cursor-pointer">
-              <span className="relative z-10 text-[12px] text-[var(--text-light)]">Voir les kana / kanji</span>
+              <span className="relative z-10 text-[12px] text-[var(--text-light)]">{lang === 'en' ? 'Show kana / kanji' : 'Voir les kana / kanji'}</span>
             </button>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="phrase-card p-4 text-center">
@@ -110,13 +112,13 @@ export default function RepeatMode() {
               className="speaker-btn !w-auto !rounded-lg px-4 py-2 flex items-center gap-1.5 text-[13px] font-bold"
             >
               <SpeakerHigh size={14} weight="bold" />
-              Lent
+              {ui('common.slow')}
             </button>
             <button
               onClick={() => { setCurrent((c) => c + 1); setRevealed(false) }}
               className="phrase-badge !text-[13px] !px-5 !py-2 !rounded-lg flex items-center gap-1.5 cursor-pointer ml-auto"
             >
-              Suivant <ArrowRight size={14} weight="bold" />
+              {lang === 'en' ? 'Next' : 'Suivant'} <ArrowRight size={14} weight="bold" />
             </button>
           </div>
         </motion.div>

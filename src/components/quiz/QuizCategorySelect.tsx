@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Lightning, Target, Trophy, ArrowRight } from '@phosphor-icons/react'
 import { scenarios } from '../../data/scenarios'
 import { isReviewDoneToday, getMarathonRecord, getUserData, getCategoryStepInfo } from '../../lib/store'
+import { useUI, useT } from '../../lib/locale'
 
 export default function QuizCategorySelect() {
   const navigate = useNavigate()
@@ -10,11 +11,13 @@ export default function QuizCategorySelect() {
   const marathonRecord = getMarathonRecord()
   const data = getUserData()
   const reviewCount = data.travelMode === 'intensive' ? 10 : data.travelMode === 'zen' ? 3 : 5
+  const ui = useUI()
+  const t = useT()
 
   return (
     <div className="max-w-[500px] mx-auto">
       <div className="phrase-card p-5 mb-4 text-center">
-        <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">Entraînement</h2>
+        <h2 className="relative z-10 text-[20px] font-[800] text-[var(--text)] m-0">{ui('quiz.training')}</h2>
       </div>
 
       {/* 3 big mode cards */}
@@ -32,8 +35,8 @@ export default function QuizCategorySelect() {
             <Lightning size={22} weight="bold" className="text-white relative z-10" />
           </div>
           <div className="relative z-10 flex-1">
-            <span className="font-bold text-[14px] text-[var(--text)] block">{reviewDone ? 'Révision faite !' : 'Révision du jour'}</span>
-            <span className="text-[11px] text-[var(--text-light)]">{reviewDone ? 'Reviens demain' : `${reviewCount} phrases mixées`}</span>
+            <span className="font-bold text-[14px] text-[var(--text)] block">{reviewDone ? ui('quiz.reviewDone') : ui('quiz.reviewTitle')}</span>
+            <span className="text-[11px] text-[var(--text-light)]">{reviewDone ? ui('quiz.backTomorrow') : `${reviewCount} ${ui('quiz.phrasesReviewed')}`}</span>
           </div>
           {!reviewDone && <ArrowRight size={16} weight="bold" className="relative z-10 text-[var(--text-light)]" />}
         </motion.button>
@@ -50,8 +53,8 @@ export default function QuizCategorySelect() {
             <Target size={22} weight="bold" className="text-white relative z-10" />
           </div>
           <div className="relative z-10 flex-1">
-            <span className="font-bold text-[14px] text-[var(--text)] block">Quiz par catégorie</span>
-            <span className="text-[11px] text-[var(--text-light)]">Choisis une catégorie et un mode</span>
+            <span className="font-bold text-[14px] text-[var(--text)] block">{ui('quiz.byCategory')}</span>
+            <span className="text-[11px] text-[var(--text-light)]">{ui('quiz.chooseCategory')}</span>
           </div>
           <ArrowRight size={16} weight="bold" className="relative z-10 text-[var(--text-light)]" />
         </motion.button>
@@ -68,9 +71,9 @@ export default function QuizCategorySelect() {
             <Trophy size={22} weight="bold" className="text-white relative z-10" />
           </div>
           <div className="relative z-10 flex-1">
-            <span className="font-bold text-[14px] text-[var(--text)] block">Marathon</span>
+            <span className="font-bold text-[14px] text-[var(--text)] block">{ui('quiz.marathon')}</span>
             <span className="text-[11px] text-[var(--text-light)]">
-              Toutes les phrases • {marathonRecord > 0 ? `Record : ${marathonRecord}%` : '20 questions'}
+              {ui('quiz.allPhrasesRecord')} {marathonRecord > 0 ? `: ${marathonRecord}%` : ` • ${ui('quiz.questions')}`}
             </span>
           </div>
           <ArrowRight size={16} weight="bold" className="relative z-10 text-[var(--text-light)]" />
@@ -78,14 +81,14 @@ export default function QuizCategorySelect() {
       </div>
 
       {/* Category progress list */}
-      <p className="text-[12px] font-bold text-[var(--text-light)] text-center mb-2">Progression par catégorie</p>
+      <p className="text-[12px] font-bold text-[var(--text-light)] text-center mb-2">{ui('quiz.categoryProgress')}</p>
       <div className="flex flex-col gap-1.5">
         {scenarios.map((s) => {
           const { pct } = getCategoryStepInfo(s.id)
           const barColor = pct >= 100 ? '#D4A800' : pct > 0 ? '#2196F3' : '#C0D4E0'
           return (
             <div key={s.id} className="flex items-center gap-2 px-1">
-              <span className="text-[12px] text-[var(--text)] font-bold w-24 truncate">{s.name}</span>
+              <span className="text-[12px] text-[var(--text)] font-bold w-24 truncate">{t(s.name, s.name_en)}</span>
               <div className="flex-1 h-2 rounded-full bg-[#D4E8F5] overflow-hidden border border-[#B0D0E5]">
                 <div className="h-full rounded-full" style={{ width: `${pct}%`, background: barColor }} />
               </div>

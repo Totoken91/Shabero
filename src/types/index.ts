@@ -4,22 +4,28 @@ export interface Phrase {
   jp: string
   romaji: string
   fr: string
+  en?: string
   note?: string
+  note_en?: string
   noteType?: 'default' | 'green' | 'blue'
   who?: 'them' | 'you'
   // New fields (optional for now, enriched progressively)
   id?: string
   situation?: string
+  situation_en?: string
   hiragana?: string
   audioText?: string
   tip?: string
+  tip_en?: string
   difficulty?: 1 | 2 | 3
 }
 
 export interface Scenario {
   id: string
   name: string
+  name_en?: string
   description: string
+  description_en?: string
   phrases: Phrase[]
 }
 
@@ -28,13 +34,17 @@ export interface Sign {
   jp: string
   romaji: string
   fr: string
+  en?: string
   note: string
+  note_en?: string
 }
 
 export interface SignCategory {
   id: string
   name: string
+  name_en?: string
   description: string
+  description_en?: string
   signs: Sign[]
 }
 

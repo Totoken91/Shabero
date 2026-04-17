@@ -8,6 +8,7 @@ import { speakJapanese } from '../../lib/audio'
 import { recordKanaAnswer, isKanaGroupMastered } from '../../lib/progress'
 import { completeSession, awardQuizAnswerXP, awardKanaGroupXP } from '../../lib/store'
 import { showXPToast } from '../../lib/xpToast'
+import { useUI, useLocale } from '../../lib/locale'
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr]
@@ -61,6 +62,8 @@ function generateQuestions(groupKana: Kana[], allKana: Kana[]): Question[] {
 export default function KanaExercise() {
   const { type, groupId } = useParams<{ type: string; groupId: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const lang = useLocale((s) => s.lang)
 
   const groups = type === 'katakana' ? katakanaGroups : hiraganaGroups
   const group = groups.find((g) => g.id === Number(groupId))
@@ -122,26 +125,26 @@ export default function KanaExercise() {
             {total - errors}/{total}
           </p>
           <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">
-            {perfect ? 'Parfait !' : errors <= 2 ? 'Presque !' : 'Continue !'}
+            {perfect ? (lang === 'en' ? 'Perfect!' : 'Parfait !') : errors <= 2 ? (lang === 'en' ? 'Almost!' : 'Presque !') : (lang === 'en' ? 'Keep going!' : 'Continue !')}
           </p>
           {mastered && (
             <span className="relative z-10 inline-block mt-3 px-4 py-1 rounded-full text-[12px] font-bold text-white"
               style={{ background: 'linear-gradient(to bottom, #FFD54F 0%, #FFB300 40%, #FFA000 40%, #FF8F00 100%)', border: '1px solid #E65100', boxShadow: '0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3)', textShadow: '0 -1px 0 rgba(0,0,0,0.15)' }}>
-              Groupe maîtrisé !
+              {lang === 'en' ? 'Group mastered!' : 'Groupe maîtrisé !'}
             </span>
           )}
           {!mastered && (
             <p className="relative z-10 text-[11px] text-[var(--text-light)] mt-2">
-              Fais 3 sessions parfaites pour maîtriser ce groupe
+              {lang === 'en' ? 'Complete 3 perfect sessions to master this group' : 'Fais 3 sessions parfaites pour maîtriser ce groupe'}
             </p>
           )}
         </div>
         <div className="flex gap-3 mt-4">
           <button onClick={() => navigate(`/kana/${type}`)} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Groupes</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Groups' : 'Groupes'}</span>
           </button>
           <button onClick={() => { setCurrent(0); setErrors(0); setSelected(null) }} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Rejouer</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Replay' : 'Rejouer'}</span>
           </button>
         </div>
       </div>
@@ -159,7 +162,7 @@ export default function KanaExercise() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-3 mb-4 text-center">

@@ -7,18 +7,20 @@ export const scenarios: Scenario[] = [
   {
     id: 'politesse',
     name: 'Politesse de base',
+    name_en: 'Basic Politeness',
     description: 'Les mots magiques qui ouvrent toutes les portes',
+    description_en: 'The magic words that open every door',
     phrases: [
-      { id: 'polite-1', situation: 'Tu veux remercier quelqu\'un :', jp: 'ありがとうございます', hiragana: 'ありがとう ございます', romaji: 'Arigatō gozaimasu', fr: 'Merci beaucoup.', audioText: 'ありがとうございます', tip: 'Casual entre potes : ありがとう suffit. Avec des inconnus, ajoute ございます.', who: 'you', difficulty: 1 },
-      { id: 'polite-2', situation: 'Tu veux t\'excuser ou attirer l\'attention :', jp: 'すみません', hiragana: 'すみません', romaji: 'Sumimasen', fr: 'Excusez-moi / Pardon / Merci.', audioText: 'すみません', tip: 'LE mot magique. Ça marche pour s\'excuser ET remercier. 50 fois par jour.', who: 'you', difficulty: 1 },
-      { id: 'polite-3', situation: 'Tu refuses poliment quelque chose :', jp: '大丈夫です', hiragana: 'だいじょうぶです', romaji: 'Daijōbu desu', fr: 'C\'est bon / Non merci.', audioText: '大丈夫です', tip: 'Avec un petit geste de la main = refus poli. Couteau suisse du japonais.', who: 'you', difficulty: 1 },
-      { id: 'polite-4', situation: 'Avant de manger (OBLIGATOIRE) :', jp: 'いただきます', hiragana: 'いただきます', romaji: 'Itadakimasu', fr: 'Bon appétit.', audioText: 'いただきます', tip: 'Joins les mains, petite inclinaison. Super touchant quand un étranger le fait.', who: 'you', difficulty: 1 },
-      { id: 'polite-5', situation: 'Après avoir mangé :', jp: 'ごちそうさまでした', hiragana: 'ごちそうさま でした', romaji: 'Gochisōsama deshita', fr: 'Merci pour le repas.', audioText: 'ごちそうさまでした', tip: 'Dis-le au staff en partant du resto. La classe absolue.', who: 'you', difficulty: 1 },
-      { id: 'polite-6', situation: 'Tu déranges quelqu\'un ou tu passes devant :', jp: '失礼します', hiragana: 'しつれいします', romaji: 'Shitsurei shimasu', fr: 'Pardon pour le dérangement.', audioText: '失礼します', tip: 'Plus formel que すみません. Magasin chic, ryokan, bureau.', who: 'you', difficulty: 2 },
-      { id: 'polite-7', situation: 'Tu veux dire oui / accepter :', jp: 'はい、お願いします', hiragana: 'はい、おねがいします', romaji: 'Hai, onegai shimasu', fr: 'Oui, s\'il vous plaît.', audioText: 'はい、お願いします', tip: 'Combo gagnant pour accepter quoi que ce soit.', who: 'you', difficulty: 1 },
-      { id: 'polite-8', situation: 'Tu veux dire non poliment :', jp: 'ちょっと…大丈夫です', hiragana: 'ちょっと… だいじょうぶです', romaji: 'Chotto... daijōbu desu', fr: 'Hmm... ça va aller (= non merci).', audioText: 'ちょっと、大丈夫です', tip: 'Au Japon on dit rarement "non". Le ちょっと + pause = non poli.', who: 'you', difficulty: 1 },
-      { id: 'polite-9', situation: 'Tu quittes un lieu avant les autres :', jp: 'お先に失礼します', hiragana: 'おさきに しつれいします', romaji: 'Osaki ni shitsurei shimasu', fr: 'Je m\'en vais, excusez-moi.', audioText: 'お先に失礼します', tip: 'Surtout au travail mais ça marche en quittant un bar. Très classe.', who: 'you', difficulty: 2 },
-      { id: 'polite-10', situation: 'Tu rencontres quelqu\'un pour la première fois :', jp: '初めまして、よろしくお願いします', hiragana: 'はじめまして、よろしく おねがいします', romaji: 'Hajimemashite, yoroshiku onegai shimasu', fr: 'Enchanté, ravi de vous connaître.', audioText: '初めまして、よろしくお願いします', tip: 'Casual entre jeunes : よろしく！ suffit.', who: 'you', difficulty: 1 },
+      { id: 'polite-1', situation: 'Tu veux remercier quelqu\'un :', situation_en: 'You want to thank someone:', jp: 'ありがとうございます', hiragana: 'ありがとう ございます', romaji: 'Arigatō gozaimasu', fr: 'Merci beaucoup.', en: 'Thank you very much.', audioText: 'ありがとうございます', tip: 'Casual entre potes : ありがとう suffit. Avec des inconnus, ajoute ございます.', tip_en: 'Casual with friends: just ありがとう. With strangers, add ございます.', who: 'you', difficulty: 1 },
+      { id: 'polite-2', situation: 'Tu veux t\'excuser ou attirer l\'attention :', situation_en: 'You want to apologize or get attention:', jp: 'すみません', hiragana: 'すみません', romaji: 'Sumimasen', fr: 'Excusez-moi / Pardon / Merci.', en: 'Excuse me / Sorry / Thanks.', audioText: 'すみません', tip: 'LE mot magique. Ça marche pour s\'excuser ET remercier. 50 fois par jour.', tip_en: 'THE magic word. Works to apologize AND thank. You\'ll say it 50 times a day.', who: 'you', difficulty: 1 },
+      { id: 'polite-3', situation: 'Tu refuses poliment quelque chose :', situation_en: 'You politely refuse something:', jp: '大丈夫です', hiragana: 'だいじょうぶです', romaji: 'Daijōbu desu', fr: 'C\'est bon / Non merci.', en: 'It\'s fine / No thanks.', audioText: '大丈夫です', tip: 'Avec un petit geste de la main = refus poli. Couteau suisse du japonais.', tip_en: 'With a small hand gesture = polite refusal. The Swiss army knife of Japanese.', who: 'you', difficulty: 1 },
+      { id: 'polite-4', situation: 'Avant de manger (OBLIGATOIRE) :', situation_en: 'Before eating (MANDATORY):', jp: 'いただきます', hiragana: 'いただきます', romaji: 'Itadakimasu', fr: 'Bon appétit.', en: 'Thanks for the meal (before eating).', audioText: 'いただきます', tip: 'Joins les mains, petite inclinaison. Super touchant quand un étranger le fait.', tip_en: 'Hands together, slight bow. Japanese people love it when foreigners do this.', who: 'you', difficulty: 1 },
+      { id: 'polite-5', situation: 'Après avoir mangé :', situation_en: 'After eating:', jp: 'ごちそうさまでした', hiragana: 'ごちそうさま でした', romaji: 'Gochisōsama deshita', fr: 'Merci pour le repas.', en: 'Thanks for the meal.', audioText: 'ごちそうさまでした', tip: 'Dis-le au staff en partant du resto. La classe absolue.', tip_en: 'Say it to the staff when leaving the restaurant. Absolute class.', who: 'you', difficulty: 1 },
+      { id: 'polite-6', situation: 'Tu déranges quelqu\'un ou tu passes devant :', situation_en: 'You\'re disturbing someone or passing by:', jp: '失礼します', hiragana: 'しつれいします', romaji: 'Shitsurei shimasu', fr: 'Pardon pour le dérangement.', en: 'Sorry to disturb.', audioText: '失礼します', tip: 'Plus formel que すみません. Magasin chic, ryokan, bureau.', tip_en: 'More formal than すみません. For upscale shops, ryokan, offices.', who: 'you', difficulty: 2 },
+      { id: 'polite-7', situation: 'Tu veux dire oui / accepter :', situation_en: 'You want to say yes / accept:', jp: 'はい、お願いします', hiragana: 'はい、おねがいします', romaji: 'Hai, onegai shimasu', fr: 'Oui, s\'il vous plaît.', en: 'Yes, please.', audioText: 'はい、お願いします', tip: 'Combo gagnant pour accepter quoi que ce soit.', tip_en: 'Winning combo to accept anything.', who: 'you', difficulty: 1 },
+      { id: 'polite-8', situation: 'Tu veux dire non poliment :', situation_en: 'You want to say no politely:', jp: 'ちょっと…大丈夫です', hiragana: 'ちょっと… だいじょうぶです', romaji: 'Chotto... daijōbu desu', fr: 'Hmm... ça va aller (= non merci).', en: 'Hmm... I\'m good (= no thanks).', audioText: 'ちょっと、大丈夫です', tip: 'Au Japon on dit rarement "non". Le ちょっと + pause = non poli.', tip_en: 'In Japan, people rarely say "no" directly. ちょっと + pause = polite no.', who: 'you', difficulty: 1 },
+      { id: 'polite-9', situation: 'Tu quittes un lieu avant les autres :', situation_en: 'You\'re leaving before others:', jp: 'お先に失礼します', hiragana: 'おさきに しつれいします', romaji: 'Osaki ni shitsurei shimasu', fr: 'Je m\'en vais, excusez-moi.', en: 'Excuse me for leaving first.', audioText: 'お先に失礼します', tip: 'Surtout au travail mais ça marche en quittant un bar. Très classe.', tip_en: 'Mostly used at work but also works when leaving a bar. Very classy.', who: 'you', difficulty: 2 },
+      { id: 'polite-10', situation: 'Tu rencontres quelqu\'un pour la première fois :', situation_en: 'You\'re meeting someone for the first time:', jp: '初めまして、よろしくお願いします', hiragana: 'はじめまして、よろしく おねがいします', romaji: 'Hajimemashite, yoroshiku onegai shimasu', fr: 'Enchanté, ravi de vous connaître.', en: 'Nice to meet you.', audioText: '初めまして、よろしくお願いします', tip: 'Casual entre jeunes : よろしく！ suffit.', tip_en: 'Casual among young people: just よろしく！ is enough.', who: 'you', difficulty: 1 },
     ],
   },
 
@@ -28,22 +30,24 @@ export const scenarios: Scenario[] = [
   {
     id: 'parlersoi',
     name: 'Parler de soi',
-    description: 'R\u00e9pondre aux questions que TOUT Japonais te posera',
+    name_en: 'About yourself',
+    description: 'Répondre aux questions que TOUT Japonais te posera',
+    description_en: 'Answering the questions EVERY Japanese person will ask you',
     phrases: [
-      { id: 'soi-1', situation: 'Un Japonais curieux engage la conversation :', jp: '\u3069\u3053\u304b\u3089\u6765\u305f\u306e\uff1f', hiragana: '\u3069\u3053\u304b\u3089 \u304d\u305f\u306e\uff1f', romaji: 'Doko kara kita no?', fr: 'Tu viens d\'o\u00f9 ?', audioText: '\u3069\u3053\u304b\u3089\u6765\u305f\u306e\uff1f', tip: 'C\'est la question #1 que TOUT Japonais pose \u00e0 un \u00e9tranger. Pr\u00e9pare ta r\u00e9ponse, tu vas la dire 100 fois.', who: 'them', difficulty: 1 },
-      { id: 'soi-2', situation: 'Tu r\u00e9ponds que tu viens de France :', jp: '\u30d5\u30e9\u30f3\u30b9\u304b\u3089\u6765\u307e\u3057\u305f', hiragana: '\u30d5\u30e9\u30f3\u30b9\u304b\u3089 \u304d\u307e\u3057\u305f', romaji: 'Furansu kara kimashita', fr: 'Je viens de France.', audioText: '\u30d5\u30e9\u30f3\u30b9\u304b\u3089\u6765\u307e\u3057\u305f', tip: 'Les Japonais ADORENT la France. Pr\u00e9pare-toi \u00e0 entendre \u30d1\u30ea\uff1f m\u00eame si tu viens de Limoges.', who: 'you', difficulty: 1 },
-      { id: 'soi-3', situation: 'Ils veulent savoir si t\'es un habitu\u00e9 ou un bleu :', jp: '\u65e5\u672c\u306f\u521d\u3081\u3066\uff1f', hiragana: '\u306b\u307b\u3093\u306f \u306f\u3058\u3081\u3066\uff1f', romaji: 'Nihon wa hajimete?', fr: 'C\'est ta premi\u00e8re fois au Japon ?', audioText: '\u65e5\u672c\u306f\u521d\u3081\u3066\uff1f', tip: 'Si oui \u2192 \u306f\u3044\u3001\u521d\u3081\u3066\u3067\u3059. Si non \u2192 \u3044\u3084\u3001\u4e8c\u56de\u76ee\u3067\u3059 (c\'est la 2e fois).', who: 'them', difficulty: 1 },
-      { id: 'soi-4', situation: 'Tu confirmes que c\'est ta premi\u00e8re fois avec enthousiasme :', jp: '\u521d\u3081\u3066\u3067\u3059\u3002\u3082\u3046\u6700\u9ad8\u3067\u3059\u3002', hiragana: '\u306f\u3058\u3081\u3066\u3067\u3059\u3002\u3082\u3046 \u3055\u3044\u3053\u3046\u3067\u3059\u3002', romaji: 'Hajimete desu. M\u014d saikou desu.', fr: 'C\'est ma premi\u00e8re fois. C\'est d\u00e9j\u00e0 incroyable.', audioText: '\u521d\u3081\u3066\u3067\u3059\u3002\u3082\u3046\u6700\u9ad8\u3067\u3059\u3002', tip: 'Le \u3082\u3046\u6700\u9ad8\u3067\u3059 va faire fondre ton interlocuteur.', who: 'you', difficulty: 1 },
-      { id: 'soi-5', situation: 'Ils veulent savoir combien de temps tu restes :', jp: '\u3044\u3064\u307e\u3067\u3044\u308b\u306e\uff1f', hiragana: '\u3044\u3064\u307e\u3067 \u3044\u308b\u306e\uff1f', romaji: 'Itsu made iru no?', fr: 'Tu restes jusqu\'a quand ?', audioText: '\u3044\u3064\u307e\u3067\u3044\u308b\u306e\uff1f', tip: 'Variante : \u3069\u306e\u304f\u3089\u3044\u3044\u308b\u306e\uff1f (tu restes combien de temps ?).', who: 'them', difficulty: 1 },
-      { id: 'soi-6', situation: 'Tu r\u00e9ponds avec la dur\u00e9e de ton s\u00e9jour :', jp: '\u4e8c\u9031\u9593\u3050\u3089\u3044\u3067\u3059', hiragana: '\u306b\u3057\u3085\u3046\u304b\u3093 \u3050\u3089\u3044\u3067\u3059', romaji: 'Ni-sh\u016bkan gurai desu', fr: 'Environ deux semaines.', audioText: '\u4e8c\u9031\u9593\u3050\u3089\u3044\u3067\u3059', tip: '\u3050\u3089\u3044 (environ) c\'est ton ami. \u4e00\u9031\u9593 (1 semaine), \u4e09\u9031\u9593 (3 semaines), \u4e00\u30f6\u6708 (1 mois).', who: 'you', difficulty: 1 },
-      { id: 'soi-7', situation: 'Ils veulent savoir dans quel coin tu te poses :', jp: '\u3069\u3053\u306b\u6cca\u307e\u3063\u3066\u3044\u308b\u306e\uff1f', hiragana: '\u3069\u3053\u306b \u3068\u307e\u3063\u3066\u3044\u308b\u306e\uff1f', romaji: 'Doko ni tomatteiru no?', fr: 'Tu loges o\u00f9 ?', audioText: '\u3069\u3053\u306b\u6cca\u307e\u3063\u3066\u3044\u308b\u306e\uff1f', tip: 'Variante : \u3069\u3053\u306e\u30db\u30c6\u30eb\uff1f (quel h\u00f4tel ?).', who: 'them', difficulty: 1 },
-      { id: 'soi-8', situation: 'Tu r\u00e9ponds avec ton quartier :', jp: '\u65b0\u5bbf\u306e\u30db\u30c6\u30eb\u306b\u6cca\u307e\u3063\u3066\u307e\u3059', hiragana: '\u3057\u3093\u3058\u3085\u304f\u306e \u30db\u30c6\u30eb\u306b \u3068\u307e\u3063\u3066\u307e\u3059', romaji: 'Shinjuku no hoteru ni tomattemasu', fr: 'Je loge dans un h\u00f4tel \u00e0 Shinjuku.', audioText: '\u65b0\u5bbf\u306e\u30db\u30c6\u30eb\u306b\u6cca\u307e\u3063\u3066\u307e\u3059', tip: 'Remplace par : Airbnb, \u30b2\u30b9\u30c8\u30cf\u30a6\u30b9 (guesthouse), \u53cb\u9054\u306e\u5bb6 (chez un ami).', who: 'you', difficulty: 1 },
-      { id: 'soi-9', situation: 'La question sur ton boulot :', jp: '\u4ed5\u4e8b\u306f\u4f55\u3057\u3066\u308b\u306e\uff1f', hiragana: '\u3057\u3054\u3068\u306f \u306a\u306b \u3057\u3066\u308b\u306e\uff1f', romaji: 'Shigoto wa nani shiteru no?', fr: 'Tu fais quoi comme travail ?', audioText: '\u4ed5\u4e8b\u306f\u4f55\u3057\u3066\u308b\u306e\uff1f', tip: 'La question sur ton boulot arrive toujours dans les 5 premi\u00e8res minutes.', who: 'them', difficulty: 1 },
-      { id: 'soi-10', situation: 'Tu r\u00e9ponds sur ton m\u00e9tier :', jp: 'IT\u95a2\u4fc2\u306e\u4ed5\u4e8b\u3057\u3066\u307e\u3059', hiragana: '\u30a2\u30a4\u30c6\u30a3\u30fc\u304b\u3093\u3051\u3044\u306e \u3057\u3054\u3068 \u3057\u3066\u307e\u3059', romaji: 'IT kankei no shigoto shitemasu', fr: 'Je travaille dans l\'informatique.', audioText: 'IT\u95a2\u4fc2\u306e\u4ed5\u4e8b\u3057\u3066\u307e\u3059', tip: 'Autres jobs : \u5b66\u751f\u3067\u3059 (\u00e9tudiant), \u5148\u751f\u3067\u3059 (prof), \u30a8\u30f3\u30b8\u30cb\u30a2\u3067\u3059 (ing\u00e9nieur).', who: 'you', difficulty: 1 },
-      { id: 'soi-11', situation: 'Ils veulent savoir pourquoi le Japon :', jp: '\u306a\u3093\u3067\u65e5\u672c\u306b\u6765\u305f\u306e\uff1f', hiragana: '\u306a\u3093\u3067 \u306b\u307b\u3093\u306b \u304d\u305f\u306e\uff1f', romaji: 'Nande Nihon ni kita no?', fr: 'Pourquoi t\'es venu au Japon ?', audioText: '\u306a\u3093\u3067\u65e5\u672c\u306b\u6765\u305f\u306e\uff1f', tip: 'C\'est LA question o\u00f9 tu peux cr\u00e9er un vrai lien.', who: 'them', difficulty: 1 },
-      { id: 'soi-12', situation: 'Tu expliques ta motivation :', jp: '\u305a\u3063\u3068\u6765\u3066\u307f\u305f\u304b\u3063\u305f\u3002\u65e5\u672c\u306e\u6587\u5316\u3068\u98df\u3079\u7269\u304c\u5927\u597d\u304d\u3067\u3002', hiragana: '\u305a\u3063\u3068 \u304d\u3066\u307f\u305f\u304b\u3063\u305f\u3002\u306b\u307b\u3093\u306e \u3076\u3093\u304b\u3068 \u305f\u3079\u3082\u306e\u304c \u3060\u3044\u3059\u304d\u3067\u3002', romaji: 'Zutto kitemikakatta. Nihon no bunka to tabemono ga daisuki de.', fr: 'J\'ai toujours voulu venir. J\'adore la culture et la bouffe japonaise.', audioText: '\u305a\u3063\u3068\u6765\u3066\u307f\u305f\u304b\u3063\u305f\u3002\u65e5\u672c\u306e\u6587\u5316\u3068\u98df\u3079\u7269\u304c\u5927\u597d\u304d\u3067\u3002', tip: 'Alternatives : \u30a2\u30cb\u30e1\u304c\u304d\u3063\u304b\u3051\u3067 (gr\u00e2ce aux animes), \u65e5\u672c\u8a9e\u3092\u52c9\u5f37\u3057\u3066\u3066 (j\'\u00e9tudie le japonais).', who: 'you', difficulty: 2 },
-      { id: 'soi-13', situation: 'Ils te demandent ce que t\'as aim\u00e9 :', jp: '\u65e5\u672c\u3067\u4e00\u756a\u3088\u304b\u3063\u305f\u3053\u3068\u306f\uff1f', hiragana: '\u306b\u307b\u3093\u3067 \u3044\u3061\u3070\u3093 \u3088\u304b\u3063\u305f\u3053\u3068\u306f\uff1f', romaji: 'Nihon de ichiban yokatta koto wa?', fr: 'C\'est quoi le truc le mieux au Japon ?', audioText: '\u65e5\u672c\u3067\u4e00\u756a\u3088\u304b\u3063\u305f\u3053\u3068\u306f\uff1f', tip: 'Variante : \u65e5\u672c\u3069\u3046\uff1f (le Japon, c\'est comment ?).', who: 'them', difficulty: 1 },
-      { id: 'soi-14', situation: 'Tu partages ton coup de coeur :', jp: '\u98df\u3079\u7269\u304c\u3084\u3070\u3044\u3002\u6628\u65e5\u98df\u3079\u305f\u30e9\u30fc\u30e1\u30f3\u304c\u4eba\u751f\u3067\u4e00\u756a\u3046\u307e\u304b\u3063\u305f\u3002', hiragana: '\u305f\u3079\u3082\u306e\u304c \u3084\u3070\u3044\u3002\u304d\u306e\u3046 \u305f\u3079\u305f \u30e9\u30fc\u30e1\u30f3\u304c \u3058\u3093\u305b\u3044\u3067 \u3044\u3061\u3070\u3093 \u3046\u307e\u304b\u3063\u305f\u3002', romaji: 'Tabemono ga yabai. Kinou tabeta r\u0101men ga jinsei de ichiban umakatta.', fr: 'La bouffe est dingue. Les ramens d\'hier c\'\u00e9tait les meilleurs de ma vie.', audioText: '\u98df\u3079\u7269\u304c\u3084\u3070\u3044\u3002\u6628\u65e5\u98df\u3079\u305f\u30e9\u30fc\u30e1\u30f3\u304c\u4eba\u751f\u3067\u4e00\u756a\u3046\u307e\u304b\u3063\u305f\u3002', tip: 'Ce genre de r\u00e9ponse sp\u00e9cifique et enthousiaste va lancer une vraie conversation.', who: 'you', difficulty: 2 },
+      { id: 'soi-1', situation: 'Un Japonais curieux engage la conversation :', situation_en: 'A curious Japanese person starts a conversation:', jp: 'どこから来たの？', hiragana: 'どこから きたの？', romaji: 'Doko kara kita no?', fr: 'Tu viens d\'où ?', en: 'Where are you from?', audioText: 'どこから来たの？', tip: 'C\'est la question #1 que TOUT Japonais pose à un étranger. Prépare ta réponse, tu vas la dire 100 fois.', tip_en: 'The #1 question EVERY Japanese person asks foreigners. Prepare your answer — you\'ll say it 100 times.', who: 'them', difficulty: 1 },
+      { id: 'soi-2', situation: 'Tu réponds que tu viens de France :', situation_en: 'You answer that you\'re from France:', jp: 'フランスから来ました', hiragana: 'フランスから きました', romaji: 'Furansu kara kimashita', fr: 'Je viens de France.', en: 'I\'m from France.', audioText: 'フランスから来ました', tip: 'Les Japonais ADORENT la France. Prépare-toi à entendre パリ？ même si tu viens de Limoges.', tip_en: 'Replace フランス with your country: アメリカ (USA), イギリス (UK), カナダ (Canada), オーストラリア (Australia).', who: 'you', difficulty: 1 },
+      { id: 'soi-3', situation: 'Ils veulent savoir si t\'es un habitué ou un bleu :', situation_en: 'They want to know if you\'re a regular or a first-timer:', jp: '日本は初めて？', hiragana: 'にほんは はじめて？', romaji: 'Nihon wa hajimete?', fr: 'C\'est ta première fois au Japon ?', en: 'Is this your first time in Japan?', audioText: '日本は初めて？', tip: 'Si oui → はい、初めてです. Si non → いや、二回目です (c\'est la 2e fois).', tip_en: 'If yes → はい、初めてです. If no → いや、二回目です (it\'s my 2nd time).', who: 'them', difficulty: 1 },
+      { id: 'soi-4', situation: 'Tu confirmes que c\'est ta première fois avec enthousiasme :', situation_en: 'You enthusiastically confirm it\'s your first time:', jp: '初めてです。もう最高です。', hiragana: 'はじめてです。もう さいこうです。', romaji: 'Hajimete desu. Mō saikou desu.', fr: 'C\'est ma première fois. C\'est déjà incroyable.', en: 'It\'s my first time. It\'s already amazing.', audioText: '初めてです。もう最高です。', tip: 'Le もう最高です va faire fondre ton interlocuteur.', tip_en: 'The もう最高です will melt their heart.', who: 'you', difficulty: 1 },
+      { id: 'soi-5', situation: 'Ils veulent savoir combien de temps tu restes :', situation_en: 'They want to know how long you\'re staying:', jp: 'いつまでいるの？', hiragana: 'いつまで いるの？', romaji: 'Itsu made iru no?', fr: 'Tu restes jusqu\'a quand ?', en: 'How long are you staying?', audioText: 'いつまでいるの？', tip: 'Variante : どのくらいいるの？ (tu restes combien de temps ?).', tip_en: 'Variant: どのくらいいるの？ (how long are you staying?).', who: 'them', difficulty: 1 },
+      { id: 'soi-6', situation: 'Tu réponds avec la durée de ton séjour :', situation_en: 'You answer with the length of your stay:', jp: '二週間ぐらいです', hiragana: 'にしゅうかん ぐらいです', romaji: 'Ni-shūkan gurai desu', fr: 'Environ deux semaines.', en: 'About two weeks.', audioText: '二週間ぐらいです', tip: 'ぐらい (environ) c\'est ton ami. 一週間 (1 semaine), 三週間 (3 semaines), 一ヶ月 (1 mois).', tip_en: 'ぐらい (about) is your friend. 一週間 (1 week), 三週間 (3 weeks), 一ヶ月 (1 month).', who: 'you', difficulty: 1 },
+      { id: 'soi-7', situation: 'Ils veulent savoir dans quel coin tu te poses :', situation_en: 'They want to know where you\'re staying:', jp: 'どこに泊まっているの？', hiragana: 'どこに とまっているの？', romaji: 'Doko ni tomatteiru no?', fr: 'Tu loges où ?', en: 'Where are you staying?', audioText: 'どこに泊まっているの？', tip: 'Variante : どこのホテル？ (quel hôtel ?).', tip_en: 'Variant: どこのホテル？ (which hotel?).', who: 'them', difficulty: 1 },
+      { id: 'soi-8', situation: 'Tu réponds avec ton quartier :', situation_en: 'You answer with your neighborhood:', jp: '新宿のホテルに泊まってます', hiragana: 'しんじゅくの ホテルに とまってます', romaji: 'Shinjuku no hoteru ni tomattemasu', fr: 'Je loge dans un hôtel à Shinjuku.', en: 'I\'m staying at a hotel in Shinjuku.', audioText: '新宿のホテルに泊まってます', tip: 'Remplace par : Airbnb, ゲストハウス (guesthouse), 友達の家 (chez un ami).', tip_en: 'Replace with: Airbnb, ゲストハウス (guesthouse), 友達の家 (at a friend\'s).', who: 'you', difficulty: 1 },
+      { id: 'soi-9', situation: 'La question sur ton boulot :', situation_en: 'The work question:', jp: '仕事は何してるの？', hiragana: 'しごとは なに してるの？', romaji: 'Shigoto wa nani shiteru no?', fr: 'Tu fais quoi comme travail ?', en: 'What do you do for work?', audioText: '仕事は何してるの？', tip: 'La question sur ton boulot arrive toujours dans les 5 premières minutes.', tip_en: 'The work question always comes up within the first 5 minutes.', who: 'them', difficulty: 1 },
+      { id: 'soi-10', situation: 'Tu réponds sur ton métier :', situation_en: 'You answer about your job:', jp: 'IT関係の仕事してます', hiragana: 'アイティーかんけいの しごと してます', romaji: 'IT kankei no shigoto shitemasu', fr: 'Je travaille dans l\'informatique.', en: 'I work in IT.', audioText: 'IT関係の仕事してます', tip: 'Autres jobs : 学生です (étudiant), 先生です (prof), エンジニアです (ingénieur).', tip_en: 'Other jobs: 学生です (student), 先生です (teacher), エンジニアです (engineer).', who: 'you', difficulty: 1 },
+      { id: 'soi-11', situation: 'Ils veulent savoir pourquoi le Japon :', situation_en: 'They want to know why Japan:', jp: 'なんで日本に来たの？', hiragana: 'なんで にほんに きたの？', romaji: 'Nande Nihon ni kita no?', fr: 'Pourquoi t\'es venu au Japon ?', en: 'Why did you come to Japan?', audioText: 'なんで日本に来たの？', tip: 'C\'est LA question où tu peux créer un vrai lien.', tip_en: 'THE question where you can build a real connection.', who: 'them', difficulty: 1 },
+      { id: 'soi-12', situation: 'Tu expliques ta motivation :', situation_en: 'You explain your motivation:', jp: 'ずっと来てみたかった。日本の文化と食べ物が大好きで。', hiragana: 'ずっと きてみたかった。にほんの ぶんかと たべものが だいすきで。', romaji: 'Zutto kitemikakatta. Nihon no bunka to tabemono ga daisuki de.', fr: 'J\'ai toujours voulu venir. J\'adore la culture et la bouffe japonaise.', en: 'I\'ve always wanted to come. I love Japanese culture and food.', audioText: 'ずっと来てみたかった。日本の文化と食べ物が大好きで。', tip: 'Alternatives : アニメがきっかけで (grâce aux animes), 日本語を勉強してて (j\'étudie le japonais).', tip_en: 'Alternatives: アニメがきっかけで (thanks to anime), 日本語を勉強してて (I study Japanese).', who: 'you', difficulty: 2 },
+      { id: 'soi-13', situation: 'Ils te demandent ce que t\'as aimé :', situation_en: 'They ask you what you\'ve liked:', jp: '日本で一番よかったことは？', hiragana: 'にほんで いちばん よかったことは？', romaji: 'Nihon de ichiban yokatta koto wa?', fr: 'C\'est quoi le truc le mieux au Japon ?', en: 'What\'s the best thing in Japan?', audioText: '日本で一番よかったことは？', tip: 'Variante : 日本どう？ (le Japon, c\'est comment ?).', tip_en: 'Variant: 日本どう？ (how\'s Japan?).', who: 'them', difficulty: 1 },
+      { id: 'soi-14', situation: 'Tu partages ton coup de coeur :', situation_en: 'You share your favorite thing:', jp: '食べ物がやばい。昨日食べたラーメンが人生で一番うまかった。', hiragana: 'たべものが やばい。きのう たべた ラーメンが じんせいで いちばん うまかった。', romaji: 'Tabemono ga yabai. Kinou tabeta rāmen ga jinsei de ichiban umakatta.', fr: 'La bouffe est dingue. Les ramens d\'hier c\'était les meilleurs de ma vie.', en: 'The food is insane. Yesterday\'s ramen was the best I\'ve ever had.', audioText: '食べ物がやばい。昨日食べたラーメンが人生で一番うまかった。', tip: 'Ce genre de réponse spécifique et enthousiaste va lancer une vraie conversation.', tip_en: 'This kind of specific enthusiastic answer kicks off real conversations.', who: 'you', difficulty: 2 },
     ],
   },
 
@@ -53,349 +57,272 @@ export const scenarios: Scenario[] = [
   {
     id: 'nombres',
     name: 'Nombres essentiels',
+    name_en: 'Essential Numbers',
     description: 'Commander, compter, lire les prix',
+    description_en: 'Ordering, counting, reading prices',
     phrases: [
-      { id: 'numbers-1', situation: 'Tu veux commander un de quelque chose :', jp: '一つください', hiragana: 'ひとつ ください', romaji: 'Hitotsu kudasai', fr: 'Un s\'il vous plaît.', audioText: '一つください', tip: 'ひとつ (1), ふたつ (2), みっつ (3) — ça marche pour TOUT.', who: 'you', difficulty: 1 },
-      { id: 'numbers-2', situation: 'Tu commandes deux de quelque chose :', jp: '二つください', hiragana: 'ふたつ ください', romaji: 'Futatsu kudasai', fr: 'Deux s\'il vous plaît.', audioText: '二つください', tip: 'Montre deux doigts + ください, ça marche aussi.', who: 'you', difficulty: 1 },
-      { id: 'numbers-3', situation: 'On te demande combien vous êtes, tu es seul :', jp: '一人です', hiragana: 'ひとりです', romaji: 'Hitori desu', fr: 'Une personne.', audioText: '一人です', tip: '一人 (1), 二人 (2, futari), 三人 (3, sannin), 四人 (4, yonin).', who: 'you', difficulty: 1 },
-      { id: 'numbers-4', situation: 'Vous êtes deux au resto :', jp: '二人です', hiragana: 'ふたりです', romaji: 'Futari desu', fr: 'Deux personnes.', audioText: '二人です', tip: 'La question la plus fréquente au resto.', who: 'you', difficulty: 1 },
-      { id: 'numbers-5', situation: 'Tu veux savoir combien ça coûte :', jp: 'いくらですか？', hiragana: 'いくらですか？', romaji: 'Ikura desu ka?', fr: 'C\'est combien ?', audioText: 'いくらですか', tip: '千円 (sen-en) = 1000¥ ≈ 6€. 万 (man) = 10 000.', who: 'you', difficulty: 1 },
-      { id: 'numbers-6', situation: 'Les chiffres de base à connaître :', jp: '一、二、三、四、五、六、七、八、九、十', hiragana: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう', romaji: 'Ichi, ni, san, yon, go, roku, nana, hachi, kyū, jū', fr: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10.', audioText: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう', tip: '100=百 (hyaku), 1000=千 (sen), 10000=万 (man).', who: 'you', difficulty: 1 },
-      { id: 'numbers-7', situation: 'Tu commandes trois de quelque chose :', jp: '三つください', hiragana: 'みっつ ください', romaji: 'Mittsu kudasai', fr: 'Trois s\'il vous plaît.', audioText: '三つください', tip: 'Au-delà de 3, montre tes doigts + ください.', who: 'you', difficulty: 2 },
-      { id: 'numbers-8', situation: 'Tu veux connaître les horaires :', jp: '何時から何時までですか？', hiragana: 'なんじから なんじまでですか？', romaji: 'Nanji kara nanji made desu ka?', fr: 'C\'est de quelle heure à quelle heure ?', audioText: '何時から何時までですか', tip: 'から = de (début), まで = jusqu\'à (fin).', who: 'you', difficulty: 1 },
-      { id: 'numbers-9', situation: 'On t\'annonce un prix à la caisse :', jp: '千三百円になります', hiragana: 'せんさんびゃくえんに なります', romaji: 'Sen sanbyaku en ni narimasu', fr: 'Ça fera 1300 yen.', audioText: '千三百円になります', tip: 'Tu entendras "[nombre]円になります" à CHAQUE caisse. Regarde l\'écran de la caisse si tu comprends pas le montant.', who: 'them', difficulty: 1 },
-      { id: 'numbers-10', situation: 'Tu veux savoir si tu peux payer par carte :', jp: 'カードで大丈夫ですか？', hiragana: 'カードで だいじょうぶですか？', romaji: 'Kādo de daijōbu desu ka?', fr: 'Je peux payer par carte ?', audioText: 'カードで大丈夫ですか', tip: 'Le Japon est très cash. Petits restos = liquide. Aie toujours du cash.', who: 'you', difficulty: 1 },
+      { id: 'numbers-1', situation: 'Tu veux commander un de quelque chose :', situation_en: 'You want to order one of something:', jp: '一つください', hiragana: 'ひとつ ください', romaji: 'Hitotsu kudasai', fr: 'Un s\'il vous plaît.', en: 'One please.', audioText: '一つください', tip: 'ひとつ (1), ふたつ (2), みっつ (3) — ça marche pour TOUT.', tip_en: 'ひとつ (1), ふたつ (2), みっつ (3) — works for ANYTHING.', who: 'you', difficulty: 1 },
+      { id: 'numbers-2', situation: 'Tu commandes deux de quelque chose :', situation_en: 'You order two of something:', jp: '二つください', hiragana: 'ふたつ ください', romaji: 'Futatsu kudasai', fr: 'Deux s\'il vous plaît.', en: 'Two please.', audioText: '二つください', tip: 'Montre deux doigts + ください, ça marche aussi.', tip_en: 'Show two fingers + ください, that works too.', who: 'you', difficulty: 1 },
+      { id: 'numbers-3', situation: 'On te demande combien vous êtes, tu es seul :', situation_en: 'They ask how many, you\'re alone:', jp: '一人です', hiragana: 'ひとりです', romaji: 'Hitori desu', fr: 'Une personne.', en: 'One person.', audioText: '一人です', tip: '一人 (1), 二人 (2, futari), 三人 (3, sannin), 四人 (4, yonin).', tip_en: '一人 (1), 二人 (2, futari), 三人 (3, sannin), 四人 (4, yonin).', who: 'you', difficulty: 1 },
+      { id: 'numbers-4', situation: 'Vous êtes deux au resto :', situation_en: 'You\'re two at the restaurant:', jp: '二人です', hiragana: 'ふたりです', romaji: 'Futari desu', fr: 'Deux personnes.', en: 'Two people.', audioText: '二人です', tip: 'La question la plus fréquente au resto.', tip_en: 'The most common question at restaurants.', who: 'you', difficulty: 1 },
+      { id: 'numbers-5', situation: 'Tu veux savoir combien ça coûte :', situation_en: 'You want to know how much it costs:', jp: 'いくらですか？', hiragana: 'いくらですか？', romaji: 'Ikura desu ka?', fr: 'C\'est combien ?', en: 'How much is it?', audioText: 'いくらですか', tip: '千円 (sen-en) = 1000¥ ≈ 6€. 万 (man) = 10 000.', tip_en: '千円 (sen-en) = 1000¥ ≈ $7. 万 (man) = 10,000.', who: 'you', difficulty: 1 },
+      { id: 'numbers-6', situation: 'Les chiffres de base à connaître :', situation_en: 'Essential numbers to know:', jp: '一、二、三、四、五、六、七、八、九、十', hiragana: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう', romaji: 'Ichi, ni, san, yon, go, roku, nana, hachi, kyū, jū', fr: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10.', en: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10.', audioText: 'いち、に、さん、よん、ご、ろく、なな、はち、きゅう、じゅう', tip: '100=百 (hyaku), 1000=千 (sen), 10000=万 (man).', tip_en: '100=百 (hyaku), 1000=千 (sen), 10000=万 (man).', who: 'you', difficulty: 1 },
+      { id: 'numbers-7', situation: 'Tu commandes trois de quelque chose :', situation_en: 'You order three of something:', jp: '三つください', hiragana: 'みっつ ください', romaji: 'Mittsu kudasai', fr: 'Trois s\'il vous plaît.', en: 'Three please.', audioText: '三つください', tip: 'Au-delà de 3, montre tes doigts + ください.', tip_en: 'Beyond 3, show your fingers + ください.', who: 'you', difficulty: 2 },
+      { id: 'numbers-8', situation: 'Tu veux connaître les horaires :', situation_en: 'You want to know the opening hours:', jp: '何時から何時までですか？', hiragana: 'なんじから なんじまでですか？', romaji: 'Nanji kara nanji made desu ka?', fr: 'C\'est de quelle heure à quelle heure ?', en: 'From what time to what time?', audioText: '何時から何時までですか', tip: 'から = de (début), まで = jusqu\'à (fin).', tip_en: 'から = from (start), まで = until (end).', who: 'you', difficulty: 1 },
+      { id: 'numbers-9', situation: 'On t\'annonce un prix à la caisse :', situation_en: 'They announce a price at the register:', jp: '千三百円になります', hiragana: 'せんさんびゃくえんに なります', romaji: 'Sen sanbyaku en ni narimasu', fr: 'Ça fera 1300 yen.', en: 'That\'ll be 1300 yen.', audioText: '千三百円になります', tip: 'Tu entendras "[nombre]円になります" à CHAQUE caisse. Regarde l\'écran de la caisse si tu comprends pas le montant.', tip_en: 'You\'ll hear "[number]円になります" at EVERY register. Look at the display if you don\'t catch the amount.', who: 'them', difficulty: 1 },
+      { id: 'numbers-10', situation: 'Tu veux savoir si tu peux payer par carte :', situation_en: 'You want to know if you can pay by card:', jp: 'カードで大丈夫ですか？', hiragana: 'カードで だいじょうぶですか？', romaji: 'Kādo de daijōbu desu ka?', fr: 'Je peux payer par carte ?', en: 'Can I pay by card?', audioText: 'カードで大丈夫ですか', tip: 'Le Japon est très cash. Petits restos = liquide. Aie toujours du cash.', tip_en: 'Japan is very cash-based. Small restaurants = cash only. Always have cash.', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 3. SE REPÉRER
+  // 4. SE REPÉRER
   // ============================================
   {
     id: 'navigation',
     name: 'Se repérer',
+    name_en: 'Getting Around',
     description: 'Trouver ton chemin, les toilettes, un taxi',
+    description_en: 'Finding your way, the toilets, a taxi',
     phrases: [
-      { id: 'navi-1', situation: 'Tu es complètement paumé :', jp: 'すみません、ここはどこですか？', hiragana: 'すみません、ここは どこですか？', romaji: 'Sumimasen, koko wa doko desu ka?', fr: 'Excusez-moi, je suis où là ?', audioText: 'すみません、ここはどこですか', tip: 'Montre ton tel avec Google Maps en même temps.', who: 'you', difficulty: 1 },
-      { id: 'navi-2', situation: 'Tu cherches un konbini ou une gare dans le coin :', jp: 'この辺にコンビニありますか？', hiragana: 'このへんに コンビニ ありますか？', romaji: 'Kono hen ni konbini arimasu ka?', fr: 'Y\'a un konbini dans le coin ?', audioText: 'この辺にコンビニありますか', tip: 'Remplace コンビニ par 駅 (gare), トイレ, ATM, etc.', who: 'you', difficulty: 1 },
-      { id: 'navi-3', situation: 'Tu veux savoir si c\'est loin à pied :', jp: '歩いて行けますか？', hiragana: 'あるいて いけますか？', romaji: 'Aruite ikemasu ka?', fr: 'On peut y aller à pied ?', audioText: '歩いて行けますか', tip: '歩いて10分 = 10 min à pied. 分 (fun) = minutes.', who: 'you', difficulty: 1 },
-      { id: 'navi-4', situation: 'Quelqu\'un t\'indique une direction :', jp: 'まっすぐ行って、右に曲がってください', hiragana: 'まっすぐ いって、みぎに まがって ください', romaji: 'Massugu itte, migi ni magatte kudasai', fr: 'Tout droit, puis tournez à droite.', audioText: 'まっすぐ行って、右に曲がってください', tip: 'まっすぐ (tout droit), 右/みぎ (droite), 左/ひだり (gauche).', who: 'them', difficulty: 1 },
-      { id: 'navi-5', situation: 'T\'as rien compris à ce qu\'on vient de t\'expliquer :', jp: 'ごめんなさい、もう一回お願いします', hiragana: 'ごめんなさい、もういっかい おねがいします', romaji: 'Gomen nasai, mō ikkai onegai shimasu', fr: 'Pardon, vous pouvez répéter ?', audioText: 'ごめんなさい、もう一回お願いします', tip: 'Ajoute ゆっくり (yukkuri = lentement) pour ralentir.', who: 'you', difficulty: 1 },
-      { id: 'navi-6', situation: 'Tu montres un lieu sur ton tel et demandes le chemin :', jp: 'ここに行きたいんですけど', hiragana: 'ここに いきたいんですけど', romaji: 'Koko ni ikitai n desu kedo', fr: 'Je veux aller ici.', audioText: 'ここに行きたいんですけど', tip: 'LA technique ultime : Google Maps + cette phrase = 100% de réussite.', who: 'you', difficulty: 1 },
-      { id: 'navi-7', situation: 'Urgence toilettes :', jp: 'トイレはどこですか？', hiragana: 'トイレは どこですか？', romaji: 'Toire wa doko desu ka?', fr: 'Où sont les toilettes ?', audioText: 'トイレはどこですか', tip: 'Konbini, gares, centres co — y\'a des toilettes partout au Japon.', who: 'you', difficulty: 1 },
-      { id: 'navi-8', situation: 'Tu veux donner une adresse au taxi :', jp: 'この住所までお願いします', hiragana: 'このじゅうしょまで おねがいします', romaji: 'Kono jūsho made onegai shimasu', fr: 'À cette adresse svp.', audioText: 'この住所までお願いします', tip: 'Montre l\'adresse sur ton tel. Les portes du taxi s\'ouvrent TOUTES SEULES.', who: 'you', difficulty: 1 },
-      { id: 'navi-9', situation: 'Google Maps bug :', jp: 'Googleマップが動かない', hiragana: 'グーグルマップが うごかない', romaji: 'Gūguru mappu ga ugokanai', fr: 'Google Maps marche pas.', audioText: 'グーグルマップが動かない', tip: 'Télécharge les cartes offline AVANT de partir.', who: 'you', difficulty: 3 },
-      { id: 'navi-10', situation: 'Tu veux savoir combien de temps ça prend :', jp: 'どのくらいかかりますか？', hiragana: 'どのくらい かかりますか？', romaji: 'Dono kurai kakarimasu ka?', fr: 'Ça prend combien de temps ?', audioText: 'どのくらいかかりますか', tip: '分 (fun) = minutes, 時間 (jikan) = heures. 30分 = 30 min.', who: 'you', difficulty: 1 },
+      { id: 'navi-1', situation: 'Tu es complètement paumé :', situation_en: 'You\'re completely lost:', jp: 'すみません、ここはどこですか？', hiragana: 'すみません、ここは どこですか？', romaji: 'Sumimasen, koko wa doko desu ka?', fr: 'Excusez-moi, je suis où là ?', en: 'Excuse me, where am I?', audioText: 'すみません、ここはどこですか', tip: 'Montre ton tel avec Google Maps en même temps.', tip_en: 'Show your phone with Google Maps at the same time.', who: 'you', difficulty: 1 },
+      { id: 'navi-2', situation: 'Tu cherches un konbini ou une gare dans le coin :', situation_en: 'Looking for a konbini or station nearby:', jp: 'この辺にコンビニありますか？', hiragana: 'このへんに コンビニ ありますか？', romaji: 'Kono hen ni konbini arimasu ka?', fr: 'Y\'a un konbini dans le coin ?', en: 'Is there a konbini around here?', audioText: 'この辺にコンビニありますか', tip: 'Remplace コンビニ par 駅 (gare), トイレ, ATM, etc.', tip_en: 'Replace コンビニ with 駅 (station), トイレ (toilet), ATM, etc.', who: 'you', difficulty: 1 },
+      { id: 'navi-3', situation: 'Tu veux savoir si c\'est loin à pied :', situation_en: 'You want to know if it\'s far on foot:', jp: '歩いて行けますか？', hiragana: 'あるいて いけますか？', romaji: 'Aruite ikemasu ka?', fr: 'On peut y aller à pied ?', en: 'Can I walk there?', audioText: '歩いて行けますか', tip: '歩いて10分 = 10 min à pied. 分 (fun) = minutes.', tip_en: '歩いて10分 = 10 min walking. 分 (fun) = minutes.', who: 'you', difficulty: 1 },
+      { id: 'navi-4', situation: 'Quelqu\'un t\'indique une direction :', situation_en: 'Someone gives you directions:', jp: 'まっすぐ行って、右に曲がってください', hiragana: 'まっすぐ いって、みぎに まがって ください', romaji: 'Massugu itte, migi ni magatte kudasai', fr: 'Tout droit, puis tournez à droite.', en: 'Go straight, then turn right.', audioText: 'まっすぐ行って、右に曲がってください', tip: 'まっすぐ (tout droit), 右/みぎ (droite), 左/ひだり (gauche).', tip_en: 'まっすぐ (straight), 右/みぎ (right), 左/ひだり (left).', who: 'them', difficulty: 1 },
+      { id: 'navi-5', situation: 'T\'as rien compris à ce qu\'on vient de t\'expliquer :', situation_en: 'You didn\'t get what was just explained:', jp: 'ごめんなさい、もう一回お願いします', hiragana: 'ごめんなさい、もういっかい おねがいします', romaji: 'Gomen nasai, mō ikkai onegai shimasu', fr: 'Pardon, vous pouvez répéter ?', en: 'Sorry, could you repeat?', audioText: 'ごめんなさい、もう一回お願いします', tip: 'Ajoute ゆっくり (yukkuri = lentement) pour ralentir.', tip_en: 'Add ゆっくり (yukkuri = slowly) to slow them down.', who: 'you', difficulty: 1 },
+      { id: 'navi-6', situation: 'Tu montres un lieu sur ton tel et demandes le chemin :', situation_en: 'You show a place on your phone and ask for directions:', jp: 'ここに行きたいんですけど', hiragana: 'ここに いきたいんですけど', romaji: 'Koko ni ikitai n desu kedo', fr: 'Je veux aller ici.', en: 'I want to go here.', audioText: 'ここに行きたいんですけど', tip: 'LA technique ultime : Google Maps + cette phrase = 100% de réussite.', tip_en: 'THE ultimate technique: Google Maps + this phrase = 100% success rate.', who: 'you', difficulty: 1 },
+      { id: 'navi-7', situation: 'Urgence toilettes :', situation_en: 'Toilet emergency:', jp: 'トイレはどこですか？', hiragana: 'トイレは どこですか？', romaji: 'Toire wa doko desu ka?', fr: 'Où sont les toilettes ?', en: 'Where is the toilet?', audioText: 'トイレはどこですか', tip: 'Konbini, gares, centres co — y\'a des toilettes partout au Japon.', tip_en: 'Konbini, stations, malls — toilets are everywhere in Japan.', who: 'you', difficulty: 1 },
+      { id: 'navi-8', situation: 'Tu veux donner une adresse au taxi :', situation_en: 'You want to give an address to the taxi:', jp: 'この住所までお願いします', hiragana: 'このじゅうしょまで おねがいします', romaji: 'Kono jūsho made onegai shimasu', fr: 'À cette adresse svp.', en: 'To this address please.', audioText: 'この住所までお願いします', tip: 'Montre l\'adresse sur ton tel. Les portes du taxi s\'ouvrent TOUTES SEULES.', tip_en: 'Show the address on your phone. Taxi doors open AUTOMATICALLY.', who: 'you', difficulty: 1 },
+      { id: 'navi-9', situation: 'Google Maps bug :', situation_en: 'Google Maps is broken:', jp: 'Googleマップが動かない', hiragana: 'グーグルマップが うごかない', romaji: 'Gūguru mappu ga ugokanai', fr: 'Google Maps marche pas.', en: 'Google Maps isn\'t working.', audioText: 'グーグルマップが動かない', tip: 'Télécharge les cartes offline AVANT de partir.', tip_en: 'Download offline maps BEFORE you leave.', who: 'you', difficulty: 3 },
+      { id: 'navi-10', situation: 'Tu veux savoir combien de temps ça prend :', situation_en: 'You want to know how long it takes:', jp: 'どのくらいかかりますか？', hiragana: 'どのくらい かかりますか？', romaji: 'Dono kurai kakarimasu ka?', fr: 'Ça prend combien de temps ?', en: 'How long does it take?', audioText: 'どのくらいかかりますか', tip: '分 (fun) = minutes, 時間 (jikan) = heures. 30分 = 30 min.', tip_en: '分 (fun) = minutes, 時間 (jikan) = hours. 30分 = 30 min.', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 4. KONBINI
+  // 5. KONBINI
   // ============================================
   {
     id: 'konbini',
     name: 'Konbini',
+    name_en: 'Konbini',
     description: 'Comprendre le caissier et répondre comme un local',
+    description_en: 'Understand the cashier and respond like a local',
     phrases: [
-      {
-        id: 'konbini-1', situation: 'Tu poses tes articles sur le comptoir, le caissier te demande :', jp: 'ポイントカードはありますか？', hiragana: 'ポイントカードはありますか？', romaji: 'Pointo kādo wa arimasu ka?', fr: 'Vous avez une carte de fidélité ?', audioText: 'ポイントカードはありますか？', tip: 'On te pose ça À CHAQUE FOIS. Réponds juste 大丈夫です.', who: 'them', difficulty: 1,
-      },
-      {
-        id: 'konbini-2', situation: 'Tu n\'as pas de carte de fidélité, tu réponds :', jp: 'あ、大丈夫っす', hiragana: 'あ、だいじょうぶっす', romaji: 'A, daijōbu ssu', fr: 'Ah nan c\'est bon', audioText: 'あ、大丈夫っす', tip: 'っす = version courte de です — jeune et naturel', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'konbini-3', situation: 'Tu achètes un bento, le caissier te demande :', jp: 'あたためますか？', hiragana: 'あたためますか？', romaji: 'Atatamemasu ka?', fr: 'Je vous le chauffe ?', audioText: 'あたためますか？', tip: 'Proposé pour les bento, onigiri, nikuman. C\'est gratuit.', who: 'them', difficulty: 1,
-      },
-      {
-        id: 'konbini-4', situation: 'On te propose de chauffer ton repas, tu réponds :', jp: 'お願いします / 大丈夫です', hiragana: 'おねがいします / だいじょうぶです', romaji: 'Onegaishimasu / Daijōbu desu', fr: 'Oui svp / Non c\'est bon', audioText: 'お願いします', tip: 'Les deux seules réponses dont t\'as besoin dans un konbini', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'konbini-5', situation: 'Le caissier regarde tes articles et te demande :', jp: 'お箸はご利用ですか？', hiragana: 'おはしはごりようですか？', romaji: 'Ohashi wa goriyō desu ka?', fr: 'Vous voulez des baguettes ?', audioText: 'お箸はご利用ですか？', tip: 'Hoche la tête ou dis うん pour oui', who: 'them', difficulty: 2,
-      },
-      {
-        id: 'konbini-6', situation: 'Tu ne veux pas de sac plastique :', jp: '袋いらないです', hiragana: 'ふくろいらないです', romaji: 'Fukuro iranai desu', fr: 'Pas besoin de sac', audioText: '袋いらないです', tip: 'Les sacs sont payants au Japon (3-5¥)', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'konbini-7', situation: 'Tu veux payer avec ta carte transport :', jp: 'Suicaで', hiragana: 'スイカで', romaji: 'Suica de', fr: 'En Suica', audioText: 'スイカで', tip: 'Juste "[moyen de paiement] + で" suffit. PayPayで, カードで...', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'konbini-8', situation: 'Tu ne veux pas de ticket de caisse :', jp: 'レシートいらないです', hiragana: 'レシートいらないです', romaji: 'Reshīto iranai desu', fr: 'Pas besoin du ticket', audioText: 'レシートいらないです', tip: 'Ils te le filent systématiquement sinon', who: 'you', difficulty: 2,
-      },
+      { id: 'konbini-1', situation: 'Tu poses tes articles sur le comptoir, le caissier te demande :', situation_en: 'You put your items on the counter, the cashier asks:', jp: 'ポイントカードはありますか？', hiragana: 'ポイントカードはありますか？', romaji: 'Pointo kādo wa arimasu ka?', fr: 'Vous avez une carte de fidélité ?', en: 'Do you have a points card?', audioText: 'ポイントカードはありますか？', tip: 'On te pose ça À CHAQUE FOIS. Réponds juste 大丈夫です.', tip_en: 'They ask this EVERY TIME. Just answer 大丈夫です.', who: 'them', difficulty: 1 },
+      { id: 'konbini-2', situation: 'Tu n\'as pas de carte de fidélité, tu réponds :', situation_en: 'You don\'t have a points card, you answer:', jp: 'あ、大丈夫っす', hiragana: 'あ、だいじょうぶっす', romaji: 'A, daijōbu ssu', fr: 'Ah nan c\'est bon', en: 'Ah, I\'m good', audioText: 'あ、大丈夫っす', tip: 'っす = version courte de です — jeune et naturel', tip_en: 'っす = short version of です — young and natural', who: 'you', difficulty: 1 },
+      { id: 'konbini-3', situation: 'Tu achètes un bento, le caissier te demande :', situation_en: 'You buy a bento, the cashier asks:', jp: 'あたためますか？', hiragana: 'あたためますか？', romaji: 'Atatamemasu ka?', fr: 'Je vous le chauffe ?', en: 'Shall I warm it up?', audioText: 'あたためますか？', tip: 'Proposé pour les bento, onigiri, nikuman. C\'est gratuit.', tip_en: 'Offered for bentos, onigiri, nikuman. It\'s free.', who: 'them', difficulty: 1 },
+      { id: 'konbini-4', situation: 'On te propose de chauffer ton repas, tu réponds :', situation_en: 'They offer to heat your meal, you reply:', jp: 'お願いします / 大丈夫です', hiragana: 'おねがいします / だいじょうぶです', romaji: 'Onegaishimasu / Daijōbu desu', fr: 'Oui svp / Non c\'est bon', en: 'Yes please / No thanks', audioText: 'お願いします', tip: 'Les deux seules réponses dont t\'as besoin dans un konbini', tip_en: 'The only two answers you\'ll ever need at a konbini', who: 'you', difficulty: 1 },
+      { id: 'konbini-5', situation: 'Le caissier regarde tes articles et te demande :', situation_en: 'The cashier looks at your items and asks:', jp: 'お箸はご利用ですか？', hiragana: 'おはしはごりようですか？', romaji: 'Ohashi wa goriyō desu ka?', fr: 'Vous voulez des baguettes ?', en: 'Would you like chopsticks?', audioText: 'お箸はご利用ですか？', tip: 'Hoche la tête ou dis うん pour oui', tip_en: 'Nod your head or say うん for yes', who: 'them', difficulty: 2 },
+      { id: 'konbini-6', situation: 'Tu ne veux pas de sac plastique :', situation_en: 'You don\'t want a plastic bag:', jp: '袋いらないです', hiragana: 'ふくろいらないです', romaji: 'Fukuro iranai desu', fr: 'Pas besoin de sac', en: 'No bag needed', audioText: '袋いらないです', tip: 'Les sacs sont payants au Japon (3-5¥)', tip_en: 'Bags cost money in Japan (3-5¥)', who: 'you', difficulty: 1 },
+      { id: 'konbini-7', situation: 'Tu veux payer avec ta carte transport :', situation_en: 'You want to pay with your transit card:', jp: 'Suicaで', hiragana: 'スイカで', romaji: 'Suica de', fr: 'En Suica', en: 'With Suica', audioText: 'スイカで', tip: 'Juste "[moyen de paiement] + で" suffit. PayPayで, カードで...', tip_en: 'Just "[payment method] + で" is enough. PayPayで, カードで...', who: 'you', difficulty: 1 },
+      { id: 'konbini-8', situation: 'Tu ne veux pas de ticket de caisse :', situation_en: 'You don\'t want a receipt:', jp: 'レシートいらないです', hiragana: 'レシートいらないです', romaji: 'Reshīto iranai desu', fr: 'Pas besoin du ticket', en: 'No receipt needed', audioText: 'レシートいらないです', tip: 'Ils te le filent systématiquement sinon', tip_en: 'They\'ll hand you one automatically otherwise', who: 'you', difficulty: 2 },
     ],
   },
 
   // ============================================
-  // 5. IZAKAYA & RESTOS
+  // 6. IZAKAYA & RESTOS
   // ============================================
   {
     id: 'izakaya',
     name: 'Izakaya & Bouffe',
+    name_en: 'Izakaya & Food',
     description: 'Commander, réagir et kiffer la bouffe comme un Japonais',
+    description_en: 'Order, react and enjoy food like a Japanese local',
     phrases: [
-      {
-        id: 'izakaya-1', situation: 'Tu veux appeler le serveur :', jp: 'すいませーん！', hiragana: 'すいませーん！', romaji: 'Suimasēn!', fr: 'Excusez-moi !', audioText: 'すいません', tip: 'La vraie prononciation orale : すいません pas すみません', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'izakaya-2', situation: 'Tu entres dans le resto, le staff te demande :', jp: '何名様ですか？', hiragana: 'なんめいさまですか？', romaji: 'Nanmei-sama desu ka?', fr: 'Vous êtes combien ?', audioText: '何名様ですか？', tip: 'Première question systématique à l\'entrée', who: 'them', difficulty: 1,
-      },
-      {
-        id: 'izakaya-3', situation: 'On te demande combien vous êtes, tu réponds :', jp: '二人です / 三人です', hiragana: 'ふたりです / さんにんです', romaji: 'Futari desu / Sannin desu', fr: '2 personnes / 3 personnes', audioText: '二人です', tip: 'Montre avec les doigts en même temps', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'izakaya-4', situation: 'Vous êtes installés, le serveur arrive pour la première commande :', jp: 'とりあえず生で！', hiragana: 'とりあえずなまで！', romaji: 'Toriaezu nama de!', fr: 'Pour commencer, une pression !', audioText: 'とりあえず生で', tip: '生 = bière pression. Personne dit ビール en izakaya.', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'izakaya-5', situation: 'Tu sais pas quoi commander, tu demandes :', jp: 'おすすめなんですか？', hiragana: 'おすすめなんですか？', romaji: 'Osusume nan desu ka?', fr: 'C\'est quoi le bon plan ici ?', audioText: 'おすすめなんですか', tip: 'Plus efficace que galérer avec un menu en japonais', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'izakaya-6', situation: 'La bouffe arrive et c\'est incroyable :', jp: 'これめっちゃうまっ！', hiragana: 'これめっちゃうまっ！', romaji: 'Kore meccha uma!', fr: 'C\'est trop bon ce truc !', audioText: 'これめっちゃうまい', tip: 'うまい > おいしい entre potes', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'izakaya-7', situation: 'Tu veux partager ton enthousiasme :', jp: 'めっちゃうまくない？これ', hiragana: 'めっちゃうまくない？これ', romaji: 'Meccha umaku nai? Kore', fr: 'C\'est ouf non ? ça', audioText: 'めっちゃうまくない？これ', tip: 'Question rhétorique — tu sais que c\'est bon', who: 'you', difficulty: 3,
-      },
-      {
-        id: 'izakaya-8', situation: 'Tu proposes de reprendre un verre :', jp: 'もう一杯いっとく？', hiragana: 'もういっぱいいっとく？', romaji: 'Mō ippai ittoku?', fr: 'On s\'en refait un ?', audioText: 'もう一杯いっとく？', tip: 'いっとく = いっておく raccourci — parler entre potes', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'izakaya-9', situation: 'Fin du repas, tu veux payer :', jp: 'お会計お願いします', hiragana: 'おかいけいおねがいします', romaji: 'Okaikei onegaishimasu', fr: 'L\'addition svp', audioText: 'お会計お願いします', tip: 'Tu peux aussi faire un X avec tes index — le serveur comprend', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'izakaya-10', situation: 'En partant, tu dis au staff :', jp: 'ごちそうさまでした！', hiragana: 'ごちそうさまでした！', romaji: 'Gochisōsama deshita!', fr: 'Merci pour le repas !', audioText: 'ごちそうさまでした', tip: 'TOUJOURS dire ça en partant d\'un resto. Hyper apprécié.', who: 'you', difficulty: 1,
-      },
+      { id: 'izakaya-1', situation: 'Tu veux appeler le serveur :', situation_en: 'You want to call the server:', jp: 'すいませーん！', hiragana: 'すいませーん！', romaji: 'Suimasēn!', fr: 'Excusez-moi !', en: 'Excuse me!', audioText: 'すいません', tip: 'La vraie prononciation orale : すいません pas すみません', tip_en: 'The real spoken pronunciation: すいません not すみません', who: 'you', difficulty: 1 },
+      { id: 'izakaya-2', situation: 'Tu entres dans le resto, le staff te demande :', situation_en: 'You enter the restaurant, the staff asks:', jp: '何名様ですか？', hiragana: 'なんめいさまですか？', romaji: 'Nanmei-sama desu ka?', fr: 'Vous êtes combien ?', en: 'How many people?', audioText: '何名様ですか？', tip: 'Première question systématique à l\'entrée', tip_en: 'First systematic question at the entrance', who: 'them', difficulty: 1 },
+      { id: 'izakaya-3', situation: 'On te demande combien vous êtes, tu réponds :', situation_en: 'They ask how many, you answer:', jp: '二人です / 三人です', hiragana: 'ふたりです / さんにんです', romaji: 'Futari desu / Sannin desu', fr: '2 personnes / 3 personnes', en: '2 people / 3 people', audioText: '二人です', tip: 'Montre avec les doigts en même temps', tip_en: 'Show with your fingers at the same time', who: 'you', difficulty: 1 },
+      { id: 'izakaya-4', situation: 'Vous êtes installés, le serveur arrive pour la première commande :', situation_en: 'You\'re seated, the server comes for the first order:', jp: 'とりあえず生で！', hiragana: 'とりあえずなまで！', romaji: 'Toriaezu nama de!', fr: 'Pour commencer, une pression !', en: 'To start, a draft beer!', audioText: 'とりあえず生で', tip: '生 = bière pression. Personne dit ビール en izakaya.', tip_en: '生 = draft beer. Nobody says ビール at an izakaya.', who: 'you', difficulty: 1 },
+      { id: 'izakaya-5', situation: 'Tu sais pas quoi commander, tu demandes :', situation_en: 'You don\'t know what to order, you ask:', jp: 'おすすめなんですか？', hiragana: 'おすすめなんですか？', romaji: 'Osusume nan desu ka?', fr: 'C\'est quoi le bon plan ici ?', en: 'What do you recommend?', audioText: 'おすすめなんですか', tip: 'Plus efficace que galérer avec un menu en japonais', tip_en: 'More efficient than struggling with a Japanese menu', who: 'you', difficulty: 2 },
+      { id: 'izakaya-6', situation: 'La bouffe arrive et c\'est incroyable :', situation_en: 'The food arrives and it\'s amazing:', jp: 'これめっちゃうまっ！', hiragana: 'これめっちゃうまっ！', romaji: 'Kore meccha uma!', fr: 'C\'est trop bon ce truc !', en: 'This is so good!', audioText: 'これめっちゃうまい', tip: 'うまい > おいしい entre potes', tip_en: 'うまい > おいしい between friends', who: 'you', difficulty: 1 },
+      { id: 'izakaya-7', situation: 'Tu veux partager ton enthousiasme :', situation_en: 'You want to share your enthusiasm:', jp: 'めっちゃうまくない？これ', hiragana: 'めっちゃうまくない？これ', romaji: 'Meccha umaku nai? Kore', fr: 'C\'est ouf non ? ça', audioText: 'めっちゃうまくない？これ', en: 'Isn\'t this insanely good?', tip: 'Question rhétorique — tu sais que c\'est bon', tip_en: 'Rhetorical question — you know it\'s good', who: 'you', difficulty: 3 },
+      { id: 'izakaya-8', situation: 'Tu proposes de reprendre un verre :', situation_en: 'You suggest another drink:', jp: 'もう一杯いっとく？', hiragana: 'もういっぱいいっとく？', romaji: 'Mō ippai ittoku?', fr: 'On s\'en refait un ?', en: 'Shall we get another round?', audioText: 'もう一杯いっとく？', tip: 'いっとく = いっておく raccourci — parler entre potes', tip_en: 'いっとく = shortened いっておく — casual friend speak', who: 'you', difficulty: 2 },
+      { id: 'izakaya-9', situation: 'Fin du repas, tu veux payer :', situation_en: 'End of meal, you want to pay:', jp: 'お会計お願いします', hiragana: 'おかいけいおねがいします', romaji: 'Okaikei onegaishimasu', fr: 'L\'addition svp', en: 'Check please', audioText: 'お会計お願いします', tip: 'Tu peux aussi faire un X avec tes index — le serveur comprend', tip_en: 'You can also make an X with your index fingers — the server gets it', who: 'you', difficulty: 1 },
+      { id: 'izakaya-10', situation: 'En partant, tu dis au staff :', situation_en: 'When leaving, you tell the staff:', jp: 'ごちそうさまでした！', hiragana: 'ごちそうさまでした！', romaji: 'Gochisōsama deshita!', fr: 'Merci pour le repas !', en: 'Thanks for the meal!', audioText: 'ごちそうさまでした', tip: 'TOUJOURS dire ça en partant d\'un resto. Hyper apprécié.', tip_en: 'ALWAYS say this when leaving a restaurant. Very appreciated.', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 6. TRAINS & DÉPLACEMENTS
+  // 7. TRAINS & DÉPLACEMENTS
   // ============================================
   {
     id: 'trains',
     name: 'Trains & Métro',
+    name_en: 'Trains & Subway',
     description: 'Survivre dans le labyrinthe du métro tokyoïte',
+    description_en: 'Surviving the Tokyo subway maze',
     phrases: [
-      {
-        id: 'trains-1', situation: 'Tu es perdu en gare, tu demandes à quelqu\'un :', jp: '〜に行きたいんですけど', hiragana: '〜にいきたいんですけど', romaji: '~ni ikitain desu kedo', fr: 'Je voudrais aller à...', audioText: '渋谷に行きたいんですけど', tip: 'けど en fin de phrase = doux, naturel. Montre ta destination sur ton tel.', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'trains-2', situation: 'Tu vois un train sur le quai, tu vérifies :', jp: 'この電車〜に止まる？', hiragana: 'このでんしゃ〜にとまる？', romaji: 'Kono densha ~ni tomaru?', fr: 'Ce train s\'arrête à... ?', audioText: 'この電車渋谷に止まりますか', tip: 'Forme courte si tu demandes à un passager', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'trains-3', situation: 'Il est minuit passé, tu réalises :', jp: 'やばい、終電なくね？', hiragana: 'やばい、しゅうでんなくね？', romaji: 'Yabai, shūden naku ne?', fr: 'Merde, y\'a plus de dernier train non ?', audioText: 'やばい、終電なくね', tip: 'なくね？ = ないよね？ abrégé. Trains s\'arrêtent vers minuit.', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'trains-4', situation: 'Tu demandes à ton pote :', jp: '終電何時？', hiragana: 'しゅうでんなんじ？', romaji: 'Shūden nanji?', fr: 'Le dernier train c\'est quand ?', audioText: '終電何時？', tip: 'Forme courte entre potes, pas besoin de ですか', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'trains-5', situation: 'Tu dois changer de ligne mais tu sais plus où :', jp: '乗り換えどこだっけ？', hiragana: 'のりかえどこだっけ？', romaji: 'Norikae doko dakke?', fr: 'C\'était où la correspondance déjà ?', audioText: '乗り換えどこだっけ', tip: 'だっけ = "c\'était... déjà ?" — très naturel', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'trains-6', situation: 'Le train est bondé, tu vois une place :', jp: 'すみません、ここ空いてますか？', hiragana: 'すみません、ここあいてますか？', romaji: 'Sumimasen, koko aitemasu ka?', fr: 'Pardon, c\'est libre ici ?', audioText: 'すみません、ここ空いてますか', tip: 'Reste poli dans le train — silence et respect, c\'est sacré', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'trains-7', situation: 'Tu dois descendre au prochain arrêt :', jp: '次の駅で降りる', hiragana: 'つぎのえきでおりる', romaji: 'Tsugi no eki de oriru', fr: 'Je descends au prochain', audioText: '次の駅で降りる', tip: 'Pour prévenir ton pote ou te frayer un chemin', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'trains-8', situation: 'Vous sprintez et chopez le train in extremis :', jp: '間に合った！', hiragana: 'まにあった！', romaji: 'Maniatta!', fr: 'On l\'a eu !', audioText: '間に合った', tip: 'Le soulagement quand tu chopes le dernier train', who: 'you', difficulty: 3,
-      },
+      { id: 'trains-1', situation: 'Tu es perdu en gare, tu demandes à quelqu\'un :', situation_en: 'Lost at the station, you ask someone:', jp: '〜に行きたいんですけど', hiragana: '〜にいきたいんですけど', romaji: '~ni ikitain desu kedo', fr: 'Je voudrais aller à...', en: 'I\'d like to go to...', audioText: '渋谷に行きたいんですけど', tip: 'けど en fin de phrase = doux, naturel. Montre ta destination sur ton tel.', tip_en: 'けど at the end = soft, natural. Show your destination on your phone.', who: 'you', difficulty: 1 },
+      { id: 'trains-2', situation: 'Tu vois un train sur le quai, tu vérifies :', situation_en: 'You see a train on the platform, you check:', jp: 'この電車〜に止まる？', hiragana: 'このでんしゃ〜にとまる？', romaji: 'Kono densha ~ni tomaru?', fr: 'Ce train s\'arrête à... ?', en: 'Does this train stop at...?', audioText: 'この電車渋谷に止まりますか', tip: 'Forme courte si tu demandes à un passager', tip_en: 'Short form if asking a fellow passenger', who: 'you', difficulty: 1 },
+      { id: 'trains-3', situation: 'Il est minuit passé, tu réalises :', situation_en: 'Past midnight, you realize:', jp: 'やばい、終電なくね？', hiragana: 'やばい、しゅうでんなくね？', romaji: 'Yabai, shūden naku ne?', fr: 'Merde, y\'a plus de dernier train non ?', en: 'Crap, the last train is gone, right?', audioText: 'やばい、終電なくね', tip: 'なくね？ = ないよね？ abrégé. Trains s\'arrêtent vers minuit.', tip_en: 'なくね？ = shortened ないよね？. Trains stop around midnight.', who: 'you', difficulty: 2 },
+      { id: 'trains-4', situation: 'Tu demandes à ton pote :', situation_en: 'You ask your friend:', jp: '終電何時？', hiragana: 'しゅうでんなんじ？', romaji: 'Shūden nanji?', fr: 'Le dernier train c\'est quand ?', en: 'When\'s the last train?', audioText: '終電何時？', tip: 'Forme courte entre potes, pas besoin de ですか', tip_en: 'Short form between friends, no need for ですか', who: 'you', difficulty: 1 },
+      { id: 'trains-5', situation: 'Tu dois changer de ligne mais tu sais plus où :', situation_en: 'You have to transfer but forgot where:', jp: '乗り換えどこだっけ？', hiragana: 'のりかえどこだっけ？', romaji: 'Norikae doko dakke?', fr: 'C\'était où la correspondance déjà ?', en: 'Where was the transfer again?', audioText: '乗り換えどこだっけ', tip: 'だっけ = "c\'était... déjà ?" — très naturel', tip_en: 'だっけ = "was it... again?" — very natural', who: 'you', difficulty: 2 },
+      { id: 'trains-6', situation: 'Le train est bondé, tu vois une place :', situation_en: 'The train is packed, you see a seat:', jp: 'すみません、ここ空いてますか？', hiragana: 'すみません、ここあいてますか？', romaji: 'Sumimasen, koko aitemasu ka?', fr: 'Pardon, c\'est libre ici ?', en: 'Excuse me, is this seat free?', audioText: 'すみません、ここ空いてますか', tip: 'Reste poli dans le train — silence et respect, c\'est sacré', tip_en: 'Stay polite on the train — silence and respect are sacred', who: 'you', difficulty: 1 },
+      { id: 'trains-7', situation: 'Tu dois descendre au prochain arrêt :', situation_en: 'You need to get off at the next stop:', jp: '次の駅で降りる', hiragana: 'つぎのえきでおりる', romaji: 'Tsugi no eki de oriru', fr: 'Je descends au prochain', en: 'I\'m getting off at the next stop', audioText: '次の駅で降りる', tip: 'Pour prévenir ton pote ou te frayer un chemin', tip_en: 'To warn your friend or make your way through', who: 'you', difficulty: 2 },
+      { id: 'trains-8', situation: 'Vous sprintez et chopez le train in extremis :', situation_en: 'You sprint and catch the train just in time:', jp: '間に合った！', hiragana: 'まにあった！', romaji: 'Maniatta!', fr: 'On l\'a eu !', en: 'We made it!', audioText: '間に合った', tip: 'Le soulagement quand tu chopes le dernier train', tip_en: 'The relief when you catch the last train', who: 'you', difficulty: 3 },
     ],
   },
 
   // ============================================
-  // 7. SHOPPING
+  // 8. SHOPPING
   // ============================================
   {
     id: 'shopping',
     name: 'Shopping',
+    name_en: 'Shopping',
     description: 'Shimokita, Harajuku, Don Quichotte — chiner comme un pro',
+    description_en: 'Shimokita, Harajuku, Don Quijote — shop like a pro',
     phrases: [
-      {
-        id: 'shopping-1', situation: 'Tu vois un truc intéressant dans la boutique :', jp: 'これ何？', hiragana: 'これなに？', romaji: 'Kore nani?', fr: 'C\'est quoi ça ?', audioText: 'これ何？', tip: 'Court et direct — parfait en boutique', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'shopping-2', situation: 'Tu veux savoir le prix :', jp: 'これいくら？', hiragana: 'これいくら？', romaji: 'Kore ikura?', fr: 'Ça coûte combien ?', audioText: 'これいくら？', tip: 'Pas besoin de ですか — en boutique c\'est normal', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'shopping-3', situation: 'Tu trouves un truc trop stylé :', jp: 'まじかっこいい', hiragana: 'まじかっこいい', romaji: 'Maji kakkoii', fr: 'Trop stylé sérieux', audioText: 'まじかっこいい', tip: 'まじ = sérieusement — amplificateur universel', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'shopping-4', situation: 'Tu veux regarder un article de plus près :', jp: 'ちょっと見せて', hiragana: 'ちょっとみせて', romaji: 'Chotto misete', fr: 'Fais voir un peu', audioText: 'ちょっと見せて', tip: 'Casual mais poli — marche dans toute boutique', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'shopping-5', situation: 'Tu veux essayer un vêtement :', jp: '試着していいですか？', hiragana: 'しちゃくしていいですか？', romaji: 'Shichaku shite ii desu ka?', fr: 'Je peux essayer ?', audioText: '試着していいですか', tip: 'Reste poli ici — les cabines d\'essayage c\'est sérieux au Japon', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'shopping-6', situation: 'Le prix est un peu salé :', jp: 'ちょっと高いな...', hiragana: 'ちょっとたかいな...', romaji: 'Chotto takai na...', fr: 'Hmm un peu cher...', audioText: 'ちょっと高いな', tip: 'な en fin = tu réfléchis tout haut. Naturel et pas impoli.', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'shopping-7', situation: 'Tu te décides à acheter :', jp: 'これにする！', hiragana: 'これにする！', romaji: 'Kore ni suru!', fr: 'Je prends ça !', audioText: 'これにする', tip: 'にする = décider — plus naturel que ください', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'shopping-8', situation: 'Le vendeur te colle, tu veux juste regarder :', jp: '見てるだけっす', hiragana: 'みてるだけっす', romaji: 'Miteru dake ssu', fr: 'Je regarde juste', audioText: '見てるだけです', tip: 'っす = です casual — poli sans être formel', who: 'you', difficulty: 1,
-      },
+      { id: 'shopping-1', situation: 'Tu vois un truc intéressant dans la boutique :', situation_en: 'You see something interesting in the shop:', jp: 'これ何？', hiragana: 'これなに？', romaji: 'Kore nani?', fr: 'C\'est quoi ça ?', en: 'What\'s this?', audioText: 'これ何？', tip: 'Court et direct — parfait en boutique', tip_en: 'Short and direct — perfect in a shop', who: 'you', difficulty: 1 },
+      { id: 'shopping-2', situation: 'Tu veux savoir le prix :', situation_en: 'You want to know the price:', jp: 'これいくら？', hiragana: 'これいくら？', romaji: 'Kore ikura?', fr: 'Ça coûte combien ?', en: 'How much is this?', audioText: 'これいくら？', tip: 'Pas besoin de ですか — en boutique c\'est normal', tip_en: 'No need for ですか — normal in shops', who: 'you', difficulty: 1 },
+      { id: 'shopping-3', situation: 'Tu trouves un truc trop stylé :', situation_en: 'You find something really cool:', jp: 'まじかっこいい', hiragana: 'まじかっこいい', romaji: 'Maji kakkoii', fr: 'Trop stylé sérieux', en: 'So cool, seriously', audioText: 'まじかっこいい', tip: 'まじ = sérieusement — amplificateur universel', tip_en: 'まじ = seriously — universal amplifier', who: 'you', difficulty: 2 },
+      { id: 'shopping-4', situation: 'Tu veux regarder un article de plus près :', situation_en: 'You want to look at an item closer:', jp: 'ちょっと見せて', hiragana: 'ちょっとみせて', romaji: 'Chotto misete', fr: 'Fais voir un peu', en: 'Can I see it?', audioText: 'ちょっと見せて', tip: 'Casual mais poli — marche dans toute boutique', tip_en: 'Casual but polite — works in any shop', who: 'you', difficulty: 2 },
+      { id: 'shopping-5', situation: 'Tu veux essayer un vêtement :', situation_en: 'You want to try on clothes:', jp: '試着していいですか？', hiragana: 'しちゃくしていいですか？', romaji: 'Shichaku shite ii desu ka?', fr: 'Je peux essayer ?', en: 'Can I try it on?', audioText: '試着していいですか', tip: 'Reste poli ici — les cabines d\'essayage c\'est sérieux au Japon', tip_en: 'Stay polite — fitting rooms are serious business in Japan', who: 'you', difficulty: 2 },
+      { id: 'shopping-6', situation: 'Le prix est un peu salé :', situation_en: 'The price is a bit steep:', jp: 'ちょっと高いな...', hiragana: 'ちょっとたかいな...', romaji: 'Chotto takai na...', fr: 'Hmm un peu cher...', en: 'Hmm, a bit expensive...', audioText: 'ちょっと高いな', tip: 'な en fin = tu réfléchis tout haut. Naturel et pas impoli.', tip_en: 'な at the end = thinking out loud. Natural, not rude.', who: 'you', difficulty: 2 },
+      { id: 'shopping-7', situation: 'Tu te décides à acheter :', situation_en: 'You decide to buy:', jp: 'これにする！', hiragana: 'これにする！', romaji: 'Kore ni suru!', fr: 'Je prends ça !', en: 'I\'ll take this!', audioText: 'これにする', tip: 'にする = décider — plus naturel que ください', tip_en: 'にする = to decide — more natural than ください', who: 'you', difficulty: 1 },
+      { id: 'shopping-8', situation: 'Le vendeur te colle, tu veux juste regarder :', situation_en: 'The clerk hovers, you just want to browse:', jp: '見てるだけっす', hiragana: 'みてるだけっす', romaji: 'Miteru dake ssu', fr: 'Je regarde juste', en: 'Just looking', audioText: '見てるだけです', tip: 'っす = です casual — poli sans être formel', tip_en: 'っす = casual です — polite without being formal', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 8. HÔTEL
+  // 9. HÔTEL
   // ============================================
   {
     id: 'hotel',
     name: 'Hôtel',
+    name_en: 'Hotel',
     description: 'Check-in, check-out, galères de chambre',
+    description_en: 'Check-in, check-out, room troubles',
     phrases: [
-      { id: 'hotel-1', situation: 'Tu arrives à l\'hôtel, tu veux faire le check-in :', jp: 'チェックインお願いします', hiragana: 'チェックイン おねがいします', romaji: 'Chekku-in onegai shimasu', fr: 'Check-in s\'il vous plaît.', audioText: 'チェックインお願いします', tip: 'Montre ta réservation sur ton tel en même temps, ça accélère tout.', who: 'you', difficulty: 1 },
-      { id: 'hotel-2', situation: 'Tu veux laisser tes valises avant le check-in :', jp: '荷物預かってもらえますか？', hiragana: 'にもつ あずかって もらえますか？', romaji: 'Nimotsu azukatte moraemasu ka?', fr: 'Vous pouvez garder mes bagages ?', audioText: '荷物預かってもらえますか', tip: 'Quasi tous les hôtels au Japon acceptent. Même les auberges.', who: 'you', difficulty: 1 },
-      { id: 'hotel-3', situation: 'Tu veux te connecter au wifi :', jp: 'Wi-Fiのパスワードは何ですか？', hiragana: 'ワイファイの パスワードは なんですか？', romaji: 'Wai-fai no pasuwādo wa nan desu ka?', fr: 'C\'est quoi le mdp du wifi ?', audioText: 'ワイファイのパスワードは何ですか？', tip: 'Souvent écrit sur une carte dans la chambre.', who: 'you', difficulty: 2 },
-      { id: 'hotel-4', situation: 'La clim déconne et tu comprends pas les boutons :', jp: 'エアコンの使い方がわからないんですけど', hiragana: 'エアコンの つかいかたが わからないんですけど', romaji: 'Eakon no tsukaikata ga wakaranai n desu kedo', fr: 'Je comprends pas comment marche la clim.', audioText: 'エアコンの使い方がわからないんですけど', tip: '暖房 (danbō) = chauffage, 冷房 (reibō) = clim froide.', who: 'you', difficulty: 2 },
-      { id: 'hotel-5', situation: 'Tu veux savoir l\'heure du check-out :', jp: 'チェックアウトは何時ですか？', hiragana: 'チェックアウトは なんじですか？', romaji: 'Chekku-auto wa nanji desu ka?', fr: 'Le check-out c\'est à quelle heure ?', audioText: 'チェックアウトは何時ですか', tip: 'En général 10h ou 11h. Demande un late check-out si besoin.', who: 'you', difficulty: 1 },
-      { id: 'hotel-6', situation: 'La douche est cassée dans ta chambre :', jp: 'すみません、部屋のシャワーが壊れているんですけど', hiragana: 'すみません、へやの シャワー が こわれているんですけど', romaji: 'Sumimasen, heya no shawā ga kowarete iru n desu kedo', fr: 'Excusez-moi, la douche de la chambre est cassée.', audioText: 'すみません、部屋のシャワーが壊れているんですけど', tip: 'Remplace シャワー par : トイレ (toilettes), テレビ (TV), エアコン (clim).', who: 'you', difficulty: 2 },
-      { id: 'hotel-7', situation: 'Tu veux une serviette en plus :', jp: 'タオルもう一枚もらえますか？', hiragana: 'タオル もういちまい もらえますか？', romaji: 'Taoru mō ichi-mai moraemasu ka?', fr: 'Je peux avoir une serviette de plus ?', audioText: 'タオルもう一枚もらえますか', tip: 'Remplace タオル par 枕 (makura = oreiller) ou 毛布 (mōfu = couverture).', who: 'you', difficulty: 2 },
-      { id: 'hotel-8', situation: 'Tu veux rester une nuit de plus :', jp: 'もう一泊延長できますか？', hiragana: 'もう いっぱく えんちょう できますか？', romaji: 'Mō ip-paku enchō dekimasu ka?', fr: 'Je peux prolonger d\'une nuit ?', audioText: 'もう一泊延長できますか', tip: 'Demande tôt le matin pour plus de chances.', who: 'you', difficulty: 2 },
-      { id: 'hotel-9', situation: 'Le réceptionniste te demande ton passeport :', jp: 'パスポートを見せていただけますか？', hiragana: 'パスポートを みせて いただけますか？', romaji: 'Pasupōto o misete itadakemasu ka?', fr: 'Puis-je voir votre passeport ?', audioText: 'パスポートを見せていただけますか', tip: 'C\'est la LOI au Japon. Tous les hôtels vérifient.', who: 'them', difficulty: 1 },
-      { id: 'hotel-10', situation: 'Tu quittes l\'hôtel, tu veux être classe :', jp: 'お世話になりました', hiragana: 'おせわに なりました', romaji: 'Osewa ni narimashita', fr: 'Merci pour tout.', audioText: 'お世話になりました', tip: 'LA phrase classe pour partir. Le staff va adorer.', who: 'you', difficulty: 1 },
+      { id: 'hotel-1', situation: 'Tu arrives à l\'hôtel, tu veux faire le check-in :', situation_en: 'You arrive at the hotel for check-in:', jp: 'チェックインお願いします', hiragana: 'チェックイン おねがいします', romaji: 'Chekku-in onegai shimasu', fr: 'Check-in s\'il vous plaît.', en: 'Check-in please.', audioText: 'チェックインお願いします', tip: 'Montre ta réservation sur ton tel en même temps, ça accélère tout.', tip_en: 'Show your booking on your phone at the same time, it speeds everything up.', who: 'you', difficulty: 1 },
+      { id: 'hotel-2', situation: 'Tu veux laisser tes valises avant le check-in :', situation_en: 'You want to drop your bags before check-in:', jp: '荷物預かってもらえますか？', hiragana: 'にもつ あずかって もらえますか？', romaji: 'Nimotsu azukatte moraemasu ka?', fr: 'Vous pouvez garder mes bagages ?', en: 'Can you hold my luggage?', audioText: '荷物預かってもらえますか', tip: 'Quasi tous les hôtels au Japon acceptent. Même les auberges.', tip_en: 'Almost every hotel in Japan allows this. Even hostels.', who: 'you', difficulty: 1 },
+      { id: 'hotel-3', situation: 'Tu veux te connecter au wifi :', situation_en: 'You want to connect to the wifi:', jp: 'Wi-Fiのパスワードは何ですか？', hiragana: 'ワイファイの パスワードは なんですか？', romaji: 'Wai-fai no pasuwādo wa nan desu ka?', fr: 'C\'est quoi le mdp du wifi ?', en: 'What\'s the wifi password?', audioText: 'ワイファイのパスワードは何ですか？', tip: 'Souvent écrit sur une carte dans la chambre.', tip_en: 'Often written on a card in the room.', who: 'you', difficulty: 2 },
+      { id: 'hotel-4', situation: 'La clim déconne et tu comprends pas les boutons :', situation_en: 'The AC is glitchy and you can\'t figure out the buttons:', jp: 'エアコンの使い方がわからないんですけど', hiragana: 'エアコンの つかいかたが わからないんですけど', romaji: 'Eakon no tsukaikata ga wakaranai n desu kedo', fr: 'Je comprends pas comment marche la clim.', en: 'I don\'t understand how the AC works.', audioText: 'エアコンの使い方がわからないんですけど', tip: '暖房 (danbō) = chauffage, 冷房 (reibō) = clim froide.', tip_en: '暖房 (danbō) = heating, 冷房 (reibō) = cooling.', who: 'you', difficulty: 2 },
+      { id: 'hotel-5', situation: 'Tu veux savoir l\'heure du check-out :', situation_en: 'You want to know the check-out time:', jp: 'チェックアウトは何時ですか？', hiragana: 'チェックアウトは なんじですか？', romaji: 'Chekku-auto wa nanji desu ka?', fr: 'Le check-out c\'est à quelle heure ?', en: 'What time is check-out?', audioText: 'チェックアウトは何時ですか', tip: 'En général 10h ou 11h. Demande un late check-out si besoin.', tip_en: 'Usually 10 or 11 am. Ask for late check-out if needed.', who: 'you', difficulty: 1 },
+      { id: 'hotel-6', situation: 'La douche est cassée dans ta chambre :', situation_en: 'The shower is broken in your room:', jp: 'すみません、部屋のシャワーが壊れているんですけど', hiragana: 'すみません、へやの シャワー が こわれているんですけど', romaji: 'Sumimasen, heya no shawā ga kowarete iru n desu kedo', fr: 'Excusez-moi, la douche de la chambre est cassée.', en: 'Sorry, the shower in my room is broken.', audioText: 'すみません、部屋のシャワーが壊れているんですけど', tip: 'Remplace シャワー par : トイレ (toilettes), テレビ (TV), エアコン (clim).', tip_en: 'Replace シャワー with: トイレ (toilet), テレビ (TV), エアコン (AC).', who: 'you', difficulty: 2 },
+      { id: 'hotel-7', situation: 'Tu veux une serviette en plus :', situation_en: 'You want an extra towel:', jp: 'タオルもう一枚もらえますか？', hiragana: 'タオル もういちまい もらえますか？', romaji: 'Taoru mō ichi-mai moraemasu ka?', fr: 'Je peux avoir une serviette de plus ?', en: 'Can I get one more towel?', audioText: 'タオルもう一枚もらえますか', tip: 'Remplace タオル par 枕 (makura = oreiller) ou 毛布 (mōfu = couverture).', tip_en: 'Replace タオル with 枕 (makura = pillow) or 毛布 (mōfu = blanket).', who: 'you', difficulty: 2 },
+      { id: 'hotel-8', situation: 'Tu veux rester une nuit de plus :', situation_en: 'You want to stay one more night:', jp: 'もう一泊延長できますか？', hiragana: 'もう いっぱく えんちょう できますか？', romaji: 'Mō ip-paku enchō dekimasu ka?', fr: 'Je peux prolonger d\'une nuit ?', en: 'Can I extend by one night?', audioText: 'もう一泊延長できますか', tip: 'Demande tôt le matin pour plus de chances.', tip_en: 'Ask early in the morning for better chances.', who: 'you', difficulty: 2 },
+      { id: 'hotel-9', situation: 'Le réceptionniste te demande ton passeport :', situation_en: 'The receptionist asks for your passport:', jp: 'パスポートを見せていただけますか？', hiragana: 'パスポートを みせて いただけますか？', romaji: 'Pasupōto o misete itadakemasu ka?', fr: 'Puis-je voir votre passeport ?', en: 'May I see your passport?', audioText: 'パスポートを見せていただけますか', tip: 'C\'est la LOI au Japon. Tous les hôtels vérifient.', tip_en: 'It\'s the LAW in Japan. All hotels check.', who: 'them', difficulty: 1 },
+      { id: 'hotel-10', situation: 'Tu quittes l\'hôtel, tu veux être classe :', situation_en: 'Leaving the hotel, you want to be classy:', jp: 'お世話になりました', hiragana: 'おせわに なりました', romaji: 'Osewa ni narimashita', fr: 'Merci pour tout.', en: 'Thanks for everything.', audioText: 'お世話になりました', tip: 'LA phrase classe pour partir. Le staff va adorer.', tip_en: 'THE classy phrase to leave. Staff will love it.', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 9. URGENCES
+  // 10. URGENCES
   // ============================================
   {
     id: 'urgences',
     name: 'Urgences',
+    name_en: 'Emergencies',
     description: 'Les phrases vitales quand ça part en vrille',
+    description_en: 'Vital phrases when things go sideways',
     phrases: [
-      {
-        id: 'urgences-1', situation: 'Tu as besoin d\'aide immédiatement :', jp: '助けてください！', hiragana: 'たすけてください！', romaji: 'Tasukete kudasai!', fr: 'Aidez-moi !', audioText: '助けてください', tip: 'À graver dans ta tête avant le voyage', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-2', situation: 'Tu as besoin de la police :', jp: '警察呼んでください', hiragana: 'けいさつよんでください', romaji: 'Keisatsu yonde kudasai', fr: 'Appelez la police svp', audioText: '警察呼んでください', tip: '110 = police / 119 = ambulance au Japon', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-3', situation: 'Tu dois aller à l\'hôpital :', jp: '病院どこですか？', hiragana: 'びょういんどこですか？', romaji: 'Byōin doko desu ka?', fr: 'L\'hôpital c\'est où ?', audioText: '病院どこですか', tip: 'Garde le poli même en panique — les gens t\'aideront', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-4', situation: 'Tu te sens mal dans un lieu public :', jp: '気分が悪いです', hiragana: 'きぶんがわるいです', romaji: 'Kibun ga warui desu', fr: 'Je me sens pas bien', audioText: '気分が悪いです', tip: 'Dis-le à n\'importe qui — konbini, train, on t\'aidera', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-5', situation: 'Tu as perdu ton portefeuille :', jp: '財布なくした...', hiragana: 'さいふなくした...', romaji: 'Saifu nakushita...', fr: 'J\'ai perdu mon portefeuille...', audioText: '財布なくしました', tip: 'Va au koban (poste de police de quartier) le plus proche', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-6', situation: 'Tu as besoin de quelqu\'un qui parle anglais :', jp: '英語できる人いますか？', hiragana: 'えいごできるひといますか？', romaji: 'Eigo dekiru hito imasu ka?', fr: 'Y\'a quelqu\'un qui parle anglais ?', audioText: '英語できる人いますか', tip: 'できる = "qui peut" — plus naturel que 話せる ici', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'urgences-7', situation: 'Tu as oublié ton téléphone quelque part :', jp: 'スマホ忘れた！', hiragana: 'スマホわすれた！', romaji: 'Sumaho wasureta!', fr: 'J\'ai oublié mon tel !', audioText: 'スマホ忘れた', tip: 'スマホ = smartphone. Va voir au dernier endroit visité.', who: 'you', difficulty: 1,
-      },
+      { id: 'urgences-1', situation: 'Tu as besoin d\'aide immédiatement :', situation_en: 'You need help immediately:', jp: '助けてください！', hiragana: 'たすけてください！', romaji: 'Tasukete kudasai!', fr: 'Aidez-moi !', en: 'Help me!', audioText: '助けてください', tip: 'À graver dans ta tête avant le voyage', tip_en: 'Burn this into your memory before you travel', who: 'you', difficulty: 1 },
+      { id: 'urgences-2', situation: 'Tu as besoin de la police :', situation_en: 'You need the police:', jp: '警察呼んでください', hiragana: 'けいさつよんでください', romaji: 'Keisatsu yonde kudasai', fr: 'Appelez la police svp', en: 'Please call the police', audioText: '警察呼んでください', tip: '110 = police / 119 = ambulance au Japon', tip_en: '110 = police / 119 = ambulance in Japan', who: 'you', difficulty: 1 },
+      { id: 'urgences-3', situation: 'Tu dois aller à l\'hôpital :', situation_en: 'You need to go to the hospital:', jp: '病院どこですか？', hiragana: 'びょういんどこですか？', romaji: 'Byōin doko desu ka?', fr: 'L\'hôpital c\'est où ?', en: 'Where is the hospital?', audioText: '病院どこですか', tip: 'Garde le poli même en panique — les gens t\'aideront', tip_en: 'Stay polite even in panic — people will help', who: 'you', difficulty: 1 },
+      { id: 'urgences-4', situation: 'Tu te sens mal dans un lieu public :', situation_en: 'You feel sick in public:', jp: '気分が悪いです', hiragana: 'きぶんがわるいです', romaji: 'Kibun ga warui desu', fr: 'Je me sens pas bien', en: 'I don\'t feel well', audioText: '気分が悪いです', tip: 'Dis-le à n\'importe qui — konbini, train, on t\'aidera', tip_en: 'Say it to anyone — konbini, train, they\'ll help', who: 'you', difficulty: 1 },
+      { id: 'urgences-5', situation: 'Tu as perdu ton portefeuille :', situation_en: 'You lost your wallet:', jp: '財布なくした...', hiragana: 'さいふなくした...', romaji: 'Saifu nakushita...', fr: 'J\'ai perdu mon portefeuille...', en: 'I lost my wallet...', audioText: '財布なくしました', tip: 'Va au koban (poste de police de quartier) le plus proche', tip_en: 'Go to the nearest koban (neighborhood police box)', who: 'you', difficulty: 1 },
+      { id: 'urgences-6', situation: 'Tu as besoin de quelqu\'un qui parle anglais :', situation_en: 'You need someone who speaks English:', jp: '英語できる人いますか？', hiragana: 'えいごできるひといますか？', romaji: 'Eigo dekiru hito imasu ka?', fr: 'Y\'a quelqu\'un qui parle anglais ?', en: 'Is there anyone who speaks English?', audioText: '英語できる人いますか', tip: 'できる = "qui peut" — plus naturel que 話せる ici', tip_en: 'できる = "who can" — more natural than 話せる here', who: 'you', difficulty: 1 },
+      { id: 'urgences-7', situation: 'Tu as oublié ton téléphone quelque part :', situation_en: 'You forgot your phone somewhere:', jp: 'スマホ忘れた！', hiragana: 'スマホわすれた！', romaji: 'Sumaho wasureta!', fr: 'J\'ai oublié mon tel !', en: 'I forgot my phone!', audioText: 'スマホ忘れた', tip: 'スマホ = smartphone. Va voir au dernier endroit visité.', tip_en: 'スマホ = smartphone. Go check the last place you visited.', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 10. SOCIALISER
+  // 11. SOCIALISER
   // ============================================
   {
     id: 'socialiser',
     name: 'Socialiser',
+    name_en: 'Socializing',
     description: 'Se faire des potes, discuter, créer des liens',
+    description_en: 'Making friends, chatting, building connections',
     phrases: [
-      {
-        id: 'social-1', situation: 'Tu te présentes dans un bar :', jp: 'フランスから来た！', hiragana: 'フランスからきた！', romaji: 'Furansu kara kita!', fr: 'Je viens de France !', audioText: 'フランスから来た', tip: 'から来た > です pour se présenter entre jeunes', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'social-2', situation: 'Tu veux connaître son prénom :', jp: '名前なんていうの？', hiragana: 'なまえなんていうの？', romaji: 'Namae nan te iu no?', fr: 'Tu t\'appelles comment ?', audioText: '名前なんていうの', tip: 'Forme naturelle — pas "お名前は何ですか"', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'social-3', situation: 'Tu veux expliquer que ton japonais est limité :', jp: '日本語まだまだだけど...', hiragana: 'にほんごまだまだだけど...', romaji: 'Nihongo mada mada da kedo...', fr: 'Mon japonais est encore nul mais...', audioText: '日本語まだまだだけど', tip: 'まだまだ = encore loin du compte. Humble et honnête.', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'social-4', situation: 'La personne te complimente sur ton japonais :', jp: '日本語上手だね！', hiragana: 'にほんごじょうずだね！', romaji: 'Nihongo jōzu da ne!', fr: 'Tu parles bien japonais !', audioText: '日本語上手だね', tip: 'On te le dira TOUT LE TEMPS — même si tu connais 3 mots', who: 'them', difficulty: 1,
-      },
-      {
-        id: 'social-5', situation: 'On te complimente, tu réponds humblement :', jp: 'いやいや、全然だよ', hiragana: 'いやいや、ぜんぜんだよ', romaji: 'Iya iya, zenzen da yo', fr: 'Mais non, pas du tout', audioText: 'いやいや、全然だよ', tip: 'Ne dis JAMAIS merci quand on te complimente. Minimise toujours.', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'social-6', situation: 'Tu veux savoir ce qu\'il/elle fait :', jp: '何してる人？/ 仕事何？', hiragana: 'なにしてるひと？/ しごとなに？', romaji: 'Nani shiteru hito? / Shigoto nani?', fr: 'Tu fais quoi dans la vie ?', audioText: '仕事何', tip: 'Deux façons — la 2e plus directe, entre jeunes', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'social-7', situation: 'Tu veux parler de hobbies :', jp: '趣味とかある？', hiragana: 'しゅみとかある？', romaji: 'Shumi toka aru?', fr: 'T\'as des hobbies ?', audioText: '趣味とかある', tip: 'とか = "genre, des trucs comme" — adoucit la question', who: 'you', difficulty: 2,
-      },
-      {
-        id: 'social-8', situation: 'Vous vous entendez bien, tu proposes d\'échanger :', jp: 'LINE交換しよ！', hiragana: 'LINEこうかんしよ！', romaji: 'LINE kōkan shiyo!', fr: 'On s\'échange nos LINE !', audioText: 'ライン交換しよ', tip: 'LINE = le WhatsApp du Japon. Installe-le avant de partir.', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'social-9', situation: 'La soirée se termine, tu proposes de se revoir :', jp: 'また遊ぼう！', hiragana: 'またあそぼう！', romaji: 'Mata asobō!', fr: 'On se refait un truc !', audioText: 'また遊ぼう', tip: '遊ぶ = traîner ensemble, pas juste "jouer"', who: 'you', difficulty: 1,
-      },
-      {
-        id: 'social-10', situation: 'Tu dis au revoir chaleureusement :', jp: 'めっちゃ楽しかった！ありがとね', hiragana: 'めっちゃたのしかった！ありがとね', romaji: 'Meccha tanoshikatta! Arigatone', fr: 'C\'était trop bien ! Merci hein', audioText: 'めっちゃ楽しかった。ありがとね', tip: 'ありがとね = merci doux/amical — pas ございます', who: 'you',
+      { id: 'social-1', situation: 'Tu te présentes dans un bar :', situation_en: 'You introduce yourself at a bar:', jp: 'フランスから来た！', hiragana: 'フランスからきた！', romaji: 'Furansu kara kita!', fr: 'Je viens de France !', en: 'I\'m from France!', audioText: 'フランスから来た', tip: 'から来た > です pour se présenter entre jeunes', tip_en: 'から来た > です when introducing yourself among young people', who: 'you', difficulty: 1 },
+      { id: 'social-2', situation: 'Tu veux connaître son prénom :', situation_en: 'You want to know their name:', jp: '名前なんていうの？', hiragana: 'なまえなんていうの？', romaji: 'Namae nan te iu no?', fr: 'Tu t\'appelles comment ?', en: 'What\'s your name?', audioText: '名前なんていうの', tip: 'Forme naturelle — pas "お名前は何ですか"', tip_en: 'Natural form — not "お名前は何ですか"', who: 'you', difficulty: 1 },
+      { id: 'social-3', situation: 'Tu veux expliquer que ton japonais est limité :', situation_en: 'You want to explain your Japanese is limited:', jp: '日本語まだまだだけど...', hiragana: 'にほんごまだまだだけど...', romaji: 'Nihongo mada mada da kedo...', fr: 'Mon japonais est encore nul mais...', en: 'My Japanese still sucks but...', audioText: '日本語まだまだだけど', tip: 'まだまだ = encore loin du compte. Humble et honnête.', tip_en: 'まだまだ = still far from good. Humble and honest.', who: 'you', difficulty: 2 },
+      { id: 'social-4', situation: 'La personne te complimente sur ton japonais :', situation_en: 'They compliment your Japanese:', jp: '日本語上手だね！', hiragana: 'にほんごじょうずだね！', romaji: 'Nihongo jōzu da ne!', fr: 'Tu parles bien japonais !', en: 'Your Japanese is great!', audioText: '日本語上手だね', tip: 'On te le dira TOUT LE TEMPS — même si tu connais 3 mots', tip_en: 'You\'ll hear this ALL THE TIME — even if you know 3 words', who: 'them', difficulty: 1 },
+      { id: 'social-5', situation: 'On te complimente, tu réponds humblement :', situation_en: 'You respond humbly to a compliment:', jp: 'いやいや、全然だよ', hiragana: 'いやいや、ぜんぜんだよ', romaji: 'Iya iya, zenzen da yo', fr: 'Mais non, pas du tout', en: 'No no, not at all', audioText: 'いやいや、全然だよ', tip: 'Ne dis JAMAIS merci quand on te complimente. Minimise toujours.', tip_en: 'NEVER say thanks for a compliment. Always downplay.', who: 'you', difficulty: 1 },
+      { id: 'social-6', situation: 'Tu veux savoir ce qu\'il/elle fait :', situation_en: 'You want to know what they do:', jp: '何してる人？/ 仕事何？', hiragana: 'なにしてるひと？/ しごとなに？', romaji: 'Nani shiteru hito? / Shigoto nani?', fr: 'Tu fais quoi dans la vie ?', en: 'What do you do?', audioText: '仕事何', tip: 'Deux façons — la 2e plus directe, entre jeunes', tip_en: 'Two ways — the 2nd is more direct, among young people', who: 'you', difficulty: 2 },
+      { id: 'social-7', situation: 'Tu veux parler de hobbies :', situation_en: 'You want to talk about hobbies:', jp: '趣味とかある？', hiragana: 'しゅみとかある？', romaji: 'Shumi toka aru?', fr: 'T\'as des hobbies ?', en: 'Any hobbies?', audioText: '趣味とかある', tip: 'とか = "genre, des trucs comme" — adoucit la question', tip_en: 'とか = "like, stuff like" — softens the question', who: 'you', difficulty: 2 },
+      { id: 'social-8', situation: 'Vous vous entendez bien, tu proposes d\'échanger :', situation_en: 'You click, you suggest exchanging:', jp: 'LINE交換しよ！', hiragana: 'LINEこうかんしよ！', romaji: 'LINE kōkan shiyo!', fr: 'On s\'échange nos LINE !', en: 'Let\'s exchange LINE!', audioText: 'ライン交換しよ', tip: 'LINE = le WhatsApp du Japon. Installe-le avant de partir.', tip_en: 'LINE = Japan\'s WhatsApp. Install it before you travel.', who: 'you', difficulty: 1 },
+      { id: 'social-9', situation: 'La soirée se termine, tu proposes de se revoir :', situation_en: 'The night ends, you suggest meeting again:', jp: 'また遊ぼう！', hiragana: 'またあそぼう！', romaji: 'Mata asobō!', fr: 'On se refait un truc !', en: 'Let\'s hang out again!', audioText: 'また遊ぼう', tip: '遊ぶ = traîner ensemble, pas juste "jouer"', tip_en: '遊ぶ = to hang out, not just "to play"', who: 'you', difficulty: 1 },
+      { id: 'social-10', situation: 'Tu dis au revoir chaleureusement :', situation_en: 'You say goodbye warmly:', jp: 'めっちゃ楽しかった！ありがとね', hiragana: 'めっちゃたのしかった！ありがとね', romaji: 'Meccha tanoshikatta! Arigatone', fr: 'C\'était trop bien ! Merci hein', en: 'Had so much fun! Thanks a lot', audioText: 'めっちゃ楽しかった。ありがとね', tip: 'ありがとね = merci doux/amical — pas ございます', tip_en: 'ありがとね = soft/friendly thanks — not ございます', who: 'you',
         noteType: 'blue',
       },
     ],
   },
 
   // ============================================
-  // 11. RÉACTIONS & FILLERS
+  // 12. RÉACTIONS & FILLERS
   // ============================================
   {
     id: 'reactions',
     name: 'Réactions & Fillers',
+    name_en: 'Reactions & Fillers',
     description: 'Les mots qu\'un Japonais utilise 50 fois par jour',
+    description_en: 'Words a Japanese person uses 50 times a day',
     phrases: [
-      { id: 'react-1', situation: 'Quelqu\'un te raconte un truc surprenant :', jp: 'マジで！？', hiragana: 'マジで！？', romaji: 'Maji de!?', fr: 'Sérieux !?', audioText: 'マジで', tip: 'LA réaction universelle — surprise, choc, tout', who: 'you', difficulty: 1 },
-      { id: 'react-2', situation: 'On te dit un truc incroyable :', jp: 'うそ！', hiragana: 'うそ！', romaji: 'Uso!', fr: 'N\'importe quoi !', audioText: 'うそ', tip: 'Littéralement "mensonge" mais = "no way!"', who: 'you', difficulty: 1 },
-      { id: 'react-3', situation: 'Tu vois/goûtes un truc incroyable (ou terrible) :', jp: 'やばっ', hiragana: 'やばっ', romaji: 'Yaba', fr: 'Ouf / Wow / Merde', audioText: 'やばい', tip: 'Positif OU négatif selon le ton — le couteau suisse', who: 'you', difficulty: 1 },
-      { id: 'react-4', situation: 'Quelqu\'un te dit un truc que tu savais pas :', jp: 'へー、そうなんだ', hiragana: 'へー、そうなんだ', romaji: 'Hē, sō nan da', fr: 'Ah ouais, je savais pas', audioText: 'へー、そうなんだ', tip: 'Montre de l\'intérêt — les Japonais adorent ça', who: 'you', difficulty: 1 },
-      { id: 'react-5', situation: 'Tu comprends ce qu\'on t\'explique :', jp: 'なるほどね', hiragana: 'なるほどね', romaji: 'Naruhodo ne', fr: 'Ah je vois je vois', audioText: 'なるほどね', tip: 'Le hochement de tête verbal — utilise-le souvent', who: 'you', difficulty: 1 },
-      { id: 'react-6', situation: 'Tu cherches tes mots :', jp: 'えーっと...', hiragana: 'えーっと...', romaji: 'Ētto...', fr: 'Euhh...', audioText: 'えーっと', tip: 'Le "euh" japonais — mieux que le silence', who: 'you', difficulty: 1 },
-      { id: 'react-7', situation: 'Tu es totalement d\'accord :', jp: 'そうそうそう', hiragana: 'そうそうそう', romaji: 'Sō sō sō', fr: 'Ouais ouais exactement', audioText: 'そうそうそう', tip: 'En rafale = tu valides fort', who: 'you', difficulty: 2 },
-      { id: 'react-8', situation: 'Tu apprends un truc étonnant :', jp: 'まじかー', hiragana: 'まじかー', romaji: 'Majikā', fr: 'Sérieux... / Ah ouais...', audioText: 'まじかー', tip: 'Version douce de マジで — plus réflexif', who: 'you', difficulty: 2 },
-      { id: 'react-9', situation: 'Quelqu\'un propose un bon plan :', jp: 'いいね！', hiragana: 'いいね！', romaji: 'Ii ne!', fr: 'Nice ! Trop bien !', audioText: 'いいね', tip: 'Comme le bouton like — approbation instantanée', who: 'you', difficulty: 1 },
-      { id: 'react-10', situation: 'Tu as besoin d\'une seconde :', jp: 'ちょっと待って', hiragana: 'ちょっとまって', romaji: 'Chotto matte', fr: 'Attends deux sec', audioText: 'ちょっと待って', tip: 'Sans ください = entre potes', who: 'you', difficulty: 1 },
-      { id: 'react-11', situation: 'Quelqu\'un s\'excuse ou s\'inquiète :', jp: '大丈夫大丈夫', hiragana: 'だいじょうぶだいじょうぶ', romaji: 'Daijōbu daijōbu', fr: 'T\'inquiète t\'inquiète', audioText: '大丈夫大丈夫', tip: 'Répété = rassurant, décontracté', who: 'you', difficulty: 1 },
-      { id: 'react-12', situation: 'Tu te retrouves à 100% dans ce qu\'on te dit :', jp: 'めっちゃわかる', hiragana: 'めっちゃわかる', romaji: 'Meccha wakaru', fr: 'Tellement ça / je comprends trop', audioText: 'めっちゃわかる', tip: 'Empathie level max — les Japonais kiffent', who: 'you', difficulty: 2 },
+      { id: 'react-1', situation: 'Quelqu\'un te raconte un truc surprenant :', situation_en: 'Someone tells you something surprising:', jp: 'マジで！？', hiragana: 'マジで！？', romaji: 'Maji de!?', fr: 'Sérieux !?', en: 'For real!?', audioText: 'マジで', tip: 'LA réaction universelle — surprise, choc, tout', tip_en: 'THE universal reaction — surprise, shock, everything', who: 'you', difficulty: 1 },
+      { id: 'react-2', situation: 'On te dit un truc incroyable :', situation_en: 'You hear something incredible:', jp: 'うそ！', hiragana: 'うそ！', romaji: 'Uso!', fr: 'N\'importe quoi !', en: 'No way!', audioText: 'うそ', tip: 'Littéralement "mensonge" mais = "no way!"', tip_en: 'Literally "lie" but means "no way!"', who: 'you', difficulty: 1 },
+      { id: 'react-3', situation: 'Tu vois/goûtes un truc incroyable (ou terrible) :', situation_en: 'You see/taste something amazing (or awful):', jp: 'やばっ', hiragana: 'やばっ', romaji: 'Yaba', fr: 'Ouf / Wow / Merde', en: 'Woah / Wow / Damn', audioText: 'やばい', tip: 'Positif OU négatif selon le ton — le couteau suisse', tip_en: 'Positive OR negative depending on tone — the Swiss army knife', who: 'you', difficulty: 1 },
+      { id: 'react-4', situation: 'Quelqu\'un te dit un truc que tu savais pas :', situation_en: 'Someone tells you something new:', jp: 'へー、そうなんだ', hiragana: 'へー、そうなんだ', romaji: 'Hē, sō nan da', fr: 'Ah ouais, je savais pas', en: 'Oh really, I didn\'t know', audioText: 'へー、そうなんだ', tip: 'Montre de l\'intérêt — les Japonais adorent ça', tip_en: 'Shows interest — Japanese people love it', who: 'you', difficulty: 1 },
+      { id: 'react-5', situation: 'Tu comprends ce qu\'on t\'explique :', situation_en: 'You understand what\'s being explained:', jp: 'なるほどね', hiragana: 'なるほどね', romaji: 'Naruhodo ne', fr: 'Ah je vois je vois', en: 'Ah I see, I see', audioText: 'なるほどね', tip: 'Le hochement de tête verbal — utilise-le souvent', tip_en: 'The verbal nod — use it often', who: 'you', difficulty: 1 },
+      { id: 'react-6', situation: 'Tu cherches tes mots :', situation_en: 'You\'re searching for words:', jp: 'えーっと...', hiragana: 'えーっと...', romaji: 'Ētto...', fr: 'Euhh...', en: 'Uhh...', audioText: 'えーっと', tip: 'Le "euh" japonais — mieux que le silence', tip_en: 'The Japanese "uh" — better than silence', who: 'you', difficulty: 1 },
+      { id: 'react-7', situation: 'Tu es totalement d\'accord :', situation_en: 'You totally agree:', jp: 'そうそうそう', hiragana: 'そうそうそう', romaji: 'Sō sō sō', fr: 'Ouais ouais exactement', en: 'Yeah yeah exactly', audioText: 'そうそうそう', tip: 'En rafale = tu valides fort', tip_en: 'Said rapidly = strong agreement', who: 'you', difficulty: 2 },
+      { id: 'react-8', situation: 'Tu apprends un truc étonnant :', situation_en: 'You learn something surprising:', jp: 'まじかー', hiragana: 'まじかー', romaji: 'Majikā', fr: 'Sérieux... / Ah ouais...', en: 'Seriously... / Oh really...', audioText: 'まじかー', tip: 'Version douce de マジで — plus réflexif', tip_en: 'Softer version of マジで — more reflective', who: 'you', difficulty: 2 },
+      { id: 'react-9', situation: 'Quelqu\'un propose un bon plan :', situation_en: 'Someone suggests something good:', jp: 'いいね！', hiragana: 'いいね！', romaji: 'Ii ne!', fr: 'Nice ! Trop bien !', en: 'Nice! Sounds great!', audioText: 'いいね', tip: 'Comme le bouton like — approbation instantanée', tip_en: 'Like the "like" button — instant approval', who: 'you', difficulty: 1 },
+      { id: 'react-10', situation: 'Tu as besoin d\'une seconde :', situation_en: 'You need a second:', jp: 'ちょっと待って', hiragana: 'ちょっとまって', romaji: 'Chotto matte', fr: 'Attends deux sec', en: 'Hold on a sec', audioText: 'ちょっと待って', tip: 'Sans ください = entre potes', tip_en: 'Without ください = between friends', who: 'you', difficulty: 1 },
+      { id: 'react-11', situation: 'Quelqu\'un s\'excuse ou s\'inquiète :', situation_en: 'Someone apologizes or worries:', jp: '大丈夫大丈夫', hiragana: 'だいじょうぶだいじょうぶ', romaji: 'Daijōbu daijōbu', fr: 'T\'inquiète t\'inquiète', en: 'No worries, no worries', audioText: '大丈夫大丈夫', tip: 'Répété = rassurant, décontracté', tip_en: 'Repeated = reassuring, casual', who: 'you', difficulty: 1 },
+      { id: 'react-12', situation: 'Tu te retrouves à 100% dans ce qu\'on te dit :', situation_en: 'You 100% relate:', jp: 'めっちゃわかる', hiragana: 'めっちゃわかる', romaji: 'Meccha wakaru', fr: 'Tellement ça / je comprends trop', en: 'So true / I totally get it', audioText: 'めっちゃわかる', tip: 'Empathie level max — les Japonais kiffent', tip_en: 'Max empathy — Japanese people love it', who: 'you', difficulty: 2 },
     ],
   },
 
   // ============================================
-  // 12. SOIRÉE & NIGHTLIFE
+  // 13. SOIRÉE & NIGHTLIFE
   // ============================================
   {
     id: 'nightlife',
     name: 'Soirée & Nightlife',
+    name_en: 'Night Out & Nightlife',
     description: 'Nomikai, bars, clubs — le Japon après minuit',
+    description_en: 'Nomikai, bars, clubs — Japan after midnight',
     phrases: [
-      { id: 'night-1', situation: 'Les verres arrivent, tout le monde lève son verre :', jp: '乾杯！', hiragana: 'かんぱい！', romaji: 'Kanpai!', fr: 'Tchin !', audioText: '乾杯', tip: 'OBLIGATOIRE avant la première gorgée. Ne bois jamais avant.', who: 'you', difficulty: 1 },
-      { id: 'night-2', situation: 'Tu proposes l\'open bar :', jp: '飲み放題にする？', hiragana: 'のみほうだいにする？', romaji: 'Nomihōdai ni suru?', fr: 'On prend l\'open bar ?', audioText: '飲み放題にする', tip: '飲み放題 = boissons à volonté — souvent 2h pour ~2000¥', who: 'you', difficulty: 2 },
-      { id: 'night-3', situation: 'Premier bar terminé, tu proposes la suite :', jp: 'もう一軒行こう！', hiragana: 'もういっけんいこう！', romaji: 'Mō ikken ikō!', fr: 'On va dans un autre bar !', audioText: 'もう一軒行こう', tip: '二軒目 = le 2e bar. Enchaîner les bars c\'est la culture.', who: 'you', difficulty: 2 },
-      { id: 'night-4', situation: 'L\'addition arrive, tu demandes :', jp: 'ここ割り勘？', hiragana: 'ここわりかん？', romaji: 'Koko warikan?', fr: 'On split ici ?', audioText: 'ここ割り勘', tip: '割り勘 = partager l\'addition — très courant entre amis', who: 'you', difficulty: 2 },
-      { id: 'night-5', situation: 'Tu veux offrir la tournée :', jp: 'おごるよ', hiragana: 'おごるよ', romaji: 'Ogoru yo', fr: 'C\'est moi qui régale', audioText: 'おごるよ', tip: 'Les aînés/senpai offrent souvent — gros signe de respect', who: 'you', difficulty: 3 },
-      { id: 'night-6', situation: 'Tu commences à sentir l\'alcool :', jp: 'ちょっと酔っちゃった', hiragana: 'ちょっとよっちゃった', romaji: 'Chotto yocchatta', fr: 'Je suis un peu pompette', audioText: 'ちょっと酔っちゃった', tip: 'ちゃった = "c\'est arrivé malgré moi" — forme casual', who: 'you', difficulty: 3 },
-      { id: 'night-7', situation: 'Tu réalises que t\'as taf demain :', jp: '明日仕事あるのにやばい', hiragana: 'あしたしごとあるのにやばい', romaji: 'Ashita shigoto aru noni yabai', fr: 'J\'ai taf demain et c\'est la merde', audioText: '明日仕事あるのにやばい', tip: 'のに = "alors que" — le regret classique', who: 'you', difficulty: 3 },
-      { id: 'night-8', situation: 'Il est presque minuit :', jp: '終電やばくない？', hiragana: 'しゅうでんやばくない？', romaji: 'Shūden yabaku nai?', fr: 'Le dernier train c\'est chaud non ?', audioText: '終電やばくない', tip: 'Vers minuit cette phrase sort TOUJOURS', who: 'you', difficulty: 1 },
-      { id: 'night-9', situation: 'T\'as raté le dernier train :', jp: 'タクシーで帰る？', hiragana: 'タクシーでかえる？', romaji: 'Takushī de kaeru?', fr: 'On rentre en taxi ?', audioText: 'タクシーで帰る', tip: 'Plan B : taxi, manga café, ou karaoke jusqu\'au matin', who: 'you', difficulty: 2 },
-      { id: 'night-10', situation: 'Fin de soirée, tu résumes :', jp: '今日めっちゃ楽しかった！', hiragana: 'きょうめっちゃたのしかった！', romaji: 'Kyō meccha tanoshikatta!', fr: 'C\'était trop bien ce soir !', audioText: '今日めっちゃ楽しかった', tip: 'La phrase de fin de soirée parfaite', who: 'you', difficulty: 1 },
+      { id: 'night-1', situation: 'Les verres arrivent, tout le monde lève son verre :', situation_en: 'Drinks arrive, everyone raises their glass:', jp: '乾杯！', hiragana: 'かんぱい！', romaji: 'Kanpai!', fr: 'Tchin !', en: 'Cheers!', audioText: '乾杯', tip: 'OBLIGATOIRE avant la première gorgée. Ne bois jamais avant.', tip_en: 'MANDATORY before the first sip. Never drink before.', who: 'you', difficulty: 1 },
+      { id: 'night-2', situation: 'Tu proposes l\'open bar :', situation_en: 'You suggest open bar:', jp: '飲み放題にする？', hiragana: 'のみほうだいにする？', romaji: 'Nomihōdai ni suru?', fr: 'On prend l\'open bar ?', en: 'Shall we get all-you-can-drink?', audioText: '飲み放題にする', tip: '飲み放題 = boissons à volonté — souvent 2h pour ~2000¥', tip_en: '飲み放題 = all-you-can-drink — usually 2h for ~2000¥', who: 'you', difficulty: 2 },
+      { id: 'night-3', situation: 'Premier bar terminé, tu proposes la suite :', situation_en: 'First bar done, you suggest the next:', jp: 'もう一軒行こう！', hiragana: 'もういっけんいこう！', romaji: 'Mō ikken ikō!', fr: 'On va dans un autre bar !', en: 'Let\'s hit another bar!', audioText: 'もう一軒行こう', tip: '二軒目 = le 2e bar. Enchaîner les bars c\'est la culture.', tip_en: '二軒目 = 2nd bar. Bar-hopping is the culture.', who: 'you', difficulty: 2 },
+      { id: 'night-4', situation: 'L\'addition arrive, tu demandes :', situation_en: 'The bill arrives, you ask:', jp: 'ここ割り勘？', hiragana: 'ここわりかん？', romaji: 'Koko warikan?', fr: 'On split ici ?', en: 'Split the bill?', audioText: 'ここ割り勘', tip: '割り勘 = partager l\'addition — très courant entre amis', tip_en: '割り勘 = splitting the bill — very common among friends', who: 'you', difficulty: 2 },
+      { id: 'night-5', situation: 'Tu veux offrir la tournée :', situation_en: 'You want to treat the round:', jp: 'おごるよ', hiragana: 'おごるよ', romaji: 'Ogoru yo', fr: 'C\'est moi qui régale', en: 'It\'s on me', audioText: 'おごるよ', tip: 'Les aînés/senpai offrent souvent — gros signe de respect', tip_en: 'Elders/senpai often treat — big sign of respect', who: 'you', difficulty: 3 },
+      { id: 'night-6', situation: 'Tu commences à sentir l\'alcool :', situation_en: 'You\'re starting to feel the alcohol:', jp: 'ちょっと酔っちゃった', hiragana: 'ちょっとよっちゃった', romaji: 'Chotto yocchatta', fr: 'Je suis un peu pompette', en: 'I\'m a little tipsy', audioText: 'ちょっと酔っちゃった', tip: 'ちゃった = "c\'est arrivé malgré moi" — forme casual', tip_en: 'ちゃった = "it happened to me" — casual form', who: 'you', difficulty: 3 },
+      { id: 'night-7', situation: 'Tu réalises que t\'as taf demain :', situation_en: 'You realize you have work tomorrow:', jp: '明日仕事あるのにやばい', hiragana: 'あしたしごとあるのにやばい', romaji: 'Ashita shigoto aru noni yabai', fr: 'J\'ai taf demain et c\'est la merde', en: 'I have work tomorrow and I\'m screwed', audioText: '明日仕事あるのにやばい', tip: 'のに = "alors que" — le regret classique', tip_en: 'のに = "even though" — classic regret', who: 'you', difficulty: 3 },
+      { id: 'night-8', situation: 'Il est presque minuit :', situation_en: 'It\'s almost midnight:', jp: '終電やばくない？', hiragana: 'しゅうでんやばくない？', romaji: 'Shūden yabaku nai?', fr: 'Le dernier train c\'est chaud non ?', en: 'The last train\'s getting close, right?', audioText: '終電やばくない', tip: 'Vers minuit cette phrase sort TOUJOURS', tip_en: 'Near midnight this phrase ALWAYS comes up', who: 'you', difficulty: 1 },
+      { id: 'night-9', situation: 'T\'as raté le dernier train :', situation_en: 'You missed the last train:', jp: 'タクシーで帰る？', hiragana: 'タクシーでかえる？', romaji: 'Takushī de kaeru?', fr: 'On rentre en taxi ?', en: 'Taxi home?', audioText: 'タクシーで帰る', tip: 'Plan B : taxi, manga café, ou karaoke jusqu\'au matin', tip_en: 'Plan B: taxi, manga café, or karaoke till morning', who: 'you', difficulty: 2 },
+      { id: 'night-10', situation: 'Fin de soirée, tu résumes :', situation_en: 'End of night, you sum up:', jp: '今日めっちゃ楽しかった！', hiragana: 'きょうめっちゃたのしかった！', romaji: 'Kyō meccha tanoshikatta!', fr: 'C\'était trop bien ce soir !', en: 'Tonight was so much fun!', audioText: '今日めっちゃ楽しかった', tip: 'La phrase de fin de soirée parfaite', tip_en: 'The perfect end-of-night phrase', who: 'you', difficulty: 1 },
     ],
   },
 
   // ============================================
-  // 13. SLANG & GROS MOTS
+  // 14. SLANG & GROS MOTS
   // ============================================
   {
     id: 'insultes',
     name: 'Slang & Gros mots',
+    name_en: 'Slang & Swear Words',
     description: 'Le vocabulaire qu\'on t\'apprendra jamais en cours',
+    description_en: 'The vocabulary they never teach you in class',
     phrases: [
-      { id: 'insult-1', situation: 'Tu te cognes le pied / un truc tombe :', jp: 'くそ！', hiragana: 'くそ！', romaji: 'Kuso!', fr: 'Merde !', audioText: 'くそ', tip: 'LE juron universel — comme "shit" en anglais', who: 'you', difficulty: 1 },
-      { id: 'insult-2', situation: 'Quelqu\'un te saoule :', jp: 'うざい', hiragana: 'うざい', romaji: 'Uzai', fr: 'Relou / Chiant', audioText: 'うざい', tip: 'うざったい raccourci — très courant chez les jeunes', who: 'you', difficulty: 2 },
-      { id: 'insult-3', situation: 'Tu vois un truc dégueu :', jp: 'きもい', hiragana: 'きもい', romaji: 'Kimoi', fr: 'Dégueu / Glauque', audioText: 'きもい', tip: '気持ち悪い raccourci — pour tout ce qui dérange', who: 'you', difficulty: 2 },
-      { id: 'insult-4', situation: 'Quelqu\'un pousse le bouchon trop loin :', jp: 'ふざけんな', hiragana: 'ふざけんな', romaji: 'Fuzakenna', fr: 'Déconne pas', audioText: 'ふざけんな', tip: 'ふざけるな contracté — assez agressif', who: 'you', difficulty: 2 },
-      { id: 'insult-5', situation: 'Tu en as vraiment marre :', jp: 'まじうぜー', hiragana: 'まじうぜー', romaji: 'Maji uzē', fr: 'C\'est grave relou', audioText: 'まじうぜー', tip: 'うぜー = うざい encore plus traîné et casual', who: 'you', difficulty: 3 },
-      { id: 'insult-6', situation: 'Ton pote fait un truc débile :', jp: 'ばか', hiragana: 'ばか', romaji: 'Baka', fr: 'Idiot / Con', audioText: 'ばか', tip: 'Léger entre potes, vraie insulte si dit sérieusement', who: 'you', difficulty: 1 },
-      { id: 'insult-7', situation: 'Quelqu\'un fait n\'importe quoi (style Osaka) :', jp: 'あほ', hiragana: 'あほ', romaji: 'Aho', fr: 'Abruti / Débile', audioText: 'あほ', tip: 'Plus utilisé au Kansai (Osaka) — l\'inverse de baka là-bas', who: 'you', difficulty: 2 },
-      { id: 'insult-8', situation: 'Tu veux que quelqu\'un se taise :', jp: 'だまれ', hiragana: 'だまれ', romaji: 'Damare', fr: 'Ta gueule', audioText: 'だまれ', tip: '黙れ — impératif de "se taire". Très direct.', who: 'you', difficulty: 2 },
-      { id: 'insult-9', situation: 'Quelqu\'un te fait chier :', jp: 'やめろよ', hiragana: 'やめろよ', romaji: 'Yamero yo', fr: 'Arrête / Lâche-moi', audioText: 'やめろよ', tip: 'よ adoucit un peu mais reste sec', who: 'you', difficulty: 2 },
-      { id: 'insult-10', situation: 'Tu es frustré par une situation :', jp: 'むかつく', hiragana: 'むかつく', romaji: 'Mukatsuku', fr: 'Ça me saoule', audioText: 'むかつく', tip: 'Littéralement "ça me retourne l\'estomac"', who: 'you', difficulty: 2 },
-      { id: 'insult-11', situation: 'Expression de rage extrême (ATTENTION) :', jp: 'しね', hiragana: 'しね', romaji: 'Shi-ne', fr: 'Crève', audioText: 'しね', tip: 'TRÈS violent — ne dis JAMAIS ça sérieusement à quelqu\'un', who: 'you', difficulty: 3 },
-      { id: 'insult-12', situation: 'Insulte classique des films/anime :', jp: 'くそやろう', hiragana: 'くそやろう', romaji: 'Kuso yarō', fr: 'Enfoiré / Connard', audioText: 'くそやろう', tip: 'やろう = mec (péjoratif) — gros mot classique', who: 'you', difficulty: 3 },
-      { id: 'insult-13', situation: 'Pure frustration :', jp: 'ちくしょう', hiragana: 'ちくしょう', romaji: 'Chikushō', fr: 'Putain / Fait chier', audioText: 'ちくしょう', tip: 'Frustration pure — tu te cognes le pied, tu dis ça', who: 'you', difficulty: 2 },
-      { id: 'insult-14', situation: 'Quelqu\'un te prend pour un con :', jp: 'なめんなよ', hiragana: 'なめんなよ', romaji: 'Namenna yo', fr: 'Te fous pas de ma gueule', audioText: 'なめんなよ', tip: 'なめるな = "me prends pas pour un con"', who: 'you', difficulty: 3 },
+      { id: 'insult-1', situation: 'Tu te cognes le pied / un truc tombe :', situation_en: 'You stub your toe / something falls:', jp: 'くそ！', hiragana: 'くそ！', romaji: 'Kuso!', fr: 'Merde !', en: 'Shit!', audioText: 'くそ', tip: 'LE juron universel — comme "shit" en anglais', tip_en: 'THE universal swear — like "shit" in English', who: 'you', difficulty: 1 },
+      { id: 'insult-2', situation: 'Quelqu\'un te saoule :', situation_en: 'Someone is bugging you:', jp: 'うざい', hiragana: 'うざい', romaji: 'Uzai', fr: 'Relou / Chiant', en: 'Annoying / A pain', audioText: 'うざい', tip: 'うざったい raccourci — très courant chez les jeunes', tip_en: 'Short for うざったい — very common among youth', who: 'you', difficulty: 2 },
+      { id: 'insult-3', situation: 'Tu vois un truc dégueu :', situation_en: 'You see something gross:', jp: 'きもい', hiragana: 'きもい', romaji: 'Kimoi', fr: 'Dégueu / Glauque', en: 'Gross / Creepy', audioText: 'きもい', tip: '気持ち悪い raccourci — pour tout ce qui dérange', tip_en: 'Short for 気持ち悪い — for anything that disturbs', who: 'you', difficulty: 2 },
+      { id: 'insult-4', situation: 'Quelqu\'un pousse le bouchon trop loin :', situation_en: 'Someone pushes it too far:', jp: 'ふざけんな', hiragana: 'ふざけんな', romaji: 'Fuzakenna', fr: 'Déconne pas', en: 'Don\'t mess with me', audioText: 'ふざけんな', tip: 'ふざけるな contracté — assez agressif', tip_en: 'Contracted ふざけるな — fairly aggressive', who: 'you', difficulty: 2 },
+      { id: 'insult-5', situation: 'Tu en as vraiment marre :', situation_en: 'You\'re really fed up:', jp: 'まじうぜー', hiragana: 'まじうぜー', romaji: 'Maji uzē', fr: 'C\'est grave relou', en: 'This is so freaking annoying', audioText: 'まじうぜー', tip: 'うぜー = うざい encore plus traîné et casual', tip_en: 'うぜー = even more drawn-out, casual うざい', who: 'you', difficulty: 3 },
+      { id: 'insult-6', situation: 'Ton pote fait un truc débile :', situation_en: 'Your friend does something stupid:', jp: 'ばか', hiragana: 'ばか', romaji: 'Baka', fr: 'Idiot / Con', en: 'Idiot / Dummy', audioText: 'ばか', tip: 'Léger entre potes, vraie insulte si dit sérieusement', tip_en: 'Light between friends, real insult if said seriously', who: 'you', difficulty: 1 },
+      { id: 'insult-7', situation: 'Quelqu\'un fait n\'importe quoi (style Osaka) :', situation_en: 'Someone acts dumb (Osaka style):', jp: 'あほ', hiragana: 'あほ', romaji: 'Aho', fr: 'Abruti / Débile', en: 'Moron / Airhead', audioText: 'あほ', tip: 'Plus utilisé au Kansai (Osaka) — l\'inverse de baka là-bas', tip_en: 'More used in Kansai (Osaka) — opposite of baka there', who: 'you', difficulty: 2 },
+      { id: 'insult-8', situation: 'Tu veux que quelqu\'un se taise :', situation_en: 'You want someone to shut up:', jp: 'だまれ', hiragana: 'だまれ', romaji: 'Damare', fr: 'Ta gueule', en: 'Shut up', audioText: 'だまれ', tip: '黙れ — impératif de "se taire". Très direct.', tip_en: '黙れ — imperative of "be quiet". Very direct.', who: 'you', difficulty: 2 },
+      { id: 'insult-9', situation: 'Quelqu\'un te fait chier :', situation_en: 'Someone is bothering you:', jp: 'やめろよ', hiragana: 'やめろよ', romaji: 'Yamero yo', fr: 'Arrête / Lâche-moi', en: 'Stop it / Cut it out', audioText: 'やめろよ', tip: 'よ adoucit un peu mais reste sec', tip_en: 'よ softens it slightly but still blunt', who: 'you', difficulty: 2 },
+      { id: 'insult-10', situation: 'Tu es frustré par une situation :', situation_en: 'You\'re frustrated by a situation:', jp: 'むかつく', hiragana: 'むかつく', romaji: 'Mukatsuku', fr: 'Ça me saoule', en: 'This pisses me off', audioText: 'むかつく', tip: 'Littéralement "ça me retourne l\'estomac"', tip_en: 'Literally "it turns my stomach"', who: 'you', difficulty: 2 },
+      { id: 'insult-11', situation: 'Expression de rage extrême (ATTENTION) :', situation_en: 'Extreme rage expression (CAUTION):', jp: 'しね', hiragana: 'しね', romaji: 'Shi-ne', fr: 'Crève', en: 'Drop dead', audioText: 'しね', tip: 'TRÈS violent — ne dis JAMAIS ça sérieusement à quelqu\'un', tip_en: 'VERY violent — NEVER say this seriously to someone', who: 'you', difficulty: 3 },
+      { id: 'insult-12', situation: 'Insulte classique des films/anime :', situation_en: 'Classic anime/movie insult:', jp: 'くそやろう', hiragana: 'くそやろう', romaji: 'Kuso yarō', fr: 'Enfoiré / Connard', en: 'Bastard / Asshole', audioText: 'くそやろう', tip: 'やろう = mec (péjoratif) — gros mot classique', tip_en: 'やろう = dude (pejorative) — classic swear', who: 'you', difficulty: 3 },
+      { id: 'insult-13', situation: 'Pure frustration :', situation_en: 'Pure frustration:', jp: 'ちくしょう', hiragana: 'ちくしょう', romaji: 'Chikushō', fr: 'Putain / Fait chier', en: 'Damn it / Goddammit', audioText: 'ちくしょう', tip: 'Frustration pure — tu te cognes le pied, tu dis ça', tip_en: 'Pure frustration — stub your toe, say this', who: 'you', difficulty: 2 },
+      { id: 'insult-14', situation: 'Quelqu\'un te prend pour un con :', situation_en: 'Someone takes you for a fool:', jp: 'なめんなよ', hiragana: 'なめんなよ', romaji: 'Namenna yo', fr: 'Te fous pas de ma gueule', en: 'Don\'t mess with me', audioText: 'なめんなよ', tip: 'なめるな = "me prends pas pour un con"', tip_en: 'なめるな = "don\'t take me for a fool"', who: 'you', difficulty: 3 },
     ],
   },
 ]

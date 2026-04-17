@@ -2,24 +2,27 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Headphones, Brain, TextAa, Book } from '@phosphor-icons/react'
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
+import { useUI } from '../lib/locale'
+import type { UIKey } from '../i18n/ui'
 
 interface Tab {
   id: string
-  label: string
+  labelKey: UIKey
   icon: ComponentType<IconProps>
   path: string
 }
 
 const TABS: Tab[] = [
-  { id: 'situations', label: 'Situations', icon: Headphones, path: '/situations' },
-  { id: 'entrainement', label: 'Entraînement', icon: Brain, path: '/entrainement' },
-  { id: 'kana', label: 'Kana', icon: TextAa, path: '/kana' },
-  { id: 'dico', label: 'Dico', icon: Book, path: '/dico' },
+  { id: 'situations', labelKey: 'nav.situations', icon: Headphones, path: '/situations' },
+  { id: 'entrainement', labelKey: 'nav.training', icon: Brain, path: '/entrainement' },
+  { id: 'kana', labelKey: 'nav.kana', icon: TextAa, path: '/kana' },
+  { id: 'dico', labelKey: 'nav.dico', icon: Book, path: '/dico' },
 ]
 
 export default function BottomNav() {
   const location = useLocation()
   const navigate = useNavigate()
+  const ui = useUI()
 
   const currentTab = TABS.find(
     (t) => location.pathname === t.path || location.pathname.startsWith(t.path + '/')
@@ -37,7 +40,7 @@ export default function BottomNav() {
             className={`bottom-nav__btn ${active ? 'bottom-nav__btn--active' : ''}`}
           >
             <Icon size={20} weight={active ? 'fill' : 'regular'} />
-            <span className="text-[10px] mt-0.5">{tab.label}</span>
+            <span className="text-[10px] mt-0.5">{ui(tab.labelKey)}</span>
           </button>
         )
       })}

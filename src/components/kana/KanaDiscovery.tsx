@@ -4,10 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, SpeakerHigh } from '@phosphor-icons/react'
 import { hiraganaGroups, katakanaGroups } from '../../data/kana'
 import { speakJapanese } from '../../lib/audio'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function KanaDiscovery() {
   const { type, groupId } = useParams<{ type: string; groupId: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
   const [index, setIndex] = useState(0)
 
   const groups = type === 'katakana' ? katakanaGroups : hiraganaGroups
@@ -30,13 +34,13 @@ export default function KanaDiscovery() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="detail-header p-4 text-white text-center mb-4">
-        <h1 className="relative z-10 text-[18px] font-[800] m-0">{group.name}</h1>
+        <h1 className="relative z-10 text-[18px] font-[800] m-0">{t(group.name, group.name_en)}</h1>
         <p className="relative z-10 text-[12px] text-white/70 mt-1">
-          {type === 'hiragana' ? 'Hiragana' : 'Katakana'} — Découverte
+          {type === 'hiragana' ? 'Hiragana' : 'Katakana'} — {lang === 'en' ? 'Discovery' : 'Découverte'}
         </p>
         <div className="relative z-10 flex justify-center gap-2 mt-2">
           {group.kana.map((_, i) => (
@@ -84,7 +88,7 @@ export default function KanaDiscovery() {
           {/* Mnemonic */}
           {kana.mnemonic && (
             <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-4 italic">
-              {kana.mnemonic}
+              {t(kana.mnemonic, kana.mnemonic_en)}
             </p>
           )}
         </motion.div>
@@ -97,14 +101,14 @@ export default function KanaDiscovery() {
             onClick={() => setIndex(index - 1)}
             className="speaker-btn !w-auto !rounded-lg px-4 py-2 flex items-center gap-1.5 text-[13px] font-bold"
           >
-            <ArrowLeft size={14} weight="bold" /> Précédent
+            <ArrowLeft size={14} weight="bold" /> {lang === 'en' ? 'Previous' : 'Précédent'}
           </button>
         )}
         <button
           onClick={() => isLast ? navigate(`/kana/${type}/${groupId}/exercise`) : setIndex(index + 1)}
           className="phrase-badge !text-[13px] !px-5 !py-2 !rounded-lg flex items-center gap-1.5 cursor-pointer ml-auto"
         >
-          {isLast ? 'Exercice →' : 'Suivant'} <ArrowRight size={14} weight="bold" />
+          {isLast ? (lang === 'en' ? 'Exercise →' : 'Exercice →') : (lang === 'en' ? 'Next' : 'Suivant')} <ArrowRight size={14} weight="bold" />
         </button>
       </div>
     </div>

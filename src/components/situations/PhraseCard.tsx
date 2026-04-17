@@ -5,6 +5,7 @@ import type { Phrase, DisplayMode } from '../../types'
 import { speakJapanese, stopSpeaking } from '../../lib/audio'
 import { awardPhraseListenXP } from '../../lib/store'
 import { showXPToast } from '../../lib/xpToast'
+import { useUI, useT } from '../../lib/locale'
 
 interface Props {
   phrase: Phrase
@@ -16,7 +17,9 @@ interface Props {
 export default function PhraseCard({ phrase, index, displayMode, onListen }: Props) {
   const [playing, setPlaying] = useState(false)
   const ttsText = phrase.audioText ?? phrase.jp
-  const tip = phrase.tip ?? phrase.note
+  const ui = useUI()
+  const t = useT()
+  const tip = t(phrase.tip ?? phrase.note ?? '', phrase.tip_en ?? phrase.note_en)
 
   const handlePlay = useCallback(
     (rate = 0.85) => {
@@ -53,13 +56,13 @@ export default function PhraseCard({ phrase, index, displayMode, onListen }: Pro
               : 'bg-amber-100 text-amber-700 border border-amber-200'
           }`}
         >
-          {phrase.who === 'you' ? 'Toi' : 'Eux'}
+          {phrase.who === 'you' ? ui('common.you') : ui('common.them')}
         </span>
       )}
 
       {phrase.situation && (
         <p className="relative z-10 text-[12px] text-[var(--text-light)] italic leading-relaxed">
-          {phrase.situation}
+          {t(phrase.situation, phrase.situation_en)}
         </p>
       )}
 
@@ -71,15 +74,15 @@ export default function PhraseCard({ phrase, index, displayMode, onListen }: Pro
           <button
             onClick={() => handlePlay(0.85)}
             className="speaker-btn"
-            aria-label={playing ? 'Stop' : 'Écouter'}
+            aria-label={playing ? 'Stop' : ui('common.listen')}
           >
             {playing ? <SpeakerSlash size={16} weight="bold" /> : <SpeakerHigh size={16} weight="bold" />}
           </button>
           <button
             onClick={() => handlePlay(0.6)}
             className="speaker-btn !w-[28px] !h-[28px]"
-            aria-label="Lent"
-            title="Lent"
+            aria-label={ui('common.slow')}
+            title={ui('common.slow')}
           >
             <Clock size={13} weight="bold" />
           </button>
@@ -99,7 +102,7 @@ export default function PhraseCard({ phrase, index, displayMode, onListen }: Pro
       )}
 
       <p className="relative z-10 text-[13px] text-[var(--text)] font-semibold">
-        {phrase.fr}
+        {t(phrase.fr, phrase.en)}
       </p>
 
       {tip && (

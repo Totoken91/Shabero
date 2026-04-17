@@ -9,12 +9,16 @@ import { recordAnswer, getConfidence } from '../../lib/progress'
 import { completeSession, awardQuizAnswerXP, awardPerfectScoreXP, addXP } from '../../lib/store'
 import { showXPToast } from '../../lib/xpToast'
 import type { SpeakQuestion } from '../../lib/quizGenerator'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 export default function SpeakMode() {
   const { scenarioId } = useParams<{ scenarioId: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
 
-  const [questions] = useState<SpeakQuestion[]>(() => generateSpeakQuiz(scenarioId!, 10))
+  const [questions] = useState<SpeakQuestion[]>(() => generateSpeakQuiz(scenarioId!, 10, lang))
   const [current, setCurrent] = useState(0)
   const [selected, setSelected] = useState<number | null>(null)
   const [score, setScore] = useState(0)
@@ -57,10 +61,10 @@ export default function SpeakMode() {
         <div className="phrase-card p-6 text-center">
           <p className="relative z-10 text-[28px] font-[900] text-[var(--text)]">{score}/{questions.length}</p>
           <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">
-            {score >= 8 ? 'Sugoi !' : score >= 5 ? 'Pas mal !' : 'Ganbatte !'}
+            {score >= 8 ? 'Sugoi !' : score >= 5 ? (lang === 'en' ? 'Not bad!' : 'Pas mal !') : 'Ganbatte !'}
           </p>
           <div className="relative z-10 mt-4">
-            <p className="text-[11px] font-bold text-[var(--text-light)] mb-1">Confiance : {confidence}%</p>
+            <p className="text-[11px] font-bold text-[var(--text-light)] mb-1">{ui('quiz.confidence')} : {confidence}%</p>
             <div className="h-3 rounded-full bg-[#D4E8F5] overflow-hidden border border-[#B0D0E5]">
               <div className="h-full rounded-full" style={{ width: `${confidence}%`, background: barColor }} />
             </div>
@@ -68,7 +72,7 @@ export default function SpeakMode() {
         </div>
         <div className="flex gap-3 mt-4">
           <button onClick={() => navigate(`/entrainement/${scenarioId}`)} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Modes</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Modes' : 'Modes'}</span>
           </button>
         </div>
       </div>
@@ -84,7 +88,7 @@ export default function SpeakMode() {
         whileTap={{ scale: 0.95 }}
       >
         <ArrowLeft size={18} weight="bold" />
-        Retour
+        {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-3 mb-4 text-center">
@@ -99,7 +103,7 @@ export default function SpeakMode() {
           {/* Situation */}
           <div className="phrase-card p-5 mb-4 text-center">
             <p className="relative z-10 text-[15px] font-bold text-[var(--text)]">{q.situation}</p>
-            <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">Écoute les options et choisis la bonne</p>
+            <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">{lang === 'en' ? 'Listen to the options and pick the right one' : 'Écoute les options et choisis la bonne'}</p>
           </div>
 
           {/* 4 audio options */}
@@ -143,16 +147,16 @@ export default function SpeakMode() {
           {selected !== null && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="phrase-card p-4 mt-3">
               <p className="relative z-10 text-[13px] font-bold text-[var(--text)]">
-                {q.options[selected].jp === q.correctPhrase.jp ? '✓ Correct !' : '✗ Pas celle-là...'}
+                {q.options[selected].jp === q.correctPhrase.jp ? (lang === 'en' ? '✓ Correct!' : '✓ Correct !') : (lang === 'en' ? '✗ Not that one...' : '✗ Pas celle-là...')}
               </p>
               <p className="relative z-10 text-[14px] font-bold text-sky-700 mt-1">{q.correctPhrase.romaji}</p>
-              <p className="relative z-10 text-[12px] text-[var(--text)] mt-0.5">{q.correctPhrase.fr}</p>
+              <p className="relative z-10 text-[12px] text-[var(--text)] mt-0.5">{t(q.correctPhrase.fr, q.correctPhrase.en)}</p>
             </motion.div>
           )}
 
           {selected !== null && (
             <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={handleNext} className="phrase-badge !text-[13px] !px-5 !py-2 !rounded-lg cursor-pointer mt-3 ml-auto block">
-              {current + 1 >= questions.length ? 'Voir le résultat' : 'Suivant →'}
+              {current + 1 >= questions.length ? (lang === 'en' ? 'See result' : 'Voir le résultat') : (lang === 'en' ? 'Next →' : 'Suivant →')}
             </motion.button>
           )}
         </motion.div>

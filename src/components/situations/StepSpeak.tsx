@@ -9,6 +9,7 @@ import { completeStep3, addWrongPhrase, removeWrongPhrase, getCategoryProgress, 
 import { showXPToast } from '../../lib/xpToast'
 import { celebrate } from '../../lib/celebrate'
 import type { Phrase } from '../../types'
+import { useUI, useT, useLocale } from '../../lib/locale'
 
 const STAMP_ICONS: Record<string, string> = {
   konbini: '🍙', izakaya: '🍶', trains: '🚅', shopping: '🛍️', urgences: '🏥',
@@ -24,13 +25,16 @@ function shuffle<T>(arr: T[]): T[] {
 function makeQuestions(phrases: Phrase[], allPhrases: Phrase[]) {
   return shuffle(phrases).map((p) => {
     const distractors = shuffle(allPhrases.filter((d) => d.jp !== p.jp)).slice(0, 3)
-    return { correctPhrase: p, situation: p.situation ?? p.fr, options: shuffle([p, ...distractors]) }
+    return { correctPhrase: p, options: shuffle([p, ...distractors]) }
   })
 }
 
 export default function StepSpeak() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const ui = useUI()
+  const t = useT()
+  const lang = useLocale((s) => s.lang)
   const scenario = scenarios.find((s) => s.id === id)
   const allPhrases = scenarios.flatMap((s) => s.phrases)
 
@@ -58,16 +62,15 @@ export default function StepSpeak() {
     const wasMastered = getCategoryProgress(id!).stampEarned
     const score = Math.round((correct / questions.length) * 100)
     const stepXP = awardStepXP(`${id}-step3`, 100)
-    if (stepXP > 0) showXPToast(stepXP, 'Etape 3 !')
+    if (stepXP > 0) showXPToast(stepXP, lang === 'en' ? 'Step 3 !' : 'Etape 3 !')
     if (score === 100) { const bonus = awardPerfectScoreXP(); if (bonus > 0) setTimeout(() => showXPToast(bonus, 'BONUS'), 400) }
     completeStep3(id!, score)
     const passed = score >= 80
     const nowMastered = getCategoryProgress(id!).stampEarned
 
-    // Celebrate if stamp was just earned
     if (nowMastered && !wasMastered) {
       const stampXP = awardStampXP(id!)
-      if (stampXP > 0) setTimeout(() => showXPToast(stampXP, 'Tampon !'), 600)
+      if (stampXP > 0) setTimeout(() => showXPToast(stampXP, lang === 'en' ? 'Stamp !' : 'Tampon !'), 600)
       setTimeout(() => celebrate(), 300)
     }
 
@@ -75,46 +78,50 @@ export default function StepSpeak() {
       <div className="max-w-[400px] mx-auto">
         <div className="phrase-card p-6 text-center">
           <p className="relative z-10 text-[28px] font-[900] text-[var(--text)]">{score}%</p>
-          <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">{correct}/{questions.length} bonnes réponses</p>
+          <p className="relative z-10 text-[14px] font-bold text-[var(--text)] mt-1">{correct}/{questions.length} {lang === 'en' ? 'correct answers' : 'bonnes réponses'}</p>
           {nowMastered && !wasMastered && (
             <div className="relative z-10 mt-3">
               <div className="stamp-impact inline-flex items-center justify-center w-20 h-20 rounded-full mx-auto stamp-glow" style={{ border: '4px solid #C0392B', background: 'rgba(192,57,43,0.08)' }}>
                 <span className="text-[40px]">{STAMP_ICONS[id!] ?? '🏅'}</span>
               </div>
-              <p className="text-[16px] font-[800] text-amber-600 mt-2">Catégorie maîtrisée !</p>
+              <p className="text-[16px] font-[800] text-amber-600 mt-2">{lang === 'en' ? 'Category mastered!' : 'Catégorie maîtrisée !'}</p>
             </div>
           )}
           <p className="relative z-10 text-[13px] mt-2" style={{ color: passed ? '#34A853' : '#E53935' }}>
-            {passed ? (nowMastered ? '' : 'Étape validée !') : 'Il faut 80% pour valider. Réécoute les phrases !'}
+            {passed ? (nowMastered ? '' : (lang === 'en' ? 'Step passed!' : 'Étape validée !')) : (lang === 'en' ? '80% needed to pass. Listen again!' : 'Il faut 80% pour valider. Réécoute les phrases !')}
           </p>
         </div>
         <div className="flex gap-3 mt-4">
           <button onClick={() => navigate(`/situations/${id}`)} className="aero-card flex-1 cursor-pointer p-3 text-center">
-            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">Retour</span>
+            <span className="relative z-10 text-[13px] font-bold text-[var(--text)]">{ui('common.back')}</span>
           </button>
         </div>
       </div>
     )
   }
 
+  const situationText = q.correctPhrase.situation
+    ? t(q.correctPhrase.situation, q.correctPhrase.situation_en)
+    : t(q.correctPhrase.fr, q.correctPhrase.en)
+
   return (
     <div className="pb-8">
       <motion.button onClick={() => navigate(`/situations/${id}`)} className="mb-3 flex items-center gap-1.5 text-white font-bold text-[14px] cursor-pointer bg-transparent border-none p-0" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.15)' }} whileTap={{ scale: 0.95 }}>
-        <ArrowLeft size={18} weight="bold" /> Retour
+        <ArrowLeft size={18} weight="bold" /> {ui('common.back')}
       </motion.button>
 
       <div className="phrase-card p-3 mb-4 text-center">
         <div className="relative z-10 h-1.5 rounded-full bg-[#D4E8F5] overflow-hidden">
           <motion.div className="h-full rounded-full" style={{ background: 'linear-gradient(90deg, #4CAF50, #2E7D32)' }} animate={{ width: `${((current + 1) / questions.length) * 100}%` }} />
         </div>
-        <p className="relative z-10 text-[11px] text-[var(--text-light)] mt-1">Étape 3 — Parle • {current + 1}/{questions.length}</p>
+        <p className="relative z-10 text-[11px] text-[var(--text-light)] mt-1">{ui('hub.step')} 3 — {ui('hub.stepSpeak')} • {current + 1}/{questions.length}</p>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div key={current} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }}>
           <div className="phrase-card p-5 mb-4 text-center">
-            <p className="relative z-10 text-[15px] font-bold text-[var(--text)]">{q.situation}</p>
-            <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">Écoute et choisis la bonne phrase</p>
+            <p className="relative z-10 text-[15px] font-bold text-[var(--text)]">{situationText}</p>
+            <p className="relative z-10 text-[12px] text-[var(--text-light)] mt-1">{lang === 'en' ? 'Listen and pick the right phrase' : 'Écoute et choisis la bonne phrase'}</p>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -127,7 +134,7 @@ export default function StepSpeak() {
                     <SpeakerHigh size={18} weight="bold" className="text-[var(--text)]" />
                   </button>
                   <button onClick={() => handleSelect(idx)} disabled={show} className="relative z-10 flex-1 text-left cursor-pointer bg-transparent border-none p-0">
-                    <span className="text-[13px] font-bold text-[var(--text)]">Option {String.fromCharCode(65 + idx)}</span>
+                    <span className="text-[13px] font-bold text-[var(--text)]">{lang === 'en' ? 'Option' : 'Option'} {String.fromCharCode(65 + idx)}</span>
                     {show && isC && <span className="block text-[12px] text-sky-700 mt-0.5">{opt.romaji}</span>}
                   </button>
                 </div>
@@ -138,12 +145,12 @@ export default function StepSpeak() {
           {selected !== null && (
             <>
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="phrase-card p-4 mt-3">
-                <p className="relative z-10 text-[13px] font-bold text-[var(--text)]">{q.options[selected].jp === q.correctPhrase.jp ? '✓ Correct !' : '✗ Pas celle-là...'}</p>
+                <p className="relative z-10 text-[13px] font-bold text-[var(--text)]">{q.options[selected].jp === q.correctPhrase.jp ? (lang === 'en' ? '✓ Correct!' : '✓ Correct !') : (lang === 'en' ? '✗ Not that one...' : '✗ Pas celle-là...')}</p>
                 <p className="relative z-10 text-[14px] font-bold text-sky-700 mt-1">{q.correctPhrase.romaji}</p>
-                <p className="relative z-10 text-[12px] text-[var(--text)] mt-0.5">{q.correctPhrase.fr}</p>
+                <p className="relative z-10 text-[12px] text-[var(--text)] mt-0.5">{t(q.correctPhrase.fr, q.correctPhrase.en)}</p>
               </motion.div>
               <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={() => { setSelected(null); setCurrent((c) => c + 1) }} className="phrase-badge !text-[13px] !px-5 !py-2 !rounded-lg cursor-pointer mt-3 ml-auto block">
-                {current + 1 >= questions.length ? 'Voir le résultat' : 'Suivant →'}
+                {current + 1 >= questions.length ? (lang === 'en' ? 'See result' : 'Voir le résultat') : (lang === 'en' ? 'Next →' : 'Suivant →')}
               </motion.button>
             </>
           )}
