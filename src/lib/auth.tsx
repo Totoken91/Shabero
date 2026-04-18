@@ -123,16 +123,20 @@ function smartMerge(local: Partial<ShaberoUserData>, cloud: Partial<ShaberoUserD
 }
 
 async function syncFromCloudOnce() {
-  const cloudData = await pullFromCloud()
-  if (!cloudData) return
+  try {
+    const cloudData = await pullFromCloud()
+    if (!cloudData) return
 
-  const raw = localStorage.getItem(KEY)
-  const local: Partial<ShaberoUserData> = raw ? JSON.parse(raw) : {}
-  const merged = smartMerge(local, cloudData)
-  localStorage.setItem(KEY, JSON.stringify(merged))
+    const raw = localStorage.getItem(KEY)
+    const local: Partial<ShaberoUserData> = raw ? JSON.parse(raw) : {}
+    const merged = smartMerge(local, cloudData)
+    localStorage.setItem(KEY, JSON.stringify(merged))
 
-  // Notify React components that localStorage changed
-  window.dispatchEvent(new CustomEvent('shabero-data-synced'))
+    // Notify React components that localStorage changed
+    window.dispatchEvent(new CustomEvent('shabero-data-synced'))
+  } catch (e) {
+    console.error('Cloud sync failed:', e)
+  }
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -144,23 +148,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     let syncedOnce = false
 
     const init = async () => {
-      // Handle PKCE callback: exchange ?code= for session
-      const params = new URLSearchParams(window.location.search)
-      const code = params.get('code')
-      if (code) {
-        const { error } = await supabase.auth.exchangeCodeForSession(code)
-        window.history.replaceState({}, '', window.location.pathname)
-        if (error) console.error('OAuth code exchange failed:', error.message)
-      }
+      try {
+        // Handle PKCE callback: exchange ?code= for session
+        const params = new URLSearchParams(window.location.search)
+        const code = params.get('code')
+        if (code) {
+          try {
+            const { error } = await supabase.auth.exchangeCodeForSession(code)
+            if (error) console.error('OAuth code exchange failed:', error.message)
+          } catch (e) {
+            console.error('OAuth code exchange threw:', e)
+          }
+          window.history.replaceState({}, '', window.location.pathname)
+        }
 
-      const { data: { session } } = await supabase.auth.getSession()
-      setSession(session)
-      setUser(session?.user ?? null)
-      if (session?.user && !syncedOnce) {
-        syncedOnce = true
-        await syncFromCloudOnce()
+        const { data: { session } } = await supabase.auth.getSession()
+        setSession(session)
+        setUser(session?.user ?? null)
+        if (session?.user && !syncedOnce) {
+          syncedOnce = true
+          // Don't await — let sync run in background so loading unblocks immediately.
+          // onAuthStateChange listeners will pick up changes via the shabero-data-synced event.
+          syncFromCloudOnce()
+        }
+      } catch (e) {
+        console.error('Auth init failed:', e)
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
 
     init()
