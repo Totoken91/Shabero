@@ -195,7 +195,7 @@ const phrases = [
 
   // === CHECK-IN HÔTEL ===
   { id: 'checkin-1', text: 'いらっしゃいませ、チェックインでしょうか？' },
-  { id: 'checkin-2', text: '田中で予約してます' },
+  { id: 'checkin-2', text: '予約してます' },
   { id: 'checkin-3', text: 'パスポートを拝見してもよろしいでしょうか？' },
   { id: 'checkin-4', text: 'はい、どうぞ' },
   { id: 'checkin-5', text: 'こちらにご記入お願いします' },
