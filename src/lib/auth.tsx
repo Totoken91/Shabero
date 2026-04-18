@@ -146,6 +146,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let syncedOnce = false
+    let unblocked = false
+    const unblock = () => {
+      if (!unblocked) {
+        unblocked = true
+        setLoading(false)
+      }
+    }
+
+    // Safety net: never leave the user stuck on the spinner longer than 6s.
+    // Even if Supabase hangs, the UI falls through to AuthScreen/Hub.
+    const safetyTimer = setTimeout(unblock, 6000)
 
     const init = async () => {
       try {
@@ -168,13 +179,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (session?.user && !syncedOnce) {
           syncedOnce = true
           // Don't await — let sync run in background so loading unblocks immediately.
-          // onAuthStateChange listeners will pick up changes via the shabero-data-synced event.
           syncFromCloudOnce()
         }
       } catch (e) {
         console.error('Auth init failed:', e)
       } finally {
-        setLoading(false)
+        clearTimeout(safetyTimer)
+        unblock()
       }
     }
 
