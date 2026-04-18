@@ -154,9 +154,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // Safety net: never leave the user stuck on the spinner longer than 6s.
-    // Even if Supabase hangs, the UI falls through to AuthScreen/Hub.
-    const safetyTimer = setTimeout(unblock, 6000)
+    // Safety net: unblock the spinner within 2s no matter what happens.
+    const safetyTimer = setTimeout(unblock, 2000)
 
     const init = async () => {
       try {
@@ -164,21 +163,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const params = new URLSearchParams(window.location.search)
         const code = params.get('code')
         if (code) {
-          try {
-            const { error } = await supabase.auth.exchangeCodeForSession(code)
-            if (error) console.error('OAuth code exchange failed:', error.message)
-          } catch (e) {
-            console.error('OAuth code exchange threw:', e)
-          }
+          // Fire and forget — let onAuthStateChange pick up the new session.
+          // We don't await because the exchange can hang in edge cases.
+          supabase.auth.exchangeCodeForSession(code).catch((e) => {
+            console.error('OAuth code exchange failed:', e)
+          })
           window.history.replaceState({}, '', window.location.pathname)
         }
 
+        // Read whatever session is already cached in memory (fast, local)
         const { data: { session } } = await supabase.auth.getSession()
         setSession(session)
         setUser(session?.user ?? null)
         if (session?.user && !syncedOnce) {
           syncedOnce = true
-          // Don't await — let sync run in background so loading unblocks immediately.
           syncFromCloudOnce()
         }
       } catch (e) {

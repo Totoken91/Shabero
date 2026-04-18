@@ -29,24 +29,23 @@ export default function ShineLogo() {
     setDeleting(true)
     setDeleteError(null)
 
-    // Safety net — never leave the button stuck
-    const safety = setTimeout(() => setDeleting(false), 8000)
+    // Start server-side deletion in background. Even if it's slow or fails,
+    // we've wiped local and the user gets a clean slate.
+    deleteAccount().catch(() => {})
 
-    try {
-      const { error } = await deleteAccount()
-      if (error) {
-        setDeleteError(error)
-        setDeleting(false)
-      } else {
-        // Force a clean reload so the app reinitializes without the deleted user
-        window.location.href = '/'
-      }
-    } catch (e) {
-      setDeleteError(e instanceof Error ? e.message : 'Erreur')
-      setDeleting(false)
-    } finally {
-      clearTimeout(safety)
-    }
+    // Give the edge function a short head start, then wipe everything locally
+    // and force a full reload. Maximum total blocking time: 2 seconds.
+    setTimeout(() => {
+      try {
+        const keys = Object.keys(localStorage)
+        for (const key of keys) {
+          if (key.startsWith('shabero-') || key.startsWith('sb-')) {
+            localStorage.removeItem(key)
+          }
+        }
+      } catch {}
+      window.location.href = '/'
+    }, 2000)
   }
 
   return (
