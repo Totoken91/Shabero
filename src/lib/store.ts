@@ -256,10 +256,11 @@ export function completeSession(type: SessionType) {
     d.dailyQuota.sessionsCompleted.push(type)
   }
 
-  // Check if quota is met
-  const quotaMet = d.dailyQuota.sessionsCompleted.length >= d.dailyQuota.sessionsRequired
+  // Streak is earned after a single completed exercise — the daily quota
+  // (2/3 sessions) is a bonus goal for self-pacing, not a streak requirement.
+  const streakEarnable = d.dailyQuota.sessionsCompleted.length >= 1
 
-  if (quotaMet && !d.dailyQuota.streakEarned) {
+  if (streakEarnable && !d.dailyQuota.streakEarned) {
     d.dailyQuota.streakEarned = true
 
     // Update streak — lastActiveDate reflects LAST day quota was met

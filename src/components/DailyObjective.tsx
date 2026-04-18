@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getDailyQuota, getUserData, getCategoryProgress, getWrongPhrases, getXPData } from '../lib/store'
 import { scenarios } from '../data/scenarios'
-import { useUI, useT } from '../lib/locale'
+import { useUI, useT, useLocale } from '../lib/locale'
 import type { UIKey } from '../i18n/ui'
 
 type UserState = 'no_content' | 'listened_only' | 'has_quizzed'
@@ -88,10 +88,13 @@ export default function DailyObjective() {
   const isFresh = xp.totalXP === 0 && quota.sessionsCompleted.length === 0
   const ui = useUI()
   const t = useT()
+  const lang = useLocale((s) => s.lang)
 
   const completed = quota.sessionsCompleted.length
   const required = quota.sessionsRequired
   const allDone = completed >= required
+  // Streak is secured after just 1 exercise — the quota is a bonus intensity goal
+  const streakSecured = completed >= 1
 
   const getSubtitle = (type: string): string | null => {
     if (type === 'first_category') return ui('daily.basicPoliteness')
@@ -233,7 +236,7 @@ export default function DailyObjective() {
               style={{
                 height: '100%',
                 borderRadius: 3,
-                background: allDone
+                background: streakSecured
                   ? 'linear-gradient(to bottom, #7ED56F, #3AAD2B)'
                   : 'linear-gradient(to bottom, #FFB74D, #FF9800)',
               }}
@@ -246,10 +249,14 @@ export default function DailyObjective() {
             textAlign: 'center',
             margin: '8px 0 0',
           }}>
-            {allDone ? (
-              `${completed}/${required} ✨ ${ui('daily.streakKept')}`
+            {streakSecured ? (
+              allDone
+                ? `${completed}/${required} ✨ ${ui('daily.streakKept')}`
+                : `${completed}/${required} 🔥 ${ui('daily.streakKept')}`
             ) : (
-              `${completed}/${required} — ${ui('daily.remaining')} ${required - completed} ${required - completed > 1 ? ui('daily.sessionsRemainingPlural') : ui('daily.sessionsRemaining')} ${ui('daily.forStreak')}`
+              lang === 'en'
+                ? `${completed}/${required} — Do 1 exercise to keep your streak 🔥`
+                : `${completed}/${required} — Fais 1 exo pour maintenir ton streak 🔥`
             )}
           </p>
         </>
