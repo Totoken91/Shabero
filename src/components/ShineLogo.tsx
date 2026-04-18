@@ -28,10 +28,24 @@ export default function ShineLogo() {
   const handleDelete = async () => {
     setDeleting(true)
     setDeleteError(null)
-    const { error } = await deleteAccount()
-    if (error) {
-      setDeleteError(error)
+
+    // Safety net — never leave the button stuck
+    const safety = setTimeout(() => setDeleting(false), 8000)
+
+    try {
+      const { error } = await deleteAccount()
+      if (error) {
+        setDeleteError(error)
+        setDeleting(false)
+      } else {
+        // Force a clean reload so the app reinitializes without the deleted user
+        window.location.href = '/'
+      }
+    } catch (e) {
+      setDeleteError(e instanceof Error ? e.message : 'Erreur')
       setDeleting(false)
+    } finally {
+      clearTimeout(safety)
     }
   }
 

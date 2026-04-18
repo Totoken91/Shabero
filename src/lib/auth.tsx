@@ -211,31 +211,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const deleteAccount = async (): Promise<{ error: string | null }> => {
     const { data: { session: currentSession } } = await supabase.auth.getSession()
-    if (!currentSession) return { error: 'Non connecté' }
-
-    const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${currentSession.access_token}`,
-        'Content-Type': 'application/json',
-      },
-    })
-
-    const json = await res.json()
-    if (!res.ok) return { error: json.error ?? 'Erreur serveur' }
-
-    // Wipe all app data: progress, language, cached auth
-    wipeAllLocalData()
-
-    // Cancel any scheduled local notifications
-    await cancelStreakReminder().catch(() => {})
-
-    // Clear native Google Sign-In cache on Android so user can pick a different account
-    if (Capacitor.isNativePlatform()) {
-      try { await GoogleAuth.signOut() } catch {}
+    if (!currentSession) {
+      // Session already gone — just clean up locally
+      wipeAllLocalData()
+      return { error: null }
     }
 
-    await supabase.auth.signOut()
+    // Call the edge function to delete the user server-side
+    try {
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${currentSession.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}))
+        return { error: json.error ?? 'Erreur serveur' }
+      }
+    } catch {
+      return { error: 'Erreur réseau' }
+    }
+
+    // Server-side deletion succeeded. Clean up locally — fire and forget so
+    // the UI never stays stuck if any step hangs.
+    wipeAllLocalData()
+    cancelStreakReminder().catch(() => {})
+    if (Capacitor.isNativePlatform()) {
+      GoogleAuth.signOut().catch(() => {})
+    }
+    supabase.auth.signOut().catch(() => {})
+
     return { error: null }
   }
 
