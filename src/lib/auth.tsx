@@ -217,7 +217,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return { error: null }
     }
 
-    // Call the edge function to delete the user server-side
+    // Call the edge function with a hard 6s timeout so we never hang
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 6000)
     try {
       const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
         method: 'POST',
@@ -225,13 +227,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           Authorization: `Bearer ${currentSession.access_token}`,
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
       })
+      clearTimeout(timeoutId)
       if (!res.ok) {
         const json = await res.json().catch(() => ({}))
         return { error: json.error ?? 'Erreur serveur' }
       }
-    } catch {
-      return { error: 'Erreur réseau' }
+    } catch (e) {
+      clearTimeout(timeoutId)
+      const msg = e instanceof Error && e.name === 'AbortError' ? 'Délai dépassé' : 'Erreur réseau'
+      return { error: msg }
     }
 
     // Server-side deletion succeeded. Clean up locally — fire and forget so
