@@ -1,8 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { User, Session } from '@supabase/supabase-js'
+import { Capacitor } from '@capacitor/core'
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { supabase } from './supabase'
 import { pullFromCloud } from './sync'
+import { cancelStreakReminder } from './notifications'
 import type { ShaberoUserData, CategoryProgress } from './store'
+
+function wipeAllLocalData() {
+  // Remove every app-related key, including Supabase auth cache
+  const keys = Object.keys(localStorage)
+  for (const key of keys) {
+    if (key.startsWith('shabero-') || key.startsWith('sb-')) {
+      localStorage.removeItem(key)
+    }
+  }
+}
 
 const KEY = 'shabero-user'
 
@@ -185,7 +198,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const json = await res.json()
     if (!res.ok) return { error: json.error ?? 'Erreur serveur' }
 
-    localStorage.removeItem('shabero-user')
+    // Wipe all app data: progress, language, cached auth
+    wipeAllLocalData()
+
+    // Cancel any scheduled local notifications
+    await cancelStreakReminder().catch(() => {})
+
+    // Clear native Google Sign-In cache on Android so user can pick a different account
+    if (Capacitor.isNativePlatform()) {
+      try { await GoogleAuth.signOut() } catch {}
+    }
+
     await supabase.auth.signOut()
     return { error: null }
   }

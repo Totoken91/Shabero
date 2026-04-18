@@ -372,7 +372,7 @@ export function completeOnboarding(mode: 'intensive' | 'normal' | 'zen') {
   d.onboardingDone = true
   d.travelMode = mode
   save(d)
-  awardWelcomeXP()
+  // No welcome XP — user starts at 0
 }
 
 export function getTravelMode(): 'intensive' | 'normal' | 'zen' {

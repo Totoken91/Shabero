@@ -41,6 +41,14 @@ export default function DeleteAccountPage() {
         return
       }
 
+      // Wipe all local app data
+      const keys = Object.keys(localStorage)
+      for (const key of keys) {
+        if (key.startsWith('shabero-') || key.startsWith('sb-')) {
+          localStorage.removeItem(key)
+        }
+      }
+
       await supabase.auth.signOut()
       setDone(true)
     } catch {
