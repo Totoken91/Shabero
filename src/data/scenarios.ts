@@ -207,7 +207,30 @@ export const scenarios: Scenario[] = [
   },
 
   // ============================================
-  // 10. URGENCES
+  // 10. CHECK-IN HÔTEL
+  // ============================================
+  {
+    id: 'checkin',
+    name: 'Check-in hôtel',
+    name_en: 'Hotel Check-in',
+    description: 'Comprendre le staff en keigo et faire ton check-in comme un pro',
+    description_en: 'Understand hotel keigo and check in like a pro',
+    phrases: [
+      { id: 'checkin-1', situation: 'Tu entres dans le hall, le staff se lève derrière le comptoir :', situation_en: 'You walk into the lobby, the staff rises behind the counter:', jp: 'いらっしゃいませ、チェックインでしょうか？', hiragana: 'いらっしゃいませ、チェックインでしょうか？', romaji: 'Irasshaimase, chekku-in deshō ka?', fr: 'Bienvenue, c\'est pour un check-in ?', en: 'Welcome, checking in?', audioText: 'いらっしゃいませ、チェックインでしょうか？', tip: 'いらっしゃいませ = accueil universel des commerces. でしょうか = "ka" version ultra-polie. Hoche la tête, c\'est tout.', tip_en: 'いらっしゃいませ = the universal shop welcome. でしょうか = an ultra-polite "ka". Just nod.', who: 'them', difficulty: 1 },
+      { id: 'checkin-2', situation: 'Tu annonces ta réservation :', situation_en: 'You announce your reservation:', jp: '[Nom]で予約してます', hiragana: '〜でよやくしてます', romaji: '[Name] de yoyaku shitemasu', fr: 'J\'ai réservé au nom de [Nom]', en: 'I have a reservation under [Name]', audioText: '田中で予約してます', tip: '予約してます = forme courte de 予約しています. Ton nom + で et c\'est bon.', tip_en: '予約してます = shortened from 予約しています. Just say your name + で.', who: 'you', difficulty: 1 },
+      { id: 'checkin-3', situation: 'Demande ultra-polie du passeport :', situation_en: 'Ultra-polite passport request:', jp: 'パスポートを拝見してもよろしいでしょうか？', hiragana: 'パスポートを はいけんしても よろしいでしょうか？', romaji: 'Pasupōto o haiken shite mo yoroshii deshō ka?', fr: 'Puis-je jeter un oeil à votre passeport ?', en: 'May I take a look at your passport?', audioText: 'パスポートを拝見してもよろしいでしょうか？', tip: '拝見する = "voir" en version humble (keigo). Tu l\'entendras PARTOUT dans les hôtels. Réponds juste どうぞ.', tip_en: '拝見する = humble form of "to see" (keigo). You\'ll hear it EVERYWHERE in hotels. Just reply どうぞ.', who: 'them', difficulty: 3 },
+      { id: 'checkin-4', situation: 'Tu tends ton passeport :', situation_en: 'You hand over your passport:', jp: 'はい、どうぞ', hiragana: 'はい、どうぞ', romaji: 'Hai, dōzo', fr: 'Oui, tenez', en: 'Yes, here you go', audioText: 'はい、どうぞ', tip: 'どうぞ = le mot magique quand tu tends un truc. Toujours avec les deux mains au Japon.', tip_en: 'どうぞ = the magic word when you hand something over. Always with both hands in Japan.', who: 'you', difficulty: 1 },
+      { id: 'checkin-5', situation: 'Le staff pose un formulaire et un stylo devant toi :', situation_en: 'The staff places a form and pen in front of you:', jp: 'こちらにご記入お願いします', hiragana: 'こちらに ごきにゅう おねがいします', romaji: 'Kochira ni go-kinyū onegai shimasu', fr: 'Remplissez ici svp', en: 'Please fill this out here', audioText: 'こちらにご記入お願いします', tip: 'ご記入 = "remplir" en version polie. Fiche classique : nom, adresse maison, signature.', tip_en: 'ご記入 = polite form of "to fill out". Classic fields: name, home address, signature.', who: 'them', difficulty: 2 },
+      { id: 'checkin-6', situation: 'Tu galères sur une case du formulaire :', situation_en: 'You\'re stuck on a form field:', jp: 'ここ、何を書けばいいですか？', hiragana: 'ここ、なにを かけばいいですか？', romaji: 'Koko, nani o kakeba ii desu ka?', fr: 'Ici, je mets quoi ?', en: 'What do I write here?', audioText: 'ここ、何を書けばいいですか？', tip: 'Montre la case du doigt. 〜ばいい = "je dois quoi" — structure hyper utile partout.', tip_en: 'Point at the field. 〜ばいい = "what should I..." — a super handy structure everywhere.', who: 'you', difficulty: 2 },
+      { id: 'checkin-7', situation: 'Le staff vérifie la préférence de chambre :', situation_en: 'The staff checks your room preference:', jp: '禁煙のお部屋でよろしいですか？', hiragana: 'きんえんの おへやで よろしいですか？', romaji: 'Kin\'en no o-heya de yoroshii desu ka?', fr: 'Une chambre non-fumeur, ça vous va ?', en: 'Non-smoking room, is that OK?', audioText: '禁煙のお部屋でよろしいですか？', tip: '禁煙 = non-fumeur. La plupart des hôtels japonais sont 100% non-fumeurs maintenant. Dis はい.', tip_en: '禁煙 = non-smoking. Most Japanese hotels are 100% non-smoking now. Just say はい.', who: 'them', difficulty: 2 },
+      { id: 'checkin-8', situation: 'Le staff explique le petit-déj :', situation_en: 'The staff explains breakfast:', jp: '朝食は1階で7時から10時までです', hiragana: 'ちょうしょくは いっかいで しちじから じゅうじまでです', romaji: 'Chōshoku wa ikkai de shichi-ji kara jū-ji made desu', fr: 'Le petit-déj c\'est au rez-de-chaussée de 7h à 10h', en: 'Breakfast is on the 1st floor from 7 to 10', audioText: '朝食は一階で七時から十時までです', tip: 'Au Japon 1階 = RDC, 2階 = 1er étage (système US). から...まで = de... jusqu\'à.', tip_en: 'In Japan 1階 = ground floor, 2階 = 2nd floor (US style). から...まで = from... to.', who: 'them', difficulty: 2 },
+      { id: 'checkin-9', situation: 'Le staff te tend la carte-clé :', situation_en: 'The staff hands you the key card:', jp: 'お部屋は5階の503号室になります', hiragana: 'おへやは ごかいの ごーまるさんごうしつに なります', romaji: 'O-heya wa go-kai no go-maru-san gō-shitsu ni narimasu', fr: 'Votre chambre c\'est la 503 au 5ème étage', en: 'Your room is 503 on the 5th floor', audioText: 'お部屋は五階の五〇三号室になります', tip: '号室 = suffixe de numéro de chambre. 503 se dit "go-maru-san". になります = "ce sera" en hôtel-speak.', tip_en: '号室 = room number suffix. 503 is said "go-maru-san". になります = "it will be" in hotel-speak.', who: 'them', difficulty: 2 },
+      { id: 'checkin-10', situation: 'Le staff conclut poliment :', situation_en: 'The staff wraps up politely:', jp: '何かご質問はございますか？', hiragana: 'なにか ごしつもんは ございますか？', romaji: 'Nani ka go-shitsumon wa gozaimasu ka?', fr: 'Vous avez des questions ?', en: 'Do you have any questions?', audioText: '何かご質問はございますか？', tip: 'ございます = "あります" en keigo extrême. Si t\'as rien à demander : いえ、大丈夫です、ありがとうございます.', tip_en: 'ございます = "あります" in extreme keigo. If nothing to ask: いえ、大丈夫です、ありがとうございます.', who: 'them', difficulty: 2 },
+    ],
+  },
+
+  // ============================================
+  // 11. URGENCES
   // ============================================
   {
     id: 'urgences',

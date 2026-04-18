@@ -16,6 +16,7 @@ const STAMPS: Record<string, { icon: string; label: string }> = {
   nightlife:  { icon: '🌙', label: 'Nightlife' },
   insultes:   { icon: '🤬', label: 'Slang' },
   hotel:      { icon: '🏨', label: 'Hôtel' },
+  checkin:    { icon: '🛎️', label: 'Check-in' },
   navigation: { icon: '🗺️', label: 'Navigation' },
   politesse:  { icon: '🙏', label: 'Politesse' },
   nombres:    { icon: '🔢', label: 'Nombres' },

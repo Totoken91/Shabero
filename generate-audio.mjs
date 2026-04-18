@@ -193,6 +193,18 @@ const phrases = [
   { id: 'night-9', text: 'タクシーで帰る' },
   { id: 'night-10', text: '今日めっちゃ楽しかった' },
 
+  // === CHECK-IN HÔTEL ===
+  { id: 'checkin-1', text: 'いらっしゃいませ、チェックインでしょうか？' },
+  { id: 'checkin-2', text: '田中で予約してます' },
+  { id: 'checkin-3', text: 'パスポートを拝見してもよろしいでしょうか？' },
+  { id: 'checkin-4', text: 'はい、どうぞ' },
+  { id: 'checkin-5', text: 'こちらにご記入お願いします' },
+  { id: 'checkin-6', text: 'ここ、何を書けばいいですか？' },
+  { id: 'checkin-7', text: '禁煙のお部屋でよろしいですか？' },
+  { id: 'checkin-8', text: '朝食は一階で七時から十時までです' },
+  { id: 'checkin-9', text: 'お部屋は五階の五〇三号室になります' },
+  { id: 'checkin-10', text: '何かご質問はございますか？' },
+
   // === SLANG & GROS MOTS ===
   { id: 'insult-1', text: 'くそ' },
   { id: 'insult-2', text: 'うざい' },

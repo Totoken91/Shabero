@@ -14,6 +14,7 @@ import {
   HandsPraying,
   Hash,
   IdentificationCard,
+  Key,
 } from '@phosphor-icons/react'
 import type { ComponentType } from 'react'
 import type { IconProps } from '@phosphor-icons/react'
@@ -32,6 +33,7 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   nightlife: MoonStars,
   insultes: Skull,
   hotel: Buildings,
+  checkin: Key,
   navigation: MapTrifold,
   politesse: HandsPraying,
   nombres: Hash,
@@ -50,6 +52,7 @@ const ICON_STYLES: Record<string, { bg: string; border: string }> = {
   nightlife:  { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },
   insultes:   { bg: 'linear-gradient(to bottom, #78909C 0%, #546E7A 45%, #37474F 100%)', border: '#263238' },
   hotel:      { bg: 'linear-gradient(to bottom, #5C6BC0 0%, #3F51B5 45%, #283593 100%)', border: '#1A237E' },
+  checkin:    { bg: 'linear-gradient(to bottom, #FFCA28 0%, #FFB300 45%, #FF8F00 100%)', border: '#E65100' },
   navigation: { bg: 'linear-gradient(to bottom, #4DD0E1 0%, #00ACC1 45%, #00838F 100%)', border: '#006064' },
   politesse:  { bg: 'linear-gradient(to bottom, #FFD54F 0%, #FFC107 45%, #FFA000 100%)', border: '#E65100' },
   nombres:    { bg: 'linear-gradient(to bottom, #7986CB 0%, #5C6BC0 45%, #3949AB 100%)', border: '#283593' },

@@ -14,7 +14,7 @@ import { useUI, useT, useLocale } from '../../lib/locale'
 const STAMP_ICONS: Record<string, string> = {
   konbini: '🍙', izakaya: '🍶', trains: '🚅', shopping: '🛍️', urgences: '🏥',
   socialiser: '🤝', reactions: '💬', nightlife: '🌙', insultes: '🤬',
-  hotel: '🏨', navigation: '🗺️', politesse: '🙏', nombres: '🔢',
+  hotel: '🏨', checkin: '🛎️', navigation: '🗺️', politesse: '🙏', nombres: '🔢',
   parlersoi: '🪪',
 }
 

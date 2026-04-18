@@ -12,7 +12,7 @@ import type { UIKey } from '../i18n/ui'
 
 const CATEGORY_GROUPS: Array<{ key: string; emoji: string; labelKey: UIKey; ids: string[] }> = [
   { key: 'bases', emoji: '🎒', labelKey: 'hub.groupBasics', ids: ['politesse', 'parlersoi', 'nombres', 'navigation'] },
-  { key: 'quotidien', emoji: '🍜', labelKey: 'hub.groupDaily', ids: ['konbini', 'izakaya', 'trains', 'shopping', 'hotel', 'urgences'] },
+  { key: 'quotidien', emoji: '🍜', labelKey: 'hub.groupDaily', ids: ['konbini', 'izakaya', 'trains', 'shopping', 'hotel', 'checkin', 'urgences'] },
   { key: 'social', emoji: '🎉', labelKey: 'hub.groupSocial', ids: ['socialiser', 'reactions', 'nightlife', 'insultes'] },
 ]
 
