@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import AeroBackground from './components/AeroBackground'
 import ShineLogo from './components/ShineLogo'
@@ -98,8 +98,24 @@ function DicoPage() {
 
 export default function App() {
   const { user, loading } = useAuth()
-  const [onboarded, setOnboarded] = useState(isOnboardingDone)
+  const [onboarded, setOnboarded] = useState(() => isOnboardingDone())
 
+  // Re-read localStorage whenever it changes (cloud sync, cross-tab, or manual)
+  useEffect(() => {
+    const refresh = () => setOnboarded(isOnboardingDone())
+    window.addEventListener('shabero-data-synced', refresh)
+    window.addEventListener('storage', refresh)
+    // Also refresh when user auth state changes
+    return () => {
+      window.removeEventListener('shabero-data-synced', refresh)
+      window.removeEventListener('storage', refresh)
+    }
+  }, [])
+
+  // Re-read when user logs in/out (localStorage may have been wiped or loaded)
+  useEffect(() => {
+    if (user) setOnboarded(isOnboardingDone())
+  }, [user])
 
   if (loading) {
     return (

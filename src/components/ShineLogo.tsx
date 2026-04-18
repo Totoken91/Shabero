@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Airplane, Gear, SignOut, Trash, Globe } from '@phosphor-icons/react'
+import { Airplane, Gear, SignOut, Trash, Globe, Bug } from '@phosphor-icons/react'
 import { useAuth } from '../lib/auth'
 import { useLocale, useUI } from '../lib/locale'
 
@@ -10,9 +10,20 @@ export default function ShineLogo() {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [deleteError, setDeleteError] = useState<string | null>(null)
+  const [showDebug, setShowDebug] = useState(false)
   const ui = useUI()
   const lang = useLocale((s) => s.lang)
   const setLang = useLocale((s) => s.setLang)
+
+  const debugData = (() => {
+    try {
+      const raw = localStorage.getItem('shabero-user')
+      if (!raw) return 'No localStorage data'
+      return JSON.stringify(JSON.parse(raw), null, 2)
+    } catch (e) {
+      return `Error: ${e}`
+    }
+  })()
 
   const handleDelete = async () => {
     setDeleting(true)
@@ -112,6 +123,15 @@ export default function ShineLogo() {
                     <Trash size={17} weight="bold" />
                     {ui('settings.deleteAccount')}
                   </button>
+                  <div style={{ height: 1, background: '#B8DCF0' }} />
+                  <button
+                    onClick={() => setShowDebug((s) => !s)}
+                    className="w-full flex items-center gap-2.5 px-4 py-3.5 text-[14px] font-bold bg-transparent border-none cursor-pointer text-left active:bg-white/50"
+                    style={{ color: '#666' }}
+                  >
+                    <Bug size={17} weight="bold" />
+                    Debug localStorage
+                  </button>
                 </>
               ) : (
                 <div className="p-4 flex flex-col gap-3">
@@ -138,6 +158,112 @@ export default function ShineLogo() {
                   </button>
                 </div>
               )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Debug overlay — shows raw localStorage content */}
+      <AnimatePresence>
+        {showDebug && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[10000]"
+              style={{ background: 'rgba(0,0,0,0.85)' }}
+              onClick={() => { setShowDebug(false); setMenuOpen(false) }}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="fixed inset-4 z-[10001] rounded-xl overflow-hidden flex flex-col"
+              style={{ background: '#1a1a1a', border: '1px solid #0f0' }}
+            >
+              <div style={{
+                padding: '12px 16px',
+                background: '#000',
+                borderBottom: '1px solid #0f0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+                <span style={{ color: '#0f0', fontFamily: 'monospace', fontSize: 13, fontWeight: 'bold' }}>
+                  shabero-user (localStorage)
+                </span>
+                <button
+                  onClick={() => { setShowDebug(false); setMenuOpen(false) }}
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid #0f0',
+                    color: '#0f0',
+                    padding: '4px 10px',
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    cursor: 'pointer',
+                    borderRadius: 4,
+                  }}
+                >
+                  close
+                </button>
+              </div>
+              <pre style={{
+                flex: 1,
+                overflow: 'auto',
+                margin: 0,
+                padding: 12,
+                color: '#0f0',
+                fontSize: 11,
+                fontFamily: 'monospace',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-all',
+              }}>
+                {debugData}
+              </pre>
+              <div style={{ padding: 10, borderTop: '1px solid #0f0', display: 'flex', gap: 8 }}>
+                <button
+                  onClick={() => {
+                    navigator.clipboard?.writeText(debugData).catch(() => {})
+                  }}
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: '1px solid #0f0',
+                    color: '#0f0',
+                    padding: '8px',
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    cursor: 'pointer',
+                    borderRadius: 4,
+                  }}
+                >
+                  copy
+                </button>
+                <button
+                  onClick={() => {
+                    if (confirm('WIPE localStorage? This will reset the app.')) {
+                      localStorage.removeItem('shabero-user')
+                      localStorage.removeItem('shabero-lang')
+                      window.location.reload()
+                    }
+                  }}
+                  style={{
+                    flex: 1,
+                    background: '#C62828',
+                    border: '1px solid #C62828',
+                    color: 'white',
+                    padding: '8px',
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    cursor: 'pointer',
+                    borderRadius: 4,
+                  }}
+                >
+                  wipe
+                </button>
+              </div>
             </motion.div>
           </>
         )}

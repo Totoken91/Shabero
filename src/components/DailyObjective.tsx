@@ -57,21 +57,25 @@ function getSessionEmoji(type: string, index: number): string {
 }
 
 function navigateToSession(type: string, navigate: ReturnType<typeof useNavigate>) {
-  if (type === 'first_category') navigate('/situations/politesse/listen')
-  else if (type === 'first_quiz') {
+  if (type === 'first_category') { navigate('/situations/politesse/listen'); return }
+  if (type === 'first_quiz') {
     const cat = scenarios.find((s) => getCategoryProgress(s.id).step1Complete)
-    if (cat) navigate(`/situations/${cat.id}/understand`)
+    navigate(cat ? `/situations/${cat.id}/understand` : '/situations/politesse/listen')
+    return
   }
-  else if (type === 'daily_review') navigate('/entrainement/review')
-  else if (type === 'category_step') {
+  if (type === 'daily_review') { navigate('/entrainement/review'); return }
+  if (type === 'category_step') {
     const cat = scenarios.find((s) => {
       const p = getCategoryProgress(s.id)
       return !p.step1Complete || !p.step2Complete || !p.step3Complete
     })
-    if (cat) navigate(`/situations/${cat.id}`)
+    navigate(cat ? `/situations/${cat.id}` : '/situations')
+    return
   }
-  else if (type === 'quick_quiz') navigate('/entrainement/categories')
-  else if (type === 'marathon') navigate('/entrainement/marathon')
+  if (type === 'quick_quiz') { navigate('/entrainement/categories'); return }
+  if (type === 'marathon') { navigate('/entrainement/marathon'); return }
+  // Fallback — always navigate somewhere so the button never feels broken
+  navigate('/situations')
 }
 
 export default function DailyObjective() {

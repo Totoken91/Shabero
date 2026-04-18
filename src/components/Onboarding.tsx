@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Airplane, Calendar, Cloud } from '@phosphor-icons/react'
 import { completeOnboarding } from '../lib/store'
+import { pushToCloud } from '../lib/sync'
 import { requestNotificationPermission, scheduleStreakReminder } from '../lib/notifications'
 import { useUI, useLocale } from '../lib/locale'
 import type { UIKey } from '../i18n/ui'
@@ -64,7 +65,7 @@ export default function Onboarding({ onComplete }: Props) {
                 return (
                   <motion.button
                     key={m.id}
-                    onClick={() => { completeOnboarding(m.id); setStep(2) }}
+                    onClick={() => { completeOnboarding(m.id); pushToCloud().catch(() => {}); setStep(2) }}
                     className="aero-card cursor-pointer p-4 flex items-center gap-3 text-left"
                     whileHover={{ y: -2, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
                     whileTap={{ scale: 0.98 }}
@@ -101,6 +102,7 @@ export default function Onboarding({ onComplete }: Props) {
               onClick={async () => {
                 await requestNotificationPermission()
                 await scheduleStreakReminder()
+                await pushToCloud().catch(() => {})
                 onComplete()
               }}
               className="phrase-badge !text-[14px] !px-6 !py-3 !rounded-lg cursor-pointer mt-6 mx-auto block"
