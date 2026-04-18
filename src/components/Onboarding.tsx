@@ -99,10 +99,10 @@ export default function Onboarding({ onComplete }: Props) {
             </div>
 
             <button
-              onClick={async () => {
-                await requestNotificationPermission()
-                await scheduleStreakReminder()
-                await pushToCloud().catch(() => {})
+              onClick={() => {
+                // Fire and forget — never block the onboarding completion
+                requestNotificationPermission().then(() => scheduleStreakReminder()).catch(() => {})
+                pushToCloud().catch(() => {})
                 onComplete()
               }}
               className="phrase-badge !text-[14px] !px-6 !py-3 !rounded-lg cursor-pointer mt-6 mx-auto block"
